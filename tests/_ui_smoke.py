@@ -8,6 +8,13 @@
 注意：不要设 QT_QPA_PLATFORM=offscreen —— offscreen 下中文字体不渲染，
 QScrollArea 子控件也会渲染不全，截图会失真。
 """
+# --- 项目根目录加入 sys.path（脚本位于子目录，需回退到根才能 import 项目模块）---
+import os as _os, sys as _sys
+_ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+if _ROOT not in _sys.path:
+    _sys.path.insert(0, _ROOT)
+# --- end ---
+
 import os
 import sys
 import argparse

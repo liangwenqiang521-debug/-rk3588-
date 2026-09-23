@@ -5,6 +5,13 @@
   A. 定时器没启动（_ensure_step_timer 没被调用 / 提前 return）
   B. 定时器在跑但板端收不到或没处理 cmd=next
 """
+# --- 项目根目录加入 sys.path（脚本位于子目录，需回退到根才能 import 项目模块）---
+import os as _os, sys as _sys
+_ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+if _ROOT not in _sys.path:
+    _sys.path.insert(0, _ROOT)
+# --- end ---
+
 import sys
 import time
 

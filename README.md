@@ -10,56 +10,76 @@
 
 ```
 缺陷检测项目/
-├── main.py                       # 上位机入口（PyQt5）
+├── main.py                       # ★ 上位机入口（PyQt5，6 页面）
 ├── config.py / db.py / logger.py # 上位机核心模块
 ├── widgets.py / utils.py         # 上位机公共组件
-├── npu_monitor.py                # 上位机 NPU 监控页
-├── page_*.py                     # 上位机 6 个页面
-│   ├── page_main.py              # 主页（导航）
-│   ├── page_detect.py            # 实时检测（核心）
-│   ├── page_history.py           # 历史记录
-│   ├── page_comm.py              # 通信设置
-│   ├── page_param.py             # 参数设置
-│   ├── page_log.py               # 运行日志
-│   └── page_npu.py               # NPU 监控
-├── infer.py / tcp_bridge.py      # 上位机 ↔ 板端 TCP 9000
-├── serial_bridge.py              # 上位机 ↔ 串口/PLC
-├── board_ssh.py                  # ★ 板端 SSH 通用工具（推荐）
-├── board_health.py               # ★ 板端健康检查（5 分钟一次）
-├── 模型训练/                      # 训练侧（独立目录）
-│   ├── README.md                 # 训练脚本 + 工具索引
-│   ├── train_*.py / _eval_unified.py / _dataset_check.py
-│   └── datasets/                 # neu_det / neu_det_cal / dagm_neg / mixed / crazing_focus
-├── 部署/rk3588/                  # 板端工具与配置
-│   ├── README.md                 # 板端目录索引
-│   ├── board_server_cascade.py   # ★ 级联服务（生产用，部署到 /root/rknn/）
-│   ├── board_server.py           # 旧版单模型
-│   ├── S99board.cascade          # 自启脚本模板
-│   └── backup/                   # 权重带日期版本（防掉电）
-├── docs/                          # 文档
-│   ├── 开发路线图.md              # 项目总路线图（6 个阶段 P0-P6）
-│   └── rknn_int8_bug.md          # RKNN INT8 量化分类头塌陷问题
-├── experiments/                   # 实验台账
-│   └── runs_log.md               # 11 次训练实验的完整台账
+├── npu_monitor.py                # NPU 监控采样
+├── page_*.py                     # 6 个页面：实时检测/参数/历史/通信/日志/NPU
+├── infer.py / tcp_bridge.py      # 推理引擎 + 上位机↔板端 TCP 桥
+├── serial_bridge.py              # 上位机 ↔ 串口（PLC/相机触发）
+├── model_manager.py              # 模型清单与热切换
+│
+├── board_env.py                  # ★ 板端连接参数统一入口（环境变量 > 本地私有文件 > 占位默认）
+├── board_env.example.py          # 本地配置模板（复制为 board_env.local.py 后填真实值）
+├── board_ssh.py                  # ★ 板端 SSH 通用工具（paramiko，支持 --net/--put/--get/--script）
+├── board_health.py               # 板端健康监控（5 分钟一轮）
+├── npu_watchdog.py               # NPU 异常自动重启（连续 3 次异常触发）
+├── disk_guard.py                 # 板端 /root 磁盘守卫（>80% 清理）
+├── dagm_monitor.py               # 域外误检长期监控（每小时）
+│
+├── tests/                        # ★ 回归测试与端到端验证
+│   ├── _func_test.py             #   上位机全功能测试（28 项）
+│   ├── _regress_crash.py         #   闪退回归（PyQt5 槽内异常防护）
+│   ├── _ui_smoke.py              #   界面冒烟 + 截图落 _shots/
+│   ├── _e2e_edge.py              #   边缘链路端到端
+│   ├── _e2e_check.py             #   边缘连接检查
+│   └── _test_*.py                #   停止/清除复位、step 模式、双模型等专项用例
+│
+├── tools/                        # ★ 诊断、验证与转换工具
+│   ├── _diag_*.py                #   分层诊断（无帧、ONNX、step 模式）
+│   ├── _pc_sock_test.py          #   纯 socket 对照（排除上位机干扰）
+│   ├── _step_soak.py             #   step 模式浸泡测试 + 断流检测
+│   ├── _shot*.py                 #   截图工具
+│   ├── _verify_*.py              #   转换/新类别/边缘渲染验证
+│   ├── _upload_convert.py        #   ONNX 上传板端转换
+│   └── maintenance/              #   长期常驻维护脚本
+│       ├── _weekly_feedback.py   #     难例回流（7 天）
+│       └── _chk_boot.sh          #     板端起机状态检查
+│
+├── 模型训练/                      # 训练侧（独立目录，不依赖上位机）
+│   ├── README.md                 #   训练脚本 + 工具索引
+│   ├── train_*.py                #   训练入口（neu_yolo11n_640 / negdagm_filter 等）
+│   ├── _eval_unified.py          #   ★ 统一评估口径（mAP + 混淆矩阵 + per-class 阈值）
+│   ├── _dataset_check.py         #   训练前置体检（防空数据集 / 中文路径坑）
+│   ├── _split_cal_holdout.py     #   cal/holdout 切分（调参在 cal，汇报在 holdout）
+│   └── datasets/                 #   数据集（不入库）
+│
+├── 部署/rk3588/                  # 板端服务与自启配置
+│   ├── README.md                 #   板端目录索引
+│   ├── board_server_cascade.py   #   ★ 级联服务（生产用，部署到 /root/rknn/）
+│   ├── board_server.py           #   旧版单模型服务
+│   ├── S98boardip / S99board     #   自启脚本模板（双 IP + 服务拉起）
+│   └── backup/                   #   权重带日期备份（防掉电）
+│
+├── docs/                          # 项目文档
+│   ├── 项目纪要.md                #   硬约定 / 血泪坑 / 防膨胀机制（★ 新人先读）
+│   ├── 开发路线图.md              #   6 阶段路线图（P0-P6）
+│   ├── cascade_vs_single.md      #   级联 vs 单模型决策记录
+│   └── rknn_int8_bug.md          #   RKNN INT8 分类头塌陷问题
+│
+├── experiments/runs_log.md        # 训练实验台账（每次训练的超参与结果）
 ├── output/rk3588_followup_plan/  # 后续工作计划与验收报告
-│   ├── rk3588_后续工作计划.md
-│   ├── 统一多模型对比表.md
-│   ├── 级联端到端三维验收.md
-│   ├── crazing专项微调实验报告.md
-│   ├── crazing攻坚_阈值vs微调_决策报告.md
-│   └── neu_label_audit_summary.md
-├── 论文初稿/
-│   ├── 基于RK3588的轻量化工业缺陷检测系统研究（v2）.docx  # ★ 当前论文版本
-│   ├── _build_paper_v2.py        # 论文 v2 重建脚本
-│   ├── make_figs.py              # 图件生成
-│   └── fig[1-6]_*.png            # 论文配图
-├── _hardpool/                    # 难例回流周报（每周日自动生成）
-│   └── 2026-09-20/               # 第一期：2 张 crazing 难例
-├── board_env.py                  # ★ 板端连接参数统一入口（环境变量 / 本地私有文件）
-├── board_env.example.py          # 本地配置模板
-├── 部署指南.md                    # 旧版部署文档（已被 部署/rk3588/README.md 取代）
-└── 本周工作汇总_0914-0917.md / 模型对比与结论_0917.md  # 旧版工作笔记
+├── 论文初稿/                      # 论文 v2 + 图件生成脚本 + fig[1-6].png
+├── _hardpool/                     # 难例回流周报（每周日自动生成）
+├── 图片/                          # 180 张真实测试图（6 类各 30 张）
+├── 部署指南.md / 本周工作汇总_*.md / 模型对比与结论_*.md   # 阶段性工作笔记
+└── LICENSE / requirements.txt / config.example.json
 ```
+
+> **目录约定**：`tests/` 只放回归与端到端验证；`tools/` 放一次性诊断与转换辅助；
+> `tools/maintenance/` 放长期常驻的维护脚本。
+> 所有脚本均可**从任意目录直接运行**（内置 `sys.path` 回退到项目根）。
+
 
 > **不随仓库分发**：训练数据集、模型权重、板端 wheel 包、Python 虚拟环境、
 > 以及含真实 IP/凭据的本地配置（`board_env.local.py`、`config.json`）。
@@ -164,10 +184,18 @@ python _eval_unified.py --model runs/neu_yolo11n_negdagm/weights/best.pt --data 
 | `board_ssh.py --get remote local` | 大块 SFTP 下载 |
 | `board_ssh.py --script local.sh --timeout N` | 上传并跑多行 shell |
 | `board_health.py` | 板端健康检查（服务/磁盘/内存/NPU/温度/延迟）|
+| `tests/_func_test.py` | 上位机全功能回归（28 项）|
+| `tests/_e2e_edge.py` | 边缘链路端到端验证 |
+| `tools/_pc_sock_test.py` | 纯 socket 对照测试（排除上位机干扰）|
+| `tools/_step_soak.py` | step 模式浸泡测试 + 断流检测 |
 | `模型训练/_dataset_check.py` | 数据集完整性体检（训练前置）|
 | `模型训练/_eval_unified.py` | 统一评估（mAP50 + confusion matrix）|
-| `模型训练/_weekly_feedback.py` | 难例回流周报 |
+| `tools/maintenance/_weekly_feedback.py` | 难例回流周报 |
 | `模型训练/_audit_labels_200.py` | NEU 标签审计 |
+
+> 所有脚本均支持**从任意目录运行**（内置 `sys.path` 回退到项目根），
+> 例如 `python tests/_func_test.py` 与 `cd tests && python _func_test.py` 等价。
+
 
 ## 7. 关键事实
 

@@ -36,6 +36,13 @@
   - 难例回流是"线下"流程，不需要 GPU
   - 用纯 Python + sqlite3，不依赖 ultralytics/torch
 """
+# --- 项目根目录加入 sys.path（脚本位于子目录，需回退到根才能 import 项目模块）---
+import os as _os, sys as _sys
+_ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '../..'))
+if _ROOT not in _sys.path:
+    _sys.path.insert(0, _ROOT)
+# --- end ---
+
 import argparse
 import json
 import os

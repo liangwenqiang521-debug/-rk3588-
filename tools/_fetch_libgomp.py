@@ -12,6 +12,13 @@ Debian 的 libgomp1 包是标准 ``.deb``（ar 归档，内含 data.tar.xz）。
 本脚本纯 Python 解析 ar + tar，把 ``libgomp.so.1*`` 提取到本地目录，
 再随其它文件一起传到板子（放到 ``LD_LIBRARY_PATH`` 可见的位置即可）。
 """
+# --- 项目根目录加入 sys.path（脚本位于子目录，需回退到根才能 import 项目模块）---
+import os as _os, sys as _sys
+_ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+if _ROOT not in _sys.path:
+    _sys.path.insert(0, _ROOT)
+# --- end ---
+
 import io
 import os
 import re
