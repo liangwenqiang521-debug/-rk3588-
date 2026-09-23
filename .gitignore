@@ -115,6 +115,7 @@ Thumbs.db
 !docs/项目纪要.md
 
 # ---------- 工具链内部产物 ----------
+.slidep/
 output/*/.slidep/
 *.mxtsessions
 MobaXterm_RK3588.mxtsessions
