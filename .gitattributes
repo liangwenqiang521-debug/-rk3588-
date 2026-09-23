@@ -1,0 +1,38 @@
+# 换行符：源码用 LF 存储，检出时 Windows 转 CRLF
+* text=auto eol=lf
+
+# 明确文本类型
+*.py    text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.txt   text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.sh    text eol=lf
+*.slide text eol=lf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# 二进制（不做行尾转换）
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pptx  binary
+*.docx  binary
+*.doc   binary
+*.pt    binary
+*.onnx  binary
+*.rknn  binary
+*.zip   binary
+*.whl   binary
+
+# 板端 init 脚本必须保持 LF（Buildroot 下 CRLF 会导致 bad interpreter）
+S9*     text eol=lf
+
+# 语言统计：文档与数据目录不计入
+output/**        linguist-documentation
+docs/**          linguist-documentation
+论文初稿/**       linguist-documentation
+图片/**           linguist-vendored

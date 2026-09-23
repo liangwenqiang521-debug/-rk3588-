@@ -1,0 +1,93 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 38,
+        paddingBottom: 26,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>板端部署与工程指标（RK3588）</Text>
+    </Box>
+
+    <Text style={{ fontSize: 16, color: '#5F7080', marginTop: 10, marginLeft: 18 }}>
+        ATK-DLRK3588 / Buildroot，RKNN FP16 双模型常驻 —— 精度之外，这一页回答"跑得稳不稳"
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 16, marginTop: 16 }}>
+        <Box style={{ flex: 1, background: '#F2F5F7', borderTop: '4px solid #2E6F8E', padding: 14, height: 108 }}>
+            <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#22303E' }}>196ms</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', marginTop: 6 }}>推理延迟 p50</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', marginTop: 4 }}>609 帧实测</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#F2F5F7', borderTop: '4px solid #2E6F8E', padding: 14, height: 108 }}>
+            <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#22303E' }}>216ms</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', marginTop: 6 }}>推理延迟 p95</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', marginTop: 4 }}>p99 225ms，尾部可控</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#F2F5F7', borderTop: '4px solid #E8A23B', padding: 14, height: 108 }}>
+            <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#22303E' }}>1445</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', marginTop: 6 }}>压测帧数（零异常）</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', marginTop: 4 }}>60s soak 59 帧无停顿</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#F2F5F7', borderTop: '4px solid #E8A23B', padding: 14, height: 108 }}>
+            <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#22303E' }}>0</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', marginTop: 6 }}>DAGM 域外误检</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', marginTop: 4 }}>20 张抽样，83ms/张</Text>
+        </Box>
+    </Box>
+
+    <Box style={{ marginTop: 18 }}>
+        <Box style={{ flexDirection: 'row', background: '#22303E', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#FFFFFF', width: 190 }}>维度</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#FFFFFF', width: 230 }}>实测</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#FFFFFF', flex: 1 }}>说明</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>吞吐</Text>
+            <Text style={{ fontSize: 13, color: '#2E6F8E', width: 230 }}>约 5 FPS</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>满足 ≤5 pcs/s 产线节拍；无缺陷图只跑一级，约 70ms</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', background: '#F7F9FA', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>模型与量化</Text>
+            <Text style={{ fontSize: 13, color: '#2E6F8E', width: 230 }}>FP16 ×2，各 7.5MB</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>INT8 暂不可用（RKNN 分类头异常，已定位待修）；板端归一化须 uint8 NHWC + std=255 成对</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>运行模式</Text>
+            <Text style={{ fontSize: 13, color: '#E8A23B', width: 230 }}>step 按需推帧</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>上位机发 next 才推一帧（09-21 落地），端到端 15s 由 1 条提升到 15 条</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', background: '#F7F9FA', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>掉电自启</Text>
+            <Text style={{ fontSize: 13, color: '#2E6F8E', width: 230 }}>S99board → start_cascade.sh</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>重启后自动恢复级联服务；S98boardip 固化双 IP（静态地址 + 链路本地地址）</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>长期机制</Text>
+            <Text style={{ fontSize: 13, color: '#2E6F8E', width: 230 }}>4 套常驻</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>看门狗 1min（连续 3 次异常自动重启）/ 健康 5min / 磁盘 6h / 域外误检监控 1h（阈值 5% 告警）</Text>
+        </Box>
+
+        <Box style={{ flexDirection: 'row', background: '#F7F9FA', paddingLeft: 14, paddingRight: 14, paddingTop: 9, paddingBottom: 9 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 190 }}>数据回流</Text>
+            <Text style={{ fontSize: 13, color: '#2E6F8E', width: 230 }}>难例自动归档</Text>
+            <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>周级难例回流（已修命名冲突与 0 字节校验）；标签审计脚本可复跑</Text>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 10, marginTop: 12 }}>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>第 8 页 · 共 10 页</Text>
+    </Box>
+</Slide>

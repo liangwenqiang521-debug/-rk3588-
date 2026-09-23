@@ -1,0 +1,29 @@
+#!/bin/sh
+# S99board - 开机自启 RK3588 NPU 缺陷检测服务（双模型级联版）
+# 放入 /etc/init.d/，Buildroot busybox init 会在开机时以 start 参数调用。
+# 09-20 改：默认拉起级联服务（negdagm filter + _640 判类）
+#   - 级联 = 误检 0% + top1 97.8%
+#   - 单模型 _640 备份脚本保留在 /root/rknn/start_srv.sh，需要时可手动 sh 调
+case "$1" in
+  start)
+    # 延迟几秒等文件系统/网络就绪，后台拉起，不阻塞 init
+    ( sleep 5; sh /root/rknn/start_cascade.sh >/root/rknn/boot_cascade.log 2>&1 ) &
+    ;;
+  stop)
+    for pid in $(ls /proc | grep -E '^[0-9]+$'); do
+      cmd=$(cat /proc/$pid/cmdline 2>/dev/null | tr '\0' ' ')
+      case "$cmd" in
+        *python3*board_server*) kill -9 $pid 2>/dev/null ;;
+      esac
+    done
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    ;;
+esac
+exit 0

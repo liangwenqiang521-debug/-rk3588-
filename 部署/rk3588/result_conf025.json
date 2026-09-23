@@ -1,0 +1,61 @@
+{
+  "conf": 0.25,
+  "model": "best_neu6.rknn",
+  "total": 180,
+  "hit": 178,
+  "rate": 98.89,
+  "elapsed_s": 16.39,
+  "per_class": {
+    "crazing": {
+      "total": 30,
+      "hit": 28,
+      "rate": 93.33,
+      "avg_conf": 0.542,
+      "miss": [
+        {
+          "file": "crazing_016.jpg",
+          "pred": {}
+        },
+        {
+          "file": "crazing_027.jpg",
+          "pred": {}
+        }
+      ]
+    },
+    "inclusion": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.819,
+      "miss": []
+    },
+    "patches": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.88,
+      "miss": []
+    },
+    "pitted_surface": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.817,
+      "miss": []
+    },
+    "rolled-in_scale": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.738,
+      "miss": []
+    },
+    "scratches": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.809,
+      "miss": []
+    }
+  }
+}

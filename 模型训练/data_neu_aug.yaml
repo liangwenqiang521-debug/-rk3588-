@@ -1,0 +1,6 @@
+# NEU-DET 增强版（离线增强 by augment_neu.py，nc 仍=6）
+path: D:\workbuddy\缺陷检测项目\模型训练\datasets\neu_aug
+train: images/train
+val: images/val
+nc: 6
+names: ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']

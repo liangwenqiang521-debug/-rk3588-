@@ -1,0 +1,130 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 38,
+        paddingBottom: 26,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>总结与后续计划</Text>
+    </Box>
+
+    <Text style={{ fontSize: 16, color: '#5F7080', marginTop: 10, marginLeft: 18 }}>
+        已完成"数据 → 训练 → 评估 → 部署 → 运维"完整闭环；下一步的重心从"训得更好"转向"用得更真"
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 20, marginTop: 18 }}>
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <Box style={{ width: 4, height: 20, background: '#2E6F8E' }} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#22303E' }}>已达成</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#2E6F8E', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>1</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>数据闭环成立</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>NEU 6 类 1800 张 + DAGM 无缺陷 6000 张，域外误检 64.4% → 0%。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #E8A23B', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#E8A23B', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>2</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>架构破局：双模型级联</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>误检 0% 与 top-1 97.8% 兼得，mAP50 0.7393 不掉点，上位机协议零改动。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#2E6F8E', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>3</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>评估口径可信</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>cal 178 调参 / holdout 182 汇报，切分可复现审计，结论不再自证。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 12 }}>
+                <Box style={{ width: 26, height: 26, background: '#2E6F8E', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>4</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>工程侧完整</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>约 5 FPS 实时、掉电自启、step 按需推帧、四套长期监控机制常驻。</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <Box style={{ width: 4, height: 20, background: '#E8A23B' }} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#22303E' }}>后续计划</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #E8A23B', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#E8A23B', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>1</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>真实产线实拍验证</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>现有结论全部来自公开数据集；需拿现场图验证域外误检是否仍为 0%。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #E8A23B', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#E8A23B', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>2</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>扩展类数据补齐与重训</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>16 类体系已全链路就绪，待补齐 10 个扩展类的标注数据后重训并转 RKNN 上板。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #93A5B3', padding: 12, marginBottom: 10 }}>
+                <Box style={{ width: 26, height: 26, background: '#93A5B3', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>3</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>弱类攻坚：换数据源而非调参</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>crazing 已判为特征问题（阈值与微调均证无效），需补充更高质量样本。</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 12, background: '#F2F5F7', borderLeft: '4px solid #22303E', padding: 12 }}>
+                <Box style={{ width: 26, height: 26, background: '#22303E', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF' }}>4</Text>
+                </Box>
+                <Box style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E' }}>论文与答辩物料</Text>
+                    <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5, marginTop: 3 }}>补写负样本消融、双模型级联与类别扩展章节；准备答辩口径与可复跑脚本清单。</Text>
+                </Box>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ background: '#22303E', padding: 14, marginTop: 14, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#E8A23B', width: 120 }}>一句话总结</Text>
+        <Text style={{ fontSize: 14, color: '#FFFFFF', flex: 1, lineHeight: 1.5 }}>
+            在热轧带钢缺陷检测上，RK3588 边缘端做到 holdout mAP50 0.7393、域外误检 0%、板端 p50 196ms，类别体系已扩至 16 类 ——
+            关键不是把模型训得更大，而是<span style={{ fontWeight: 'bold', color: '#E8A23B' }}>用负样本闭环发现问题、用双模型级联绕开 tradeoff</span>。
+        </Text>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 10, marginTop: 12 }}>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>第 9 页 · 共 10 页</Text>
+    </Box>
+</Slide>

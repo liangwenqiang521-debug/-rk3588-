@@ -1,0 +1,107 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 36,
+        paddingBottom: 24,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>破局：负样本闭环与双模型级联</Text>
+    </Box>
+
+    <Text style={{ fontSize: 16, color: '#5F7080', marginTop: 8, marginLeft: 18 }}>
+        误检与 top-1 的 tradeoff 用调参解不开 —— 最终靠<span style={{ fontWeight: 'bold', color: '#22303E' }}>把两个目标拆给两个模型</span>绕开
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 14, marginTop: 14, alignItems: 'stretch' }}>
+        <Box style={{ flex: 1, background: '#FDF6F5', borderTop: '4px solid #C0504D', padding: 14 }}>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#C0504D', marginBottom: 6 }}>STEP 1 · 发现真问题</Text>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#22303E', marginBottom: 8 }}>模型没学过"什么不是缺陷"</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.55 }}>
+                NEU-DET 每张图都带缺陷框，决策边界只有一侧。<br /><br />
+                实测误检率：NEU 干净裁块 <span style={{ fontWeight: 'bold', color: '#C0504D' }}>35.5%</span>；换成 DAGM 2007 无缺陷图直接 <span style={{ fontWeight: 'bold', color: '#C0504D' }}>64.4%</span>。<br /><br />
+                误检框里 60% 被判成 crazing —— 模型把所有高频纹理噪声都当龟裂。
+            </Text>
+        </Box>
+
+        <Box style={{ width: 34, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#93A5B3' }}>→</Text>
+        </Box>
+
+        <Box style={{ flex: 1, background: '#F2F5F7', borderTop: '4px solid #93A5B3', padding: 14 }}>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#5F7080', marginBottom: 6 }}>STEP 2 · 尝试与失败</Text>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#22303E', marginBottom: 8 }}>加负样本重训，tradeoff 出现</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.55 }}>
+                把 DAGM 无缺陷图按比例混入重训：<br /><br />
+                误检 <span style={{ fontWeight: 'bold', color: '#2E6F8E' }}>64.4% → 0%</span>，但 180 张真实图 top-1 <span style={{ fontWeight: 'bold', color: '#C0504D' }}>97.8% → 95.6%</span>。<br /><br />
+                1:1 与 1:2 两档比例都试过，都停在 95.6% —— <span style={{ fontWeight: 'bold', color: '#22303E' }}>比例调不出两全</span>。
+            </Text>
+        </Box>
+
+        <Box style={{ width: 34, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#E8A23B' }}>→</Text>
+        </Box>
+
+        <Box style={{ flex: 1, background: '#FBF7EF', borderTop: '4px solid #E8A23B', padding: 14 }}>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginBottom: 6 }}>STEP 3 · 结构性破局</Text>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#22303E', marginBottom: 8 }}>级联：一个判有无，一个判类别</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.55 }}>
+                一级 <span style={{ fontWeight: 'bold', color: '#22303E' }}>negdagm_filter</span> 只回答"有没有缺陷"，0 框直接放行；<br /><br />
+                二级 <span style={{ fontWeight: 'bold', color: '#22303E' }}>best_neu6_640</span> 才做 6 类精判。<br /><br />
+                两个目标各有专责，<span style={{ fontWeight: 'bold', color: '#22303E' }}>不再互相挤压</span>。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', alignItems: 'stretch', gap: 12, marginTop: 14, background: '#F2F5F7', padding: 14 }}>
+        <Box style={{ width: 250, background: '#FFFFFF', border: '1px solid #D6E0E9', padding: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E' }}>输入帧</Text>
+            <Text style={{ fontSize: 11, color: '#5F7080', marginTop: 4 }}>板端相机 / 上位机推图</Text>
+        </Box>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#93A5B3' }}>→</Text>
+        <Box style={{ width: 300, background: '#FFFFFF', borderLeft: '4px solid #E8A23B', padding: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E' }}>一级 · negdagm_filter.rknn</Text>
+            <Text style={{ fontSize: 11, color: '#5F7080', marginTop: 4 }}>FP16 / 7.5MB · 含负样本训练 · ~70ms · 0 框 → OK</Text>
+        </Box>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#93A5B3' }}>→</Text>
+        <Box style={{ width: 300, background: '#FFFFFF', borderLeft: '4px solid #2E6F8E', padding: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E' }}>二级 · best_neu6_640.rknn</Text>
+            <Text style={{ fontSize: 11, color: '#5F7080', marginTop: 4 }}>FP16 / 7.5MB · 6 类精判 · ~140-215ms</Text>
+        </Box>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#93A5B3' }}>→</Text>
+        <Box style={{ flex: 1, background: '#FFFFFF', border: '1px solid #D6E0E9', padding: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E' }}>结果回传</Text>
+            <Text style={{ fontSize: 11, color: '#5F7080', marginTop: 4 }}>协议与单模型版一致</Text>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', gap: 14, marginTop: 14 }}>
+        <Box style={{ flex: 1, background: '#22303E', padding: 12, alignItems: 'center' }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' }}>0%</Text>
+            <Text style={{ fontSize: 12, color: '#D6E0E9', marginTop: 4 }}>域外误检（基线 64.4%）</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#22303E', padding: 12, alignItems: 'center' }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' }}>97.8%</Text>
+            <Text style={{ fontSize: 12, color: '#D6E0E9', marginTop: 4 }}>180 图 top-1（未退化）</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#22303E', padding: 12, alignItems: 'center' }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' }}>0.7393</Text>
+            <Text style={{ fontSize: 12, color: '#D6E0E9', marginTop: 4 }}>holdout mAP50（不掉点）</Text>
+        </Box>
+        <Box style={{ flex: 1, background: '#22303E', padding: 12, alignItems: 'center' }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' }}>196ms</Text>
+            <Text style={{ fontSize: 12, color: '#D6E0E9', marginTop: 4 }}>板端 p50 延迟（约 5 FPS）</Text>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 8, marginTop: 10 }}>
+        <Text style={{ fontSize: 12, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 12, color: '#93A5B3' }}>第 7 页 · 共 10 页</Text>
+    </Box>
+</Slide>

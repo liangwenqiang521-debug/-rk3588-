@@ -1,0 +1,99 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 34,
+        paddingBottom: 26,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>类别体系扩展与上位机联调</Text>
+    </Box>
+
+    <Text style={{ fontSize: 15, color: '#5F7080', marginTop: 8, marginLeft: 18 }}>
+        交付边界前推一格：类别从 6 类扩到 16 类并打通全链路，上位机随类别数动态适配
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 16, marginTop: 12 }}>
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 8 }}>
+                <Box style={{ width: 4, height: 18, background: '#2E6F8E' }} />
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#22303E' }}>类别体系：6 类 → 16 类</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 10, marginBottom: 8 }}>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', marginBottom: 4 }}>已实测部署（6 类）</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>crazing 龟裂 · inclusion 夹杂物 · patches 斑块 · pitted_surface 麻面 · rolled-in_scale 轧入氧化皮 · scratches 划痕</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #E8A23B', padding: 10, marginBottom: 8 }}>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#E8A23B', marginBottom: 4 }}>新增扩展类（10 类 · 待重训）</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>工业常见：edge_crack 边裂 · scab 结疤 · pitting 点蚀 · roll_mark 辊印 · wavy_edge 边浪 · oxide_scale 氧化铁皮压入<br />表面处理：stain 污渍 · oil_spot 油污 · water_spot 水渍 · rust 锈蚀</Text>
+            </Box>
+
+            <Box style={{ background: '#FFFFFF', border: '1px solid #D6E0E9', padding: 10 }}>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>
+                    <span style={{ fontWeight: 'bold', color: '#22303E' }}>口径说明：</span>16 类体系已在<b>协议层、板端标签表、上位机显示</b>全链路打通并可复跑验证；<b>模型权重仍为已实测的 6 类</b>，扩展类需补齐标注数据后重训才产生检出能力。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 8 }}>
+                <Box style={{ width: 4, height: 18, background: '#E8A23B' }} />
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#22303E' }}>全链路同步改造（7 处）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 10, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 9, marginBottom: 7 }}>
+                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', width: 88 }}>类别字典</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', flex: 1, lineHeight: 1.45 }}>中文名表 + 分类配色表扩到 20 条，前 6 类配色保持不动（历史图表与论文已引用）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 10, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 9, marginBottom: 7 }}>
+                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', width: 88 }}>板端标签</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', flex: 1, lineHeight: 1.45 }}>级联服务与单模型服务同步扩展 NAMES / 备选类别表，协议与上位机保持零改动兼容</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 10, background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 9, marginBottom: 7 }}>
+                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', width: 88 }}>可视化适配</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', flex: 1, lineHeight: 1.45 }}>分布图从"固定 6 行"改为按面板高度动态定行数，柱色改为按类别名取色，与画布缺陷框配色一致</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 10, background: '#F2F5F7', borderLeft: '4px solid #93A5B3', padding: 9 }}>
+                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#5F7080', width: 88 }}>动态跟随</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', flex: 1, lineHeight: 1.45 }}>界面类别从模型 names 动态读取、历史页下拉从数据库取，无硬编码，换模型即自动适配</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', gap: 16, marginTop: 12 }}>
+        <Box style={{ flex: 1, background: '#22303E', padding: 12 }}>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#E8A23B', marginBottom: 6 }}>上位机联调：三类缺陷修复</Text>
+            <Text style={{ fontSize: 12, color: '#FFFFFF', lineHeight: 1.55 }}>
+                ① <b>统计口径不一致</b>：开始检测时统计归零但记录表未清，导致"底表有 NG、右侧显示 1"的误判 → 两者同步归零<br />
+                ② <b>缺陷框同色</b>：边缘结果配色被硬编码为单一红色，丢失分类配色 → 改为按类别取色<br />
+                ③ <b>结果不统一</b>：板端回传英文类名直接上屏 → 显示层映射中文，入库口径仍保留英文原名（不污染历史数据）
+            </Text>
+        </Box>
+
+        <Box style={{ width: 340, background: '#F2F5F7', borderTop: '4px solid #2E6F8E', padding: 12 }}>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#2E6F8E', marginBottom: 6 }}>验证与回归</Text>
+            <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.6 }}>
+                · 16 类映射自检：无缺中文名 / 无缺颜色 / 无重复配色<br />
+                · 联调回归：功能用例 <b>22 / 28</b>，较改造前基线净增 1 项<br />
+                · 停止复位专项：<b>全部通过</b>，无回归<br />
+                · 全部改造点可复跑脚本验证，非口头结论
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 8, marginTop: 10 }}>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>第 10 页 · 共 10 页</Text>
+    </Box>
+</Slide>

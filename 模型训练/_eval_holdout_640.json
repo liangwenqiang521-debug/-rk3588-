@@ -1,0 +1,180 @@
+{
+  "model": "runs/neu_yolo11n_640/weights/best.pt",
+  "data": "data_neu_holdout.yaml",
+  "imgsz": 640,
+  "conf": 0.2,
+  "per_class_thres": {},
+  "mAP50": 0.7392717165900239,
+  "mAP50_95": 0.40874260857527095,
+  "total_tp": 325,
+  "total_fp": 166,
+  "total_fn": 94,
+  "per_class": {
+    "crazing": {
+      "gt": 72,
+      "tp": 43,
+      "fn": 29,
+      "fp": 46,
+      "recall": 0.5972222222222222,
+      "precision": 0.48314606741573035,
+      "f1": 0.5341614906832298
+    },
+    "inclusion": {
+      "gt": 98,
+      "tp": 76,
+      "fn": 22,
+      "fp": 38,
+      "recall": 0.7755102040816326,
+      "precision": 0.6666666666666666,
+      "f1": 0.7169811320754716
+    },
+    "patches": {
+      "gt": 77,
+      "tp": 71,
+      "fn": 6,
+      "fp": 11,
+      "recall": 0.922077922077922,
+      "precision": 0.8658536585365854,
+      "f1": 0.8930817610062892
+    },
+    "pitted_surface": {
+      "gt": 45,
+      "tp": 37,
+      "fn": 8,
+      "fp": 17,
+      "recall": 0.8222222222222222,
+      "precision": 0.6851851851851852,
+      "f1": 0.7474747474747475
+    },
+    "rolled-in_scale": {
+      "gt": 64,
+      "tp": 47,
+      "fn": 17,
+      "fp": 34,
+      "recall": 0.734375,
+      "precision": 0.5802469135802469,
+      "f1": 0.6482758620689656
+    },
+    "scratches": {
+      "gt": 63,
+      "tp": 51,
+      "fn": 12,
+      "fp": 20,
+      "recall": 0.8095238095238095,
+      "precision": 0.7183098591549296,
+      "f1": 0.7611940298507462
+    }
+  },
+  "confusion_matrix": [
+    [
+      43,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      76,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      71,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      37,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      47,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      51
+    ]
+  ],
+  "top_confusion_pairs": [
+    {
+      "gt": "[背景]",
+      "pred": "crazing",
+      "count": 46
+    },
+    {
+      "gt": "[背景]",
+      "pred": "inclusion",
+      "count": 38
+    },
+    {
+      "gt": "[背景]",
+      "pred": "rolled-in_scale",
+      "count": 34
+    },
+    {
+      "gt": "crazing",
+      "pred": "(漏检)",
+      "count": 29
+    },
+    {
+      "gt": "inclusion",
+      "pred": "(漏检)",
+      "count": 22
+    },
+    {
+      "gt": "[背景]",
+      "pred": "scratches",
+      "count": 20
+    },
+    {
+      "gt": "rolled-in_scale",
+      "pred": "(漏检)",
+      "count": 17
+    },
+    {
+      "gt": "[背景]",
+      "pred": "pitted_surface",
+      "count": 17
+    },
+    {
+      "gt": "scratches",
+      "pred": "(漏检)",
+      "count": 12
+    },
+    {
+      "gt": "[背景]",
+      "pred": "patches",
+      "count": 11
+    },
+    {
+      "gt": "pitted_surface",
+      "pred": "(漏检)",
+      "count": 8
+    },
+    {
+      "gt": "patches",
+      "pred": "(漏检)",
+      "count": 6
+    }
+  ]
+}

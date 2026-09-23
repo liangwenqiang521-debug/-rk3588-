@@ -1,0 +1,69 @@
+{
+  "root": "D:\\workbuddy\\缺陷检测项目\\模型训练\\datasets\\neu_det",
+  "nc": 6,
+  "names": [
+    "crazing",
+    "inclusion",
+    "patches",
+    "pitted_surface",
+    "rolled-in_scale",
+    "scratches"
+  ],
+  "splits": [
+    {
+      "split": "train",
+      "img_dir": "D:\\workbuddy\\缺陷检测项目\\模型训练\\datasets\\neu_det\\images\\train",
+      "lbl_dir": "D:\\workbuddy\\缺陷检测项目\\模型训练\\datasets\\neu_det\\labels\\train",
+      "n_images": 1440,
+      "n_labels": 1440,
+      "n_empty_labels": 0,
+      "n_total_boxes": 3373,
+      "per_class_boxes": {
+        "crazing": 559,
+        "inclusion": 815,
+        "patches": 728,
+        "pitted_surface": 340,
+        "rolled-in_scale": 496,
+        "scratches": 435
+      },
+      "per_class_images": {
+        "crazing": 559,
+        "inclusion": 815,
+        "patches": 728,
+        "pitted_surface": 340,
+        "rolled-in_scale": 496,
+        "scratches": 435
+      },
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "split": "val",
+      "img_dir": "D:\\workbuddy\\缺陷检测项目\\模型训练\\datasets\\neu_det\\images\\val",
+      "lbl_dir": "D:\\workbuddy\\缺陷检测项目\\模型训练\\datasets\\neu_det\\labels\\val",
+      "n_images": 360,
+      "n_labels": 360,
+      "n_empty_labels": 0,
+      "n_total_boxes": 816,
+      "per_class_boxes": {
+        "crazing": 130,
+        "inclusion": 196,
+        "patches": 153,
+        "pitted_surface": 92,
+        "rolled-in_scale": 132,
+        "scratches": 113
+      },
+      "per_class_images": {
+        "crazing": 130,
+        "inclusion": 196,
+        "patches": 153,
+        "pitted_surface": 92,
+        "rolled-in_scale": 132,
+        "scratches": 113
+      },
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "any_hard_error": false
+}

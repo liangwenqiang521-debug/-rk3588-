@@ -1,0 +1,45 @@
+{
+  "name": "negdagm_filter",
+  "purpose": "filter",
+  "description": "负样本 1:1 微调模型，用于级联第一遍'判有无缺陷'。0 框直接返回 ok，有框进入第二遍 _640 精判类别。",
+  "format": "RKNN FP16",
+  "size_bytes": 7543158,
+  "source": {
+    "framework": "ultralytics YOLOv11n",
+    "weights_path": "模型训练/runs/neu_yolo11n_negdagm/weights/best.pt",
+    "data_yaml": "模型训练/data_neu_dagm.yaml",
+    "training_script": "模型训练/train_neg_dagm.py"
+  },
+  "training": {
+    "epochs": 100,
+    "best_epoch": 87,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0": 0.0005,
+    "optimizer": "AdamW",
+    "seed": 42,
+    "date": "2026-09-18"
+  },
+  "data": {
+    "train": {
+      "positive": "NEU-DET 1440 张 6 类",
+      "negative": "DAGM 2007 Class1-6 无缺陷 1440 张",
+      "total": 2880
+    },
+    "val": "NEU-DET 360 张 6 类（未污染）"
+  },
+  "metrics": {
+    "holdout_mAP50": 0.7300,
+    "holdout_mAP50_95": 0.3872,
+    "holdout_precision": 0.6870,
+    "holdout_recall": 0.7804,
+    "DAGM_val_false_positive": "0% (1200 张全部 0 框)",
+    "180_real_top1": 0.956
+  },
+  "deployment": {
+    "role": "filter (级联第一遍)",
+    "pairing_model": "best_neu6_640.rknn",
+    "deploy_path": "/root/rknn/negdagm_filter.rknn",
+    "deploy_date": "2026-09-19"
+  }
+}

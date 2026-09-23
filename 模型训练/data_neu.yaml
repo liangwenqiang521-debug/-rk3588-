@@ -1,0 +1,6 @@
+# NEU-DET 真实钢材表面缺陷数据集（自动生成 by neu2yolo.py）
+path: D:\workbuddy\缺陷检测项目\模型训练\datasets\neu_det
+train: images/train
+val: images/val
+nc: 6
+names: ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']

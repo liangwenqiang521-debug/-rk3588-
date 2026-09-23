@@ -1,0 +1,86 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          boardnet
+# Required-Start:    $network
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Ensure WiFi (IEIDATA) is up so the PC can reach the board
+### END INIT INFO
+#
+# 背景：connman 的 Ethernet 优先级高于 WiFi。板子的网线常插在另一个网段
+#       （eth1 -> 另一网段，PC 到不了），connman 会一直走有线，
+#       WiFi 永远不激活 -> PC 无法访问板子。
+#       本脚本开机时显式 connect WiFi，保证 PC（WiFi 网段）始终可达。
+#       WiFi 已配静态 IP，不会漂移。
+#
+# ★ 部署前请把 WIFI 改成 `connmanctl services` 列出的你自己的服务名 ★
+#   获取方法：板端执行 connmanctl services，复制形如
+#   wifi_xxxxxxxxxxxx_<SSID_HEX>_managed_psk 的那一项。
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+# 你的 WiFi connman 服务名（含 SSID 的十六进制编码，属敏感信息，请按需填写）
+WIFI="${BOARD_WIFI_SERVICE:-}"
+LOG=/root/rknn/boardnet.log
+
+if [ -z "$WIFI" ]; then
+    echo "[$(date)] WIFI 未配置（BOARD_WIFI_SERVICE 为空），跳过" >> "$LOG"
+    exit 0
+fi
+
+case "$1" in
+  start)
+    echo "===== [$(date)] boardnet start =====" >> "$LOG"
+
+    # 1. 解除软屏蔽并抬起 wlan0（rtl8733bu 默认 rfkill soft blocked）
+    rfkill unblock wifi 2>/dev/null
+    ifconfig wlan0 up 2>/dev/null
+    sleep 2
+
+    # 2. 等 connman 认到 wifi service（最多 40s）
+    i=0
+    while [ $i -lt 20 ]; do
+        if connmanctl services 2>/dev/null | grep -q "$WIFI"; then
+            break
+        fi
+        sleep 2
+        i=$((i + 1))
+    done
+    echo "[$(date)] connman ready after ${i} tries" >> "$LOG"
+
+    # 3. 显式激活 WiFi（connman 有线优先，不会自己连）
+    connmanctl connect "$WIFI" >> "$LOG" 2>&1
+    echo "[$(date)] connect issued rc=$?" >> "$LOG"
+
+    # 4. 等 wlan0 拿到地址（最多 40s）
+    i=0
+    while [ $i -lt 20 ]; do
+        if ip -br addr show wlan0 2>/dev/null | grep -qv " DOWN"; then
+            echo "[$(date)] wlan0 up after ${i} tries" >> "$LOG"
+            break
+        fi
+        sleep 2
+        i=$((i + 1))
+    done
+
+    echo "----- final -----" >> "$LOG"
+    ip -br addr >> "$LOG" 2>&1
+    ip route >> "$LOG" 2>&1
+    ;;
+
+  stop)
+    ;;
+
+  restart|reload)
+    "$0" start
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

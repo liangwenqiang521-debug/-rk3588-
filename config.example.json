@@ -1,0 +1,90 @@
+{
+  "camera": {
+    "name": "相机 01",
+    "resolution": "1920×1080",
+    "exposure": "10.0",
+    "gain": "2.0",
+    "light": "128",
+    "trigger": "连续触发",
+    "trigger_delay": "0",
+    "fps": "30 FPS",
+    "flip": "无",
+    "auto_exposure": true
+  },
+  "model": {
+    "name": "NEU-DET真实_6类 (mAP50=0.69)",
+    "path": "模型训练/runs/neu_yolo11n_aug/weights/best.pt",
+    "input_size": "640×640",
+    "device": "CPU",
+    "conf": "0.85",
+    "min_area": "50",
+    "iou": "0.35",
+    "nms": "启用"
+  },
+  "preprocess": {
+    "resize": "不缩放（保持原始）",
+    "gray": "启用",
+    "denoise": "中值滤波（3×3）",
+    "clahe": "关闭",
+    "morphology": "关闭",
+    "sharpen": "关闭"
+  },
+  "storage": {
+    "save_path": "D:/Inspect/Images",
+    "save_ng": true,
+    "save_raw": true,
+    "clean": "磁盘空间 < 10% 时删除",
+    "filename_rule": "{日期}_{序号}_{结果}",
+    "disk_warn": "10"
+  },
+  "plc": {
+    "enable": true,
+    "proto": "Modbus TCP",
+    "ip": "192.168.1.200",
+    "port": "2000",
+    "slave": "1",
+    "heartbeat": "500",
+    "timeout": "3000",
+    "retry": "3",
+    "byte_order": "大端 (ABCD)"
+  },
+  "serial": {
+    "enable": false,
+    "port": "COM3",
+    "baud": "1500000",
+    "databits": "8",
+    "stopbits": "1",
+    "parity": "无 (N)",
+    "flow": "无",
+    "timeout": "1000"
+  },
+  "edge": {
+    "mode": "tcp",
+    "host": "",
+    "port": "9000",
+    "auto_connect": true,
+    "auto_detect": false
+  },
+  "trigger": {
+    "mode": "PLC 触发",
+    "delay": "0",
+    "ng_output": true,
+    "io_port": "DO1",
+    "recheck": "1",
+    "auto_reset": true
+  },
+  "cloud": {
+    "enable": false,
+    "proto": "MQTT",
+    "url": "mqtt://broker:1883",
+    "topic": "factory/inspect",
+    "interval": "5"
+  },
+  "alarm": {
+    "sound": true,
+    "flash": true,
+    "ng_signal": false,
+    "io_port": "DO1",
+    "delay": "0"
+  }
+}

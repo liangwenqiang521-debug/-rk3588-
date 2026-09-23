@@ -1,0 +1,65 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 52,
+        paddingBottom: 36,
+        justifyContent: 'space-between',
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', height: 720, position: 'absolute', top: 0, left: 0, width: 14, background: '#22303E' }} />
+
+    <Box>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+            <Box style={{ width: 40, height: 4, background: '#E8A23B' }} />
+            <Text style={{ fontSize: 19, color: '#5F7080', letterSpacing: 3 }}>深度学习 · 缺陷检测 · 边缘部署</Text>
+        </Box>
+
+        <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#22303E', lineHeight: 1.22, marginTop: 34 }}>
+            基于 RK3588 的轻量化工业缺陷检测系统
+        </Text>
+
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#2E6F8E', marginTop: 18 }}>
+            模型训练与边缘部署分析报告
+        </Text>
+
+        <Text style={{ fontSize: 21, color: '#5F7080', marginTop: 26, lineHeight: 1.5 }}>
+            数据集构建 · 负样本闭环 · 双模型级联 · 类别扩展 · 板端工程闭环
+        </Text>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', gap: 26, marginTop: 56 }}>
+        <Box style={{ flex: 1, background: '#F2F5F7', borderLeft: '5px solid #2E6F8E', padding: 26, height: 186, justifyContent: 'space-between' }}>
+            <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#22303E' }}>16 类</Text>
+            <Box>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#2E6F8E' }}>缺陷类别体系</Text>
+                <Text style={{ fontSize: 15, color: '#5F7080', marginTop: 8, lineHeight: 1.5 }}>已实测部署 6 类（NEU-DET 热轧带钢）<br />扩展至 16 类全链路，扩展类待重训</Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1, background: '#F2F5F7', borderLeft: '5px solid #E8A23B', padding: 26, height: 186, justifyContent: 'space-between' }}>
+            <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#22303E' }}>0.7393</Text>
+            <Box>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#2E6F8E' }}>mAP50（holdout 隔离口径）</Text>
+                <Text style={{ fontSize: 15, color: '#5F7080', marginTop: 8, lineHeight: 1.5 }}>182 张隔离集汇报，调参只用 cal 178<br />与全 val 口径 0.783 不可混用</Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1, background: '#F2F5F7', borderLeft: '5px solid #2E6F8E', padding: 26, height: 186, justifyContent: 'space-between' }}>
+            <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#22303E' }}>0%</Text>
+            <Box>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#2E6F8E' }}>域外误检（DAGM 无缺陷图）</Text>
+                <Text style={{ fontSize: 15, color: '#5F7080', marginTop: 8, lineHeight: 1.5 }}>基线模型原本高达 64.4%<br />由双模型级联压制到零</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 18 }}>
+        <Text style={{ fontSize: 16, color: '#5F7080' }}>报告日期：2026-09-22　　数据截止：类别体系扩展与上位机联调完成（09-22）；板端级联服务生产运行</Text>
+        <Text style={{ fontSize: 16, color: '#93A5B3' }}>第 1 页 · 共 10 页</Text>
+    </Box>
+</Slide>

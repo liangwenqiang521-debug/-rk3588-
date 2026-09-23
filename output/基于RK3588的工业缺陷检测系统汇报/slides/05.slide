@@ -1,0 +1,106 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 38,
+        paddingBottom: 26,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>模型训练演进：7 次实验与 2 次失败</Text>
+    </Box>
+
+    <Text style={{ fontSize: 16, color: '#5F7080', marginTop: 10, marginLeft: 18 }}>
+        最终部署的 <span style={{ fontWeight: 'bold', color: '#E8A23B' }}>neu_yolo11n_640</span> 不是"分数最高"的那次，而是唯一同时满足精度、误检、可部署三项的那次
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 20, marginTop: 14 }}>
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', paddingLeft: 4, paddingRight: 4, paddingBottom: 8, borderBottom: '1px solid #D6E0E9' }}>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#93A5B3', width: 250 }}>实验</Text>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#93A5B3', width: 330 }}>mAP50</Text>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#93A5B3', width: 66 }}>数值</Text>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#93A5B3', flex: 1 }}>结论</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>neu_yolo11n · 80 轮 · 640</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 268, height: 16, background: '#93A5B3' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#5F7080', width: 66, paddingLeft: 10 }}>0.651</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>基线起点</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>neu_yolo11n_aug · 60 轮 · 320</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 309, height: 16, background: '#93A5B3' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#5F7080', width: 66, paddingLeft: 10 }}>0.750</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>训练/推理分辨率失配</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, background: '#FBF7EF', borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#22303E', width: 250 }}>_640 · 200 轮 · 640（部署主力）</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 323, height: 16, background: '#E8A23B' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#E8A23B', width: 66, paddingLeft: 10 }}>0.783</Text>
+                <Text style={{ fontSize: 13, color: '#22303E', flex: 1 }}>holdout 0.7393，板端权重来源</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>aug2 · 真增强 5760 图</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 320, height: 16, background: '#93A5B3' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#5F7080', width: 66, paddingLeft: 10 }}>0.775</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>不如基线，已禁用</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>negdagm 1:1（含负样本）</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 301, height: 16, background: '#2E6F8E' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', width: 66, paddingLeft: 10 }}>0.730</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>holdout 口径，误检 0%</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9, borderBottom: '1px solid #EEF2F5' }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>negdagm_half 1:2</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 298, height: 16, background: '#2E6F8E' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#2E6F8E', width: 66, paddingLeft: 10 }}>0.722</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', flex: 1 }}>比例解不开 tradeoff</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 9, paddingBottom: 9 }}>
+                <Text style={{ fontSize: 13, color: '#22303E', width: 250 }}>crazing_focus 专项微调</Text>
+                <Box style={{ width: 330, height: 16, background: '#F2F5F7' }}><Box style={{ width: 207, height: 16, background: '#C0504D' }} /></Box>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#C0504D', width: 66, paddingLeft: 10 }}>0.502</Text>
+                <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#C0504D', flex: 1 }}>灾难性遗忘，不可部署</Text>
+            </Box>
+        </Box>
+
+        <Box style={{ width: 320 }}>
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #C0504D', padding: 12, marginBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#C0504D', marginBottom: 6 }}>失败 1：数据增强不涨点</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>真增强集 5760 图训出来 0.775，反而不如 1440 图的 0.783。NEU 类间差异大、类内差异小，通用增强带来的增量有限。</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #C0504D', padding: 12, marginBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#C0504D', marginBottom: 6 }}>失败 2：弱类专项微调</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>只喂 crazing + 负样本，30 轮后本类 R 仅 +1.4pt，其余 5 类最多掉 52pt。单类微调在多类检测上风险极高。</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #22303E', padding: 12 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', marginBottom: 6 }}>口径提醒</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>
+                    上表 0.651 / 0.750 / 0.783 / 0.775 为<span style={{ fontWeight: 'bold' }}>全 val 360 张</span>口径（历史演进记录）；后三行为<span style={{ fontWeight: 'bold' }}>holdout 182 张</span>口径。<br /><br />
+                    另有合成数据 0.959 —— 那是合成集成绩，<span style={{ fontWeight: 'bold', color: '#C0504D' }}>不得作为 NEU 成绩引用</span>。
+                </Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 10, marginTop: 12 }}>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>第 5 页 · 共 10 页</Text>
+    </Box>
+</Slide>

@@ -1,0 +1,116 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 40,
+        paddingBottom: 30,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#22303E' }}>数据集构成：正样本 + 域外负样本双源</Text>
+    </Box>
+
+    <Text style={{ fontSize: 17, color: '#5F7080', marginTop: 12, marginLeft: 18 }}>
+        NEU-DET 提供"有缺陷"的判别能力，DAGM 2007 无缺陷图提供"什么不是缺陷"的约束 —— 后者是误检归零的前提
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <Box style={{ width: 4, height: 20, background: '#E8A23B' }} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#22303E' }}>数据来源与角色</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', background: '#22303E', paddingLeft: 14, paddingRight: 14, paddingTop: 10, paddingBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF', width: 220 }}>数据集</Text>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF', width: 150 }}>角色</Text>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF', flex: 1 }}>规模</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 11, paddingBottom: 11 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 220 }}>NEU-DET（热轧带钢 6 类）</Text>
+                <Text style={{ fontSize: 14, color: '#2E6F8E', width: 150 }}>主底料</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', flex: 1 }}>1800 张（train 1440 / val 360）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', background: '#F7F9FA', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 11, paddingBottom: 11 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 220 }}>评估切分（val 派生）</Text>
+                <Text style={{ fontSize: 14, color: '#2E6F8E', width: 150 }}>口径隔离</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', flex: 1 }}>cal 178（调参）/ holdout 182（汇报）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 11, paddingBottom: 11 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 220 }}>增强集 aug2</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', width: 150 }}>实验用（已证无效）</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', flex: 1 }}>5760 图 / 5760 签，0 孤儿标签</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', background: '#F7F9FA', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 11, paddingBottom: 11 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 220 }}>DAGM 2007 无缺陷图</Text>
+                <Text style={{ fontSize: 14, color: '#E8A23B', width: 150 }}>域外负样本</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', flex: 1 }}>6000 张（train 4800 / val 1200），空标签</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', borderBottom: '1px solid #D6E0E9', paddingLeft: 14, paddingRight: 14, paddingTop: 11, paddingBottom: 11 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 220 }}>180 张真实图</Text>
+                <Text style={{ fontSize: 14, color: '#2E6F8E', width: 150 }}>端到端验证</Text>
+                <Text style={{ fontSize: 14, color: '#5F7080', flex: 1 }}>独立于训练/评估，只用于 top-1 实测</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderLeft: '4px solid #2E6F8E', padding: 14, marginTop: 16 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', marginBottom: 6 }}>标签审计（198 张抽检）</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', lineHeight: 1.55 }}>跨类标注 18 张（9.1%），集中在 scratches ↔ inclusion —— 这两类本身是"竖直暗条纹"的形态近亲。其余无标注噪声，判定为可接受现状，暂不返工。</Text>
+            </Box>
+        </Box>
+
+        <Box style={{ width: 400 }}>
+            <Box style={{ flexDirection: 'row', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <Box style={{ width: 4, height: 20, background: '#2E6F8E' }} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#22303E' }}>训练图构成（负样本混合口径）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', height: 46 }}>
+                <Box style={{ width: 218, background: '#E8A23B', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FFFFFF' }}>54.5%</Text>
+                </Box>
+                <Box style={{ width: 182, background: '#2E6F8E', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FFFFFF' }}>45.5%</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 16, marginTop: 12 }}>
+                <Box style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                    <Box style={{ width: 12, height: 12, background: '#E8A23B' }} />
+                    <Text style={{ fontSize: 13, color: '#5F7080' }}>缺陷标注图 5760</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                    <Box style={{ width: 12, height: 12, background: '#2E6F8E' }} />
+                    <Text style={{ fontSize: 13, color: '#5F7080' }}>无缺陷负样本 4800</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', padding: 14, marginTop: 16 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', marginBottom: 8 }}>为什么要单独引负样本</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', lineHeight: 1.6 }}>
+                    NEU-DET 每张图都带缺陷框，模型从未见过"正常纹理"，等于只学了边界的一侧。<br /><br />
+                    实测：NEU 干净裁块误检 <span style={{ fontWeight: 'bold', color: '#E8A23B' }}>35.5%</span>，DAGM 无缺陷图误检 <span style={{ fontWeight: 'bold', color: '#E8A23B' }}>64.4%</span> —— 换一种纹理就崩，是典型的域外泛化缺口。
+                </Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', padding: 14, marginTop: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', marginBottom: 8 }}>数据治理教训</Text>
+                <Text style={{ fontSize: 13, color: '#5F7080', lineHeight: 1.6 }}>早先"增强集"经查为假增强（cv2 写中文路径静默失败，1440 原图 + 4320 孤儿标签）。已修复并把数据体检固化为训练前置步骤。</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 12, marginTop: 14 }}>
+        <Text style={{ fontSize: 14, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 14, color: '#93A5B3' }}>第 3 页 · 共 10 页</Text>
+    </Box>
+</Slide>

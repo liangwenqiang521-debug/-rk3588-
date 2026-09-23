@@ -1,0 +1,6 @@
+# NEU-DET holdout 子集（仅用于最终汇报，调参过程中不要看）
+path: D:/workbuddy/缺陷检测项目/模型训练/datasets/neu_det_cal
+train: images/holdout
+val: images/holdout
+nc: 6
+names: ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']

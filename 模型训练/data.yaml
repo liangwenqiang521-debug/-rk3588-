@@ -1,0 +1,6 @@
+# 自动生成 - 工业表面缺陷合成数据集
+path: D:/workbuddy/缺陷检测项目/模型训练/datasets/defect_synthetic
+train: images/train
+val: images/val
+nc: 4
+names: ['scratch', 'dent', 'missing', 'crack']

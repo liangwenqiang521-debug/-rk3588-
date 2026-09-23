@@ -1,0 +1,41 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          boardip
+# Required-Start:    $network
+# Default-Start:     2 3 4 5
+# Short-Description: Pin eth0 static addresses for PC cable-direct link
+### END INIT INFO
+# 2026-09-17 新增
+# 目的：保证 PC 用一根网线直连板子时，无论 PC 侧能否提权改 IP，都能连通。
+#   $STATIC_ADDR  -> PC 已配同网段静态 IP 时走这条（规范方案）
+#   $APIPA_ADDR   -> PC 只有 APIPA(169.254.x.x) 时走这条（免提权方案）
+#
+# ★ 部署前请按你的实际网络修改下面两个地址 ★
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+LOG=/root/rknn/boardip.log
+
+STATIC_ADDR=192.168.1.20/24
+APIPA_ADDR=169.254.100.100/16
+
+add_addr() {
+    ip addr show $1 2>/dev/null | grep -q " $2/" && return 0
+    ip addr add $2 dev $1 2>/dev/null && echo "  + $2 on $1" >> $LOG
+}
+
+case "$1" in
+  start)
+    (
+      sleep 3
+      ip link set eth0 up 2>/dev/null
+      echo "===== $(date "+%F %T") S98boardip start =====" >> $LOG
+      add_addr eth0 "$STATIC_ADDR"
+      add_addr eth0 "$APIPA_ADDR"
+      ip -4 addr show eth0 >> $LOG 2>&1
+    ) &
+    ;;
+  stop) ;;
+  restart|reload) "$0" start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac
+exit 0

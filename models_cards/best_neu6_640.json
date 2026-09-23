@@ -1,0 +1,55 @@
+{
+  "name": "best_neu6_640",
+  "purpose": "classifier",
+  "description": "NEU 增强 200 轮训练得到的 6 类判类模型。级联第二遍精判类别（crazing/inclusion/patches/pitted_surface/rolled-in_scale/scratches）。",
+  "format": "RKNN FP16",
+  "size_bytes": 7545462,
+  "source": {
+    "framework": "ultralytics YOLOv11n",
+    "weights_path": "模型训练/runs/neu_yolo11n_640/weights/best.pt",
+    "data_yaml": "模型训练/data_neu_aug.yaml",
+    "training_script": "ultralytics 训练（从 yolo11n.pt 预训练）"
+  },
+  "training": {
+    "epochs": 200,
+    "best_epoch": 181,
+    "batch": 16,
+    "imgsz": 640,
+    "lr0": 0.01,
+    "optimizer": "auto (SGD)",
+    "seed": 42,
+    "date": "2026-09-16"
+  },
+  "data": {
+    "train": {
+      "positive": "NEU-DET 1440 张原始 + augment_neu.py 4320 张增强 = 5760 张",
+      "augmentation": "mosaic=1.0, mixup=0.15, copy_paste=0.1, hsv_h=0.015, flipud=0.2, scale=0.5",
+      "total": 5760
+    },
+    "val": "NEU-DET 360 张原始（增强集未污染 val）"
+  },
+  "metrics": {
+    "val_mAP50": 0.8013,
+    "val_mAP50_95": 0.4389,
+    "holdout_mAP50": 0.7393,
+    "holdout_mAP50_95": 0.4087,
+    "holdout_precision": 0.6619,
+    "holdout_recall": 0.7757,
+    "180_real_top1": 0.978
+  },
+  "deployment": {
+    "role": "classifier (级联第二遍)",
+    "pairing_model": "negdagm_filter.rknn",
+    "deploy_path": "/root/rknn/best_neu6_640.rknn",
+    "deploy_date": "2026-09-19"
+  },
+  "per_class_thresholds": {
+    "crazing": 0.25,
+    "inclusion": 0.16,
+    "patches": 0.20,
+    "pitted_surface": 0.20,
+    "rolled_in_scale": 0.20,
+    "scratches": 0.30,
+    "rationale": "crazing 0.20→0.25 是 09-20 cal 9 点阈值扫描的最佳（过滤 12 个低置信误报，F1 +0.024）"
+  }
+}

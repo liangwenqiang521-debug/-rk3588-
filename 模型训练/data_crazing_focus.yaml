@@ -1,0 +1,8 @@
+# crazing 专项数据集（NEU crazing 239 + DAGM 无缺陷 239）
+# 用于从 _640 热启动做 crazing 专项微调（lr=1e-5, 30 轮）
+# val = cal 集（178 张 NEU，隔离 holdout 不动）
+path: D:/workbuddy/缺陷检测项目/模型训练/datasets/crazing_focus
+train: images/train
+val: images/val
+nc: 6
+names: ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']

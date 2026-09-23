@@ -1,0 +1,147 @@
+# ============================================================
+#  RK3588 工业缺陷检测系统 —— Git 忽略规则
+#  原则：只提交"源码 + 文档 + 配置模板"，不提交环境、数据、产物、大文件
+# ============================================================
+
+# ---------- Python 虚拟环境（合计 ~11 GB，绝不上传）----------
+.venv/
+venv/
+venv_cuda/
+env/
+ENV/
+*.egg-info/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- 数据集与训练产物（合计 ~6 GB）----------
+# 原始数据集 / 增强数据集 / 切分产物
+模型训练/datasets/
+# NEU 原始 zip 与解压后的 3600 张图
+模型训练/neu_raw/
+datasets/
+data/neu/
+data/dagm/
+*.zip
+# 推理输出图（几十张可视化结果，体积大且可再生）
+模型训练/predict_output/
+# 标签审计的跨类样本切片（可从 NEU 原始集重建）
+模型训练/neu_label_audit_cross_class/
+# 训练输出目录
+模型训练/runs/
+runs/
+models/defect_train/test_run/weights/
+weights/
+wandb/
+# 训练日志（单文件可达数 MB）
+*_log.txt
+train_*.log
+_*_log.txt
+*.log
+!logs/.gitkeep
+
+# ---------- 模型权重（如需共享请改用 Git LFS 或 Release 附件）----------
+*.pt
+*.pth
+*.onnx
+*.rknn
+*.weights
+*.ckpt
+*.safetensors
+
+# ---------- 板端 Python wheel 与打包产物（~365 MB）----------
+*.whl
+部署/wheels_aarch64/
+部署/wheels_aliyun/
+部署/rk3588/wheels/
+部署/rk3588/hmi/
+部署/rk3588/qt_shim/
+*.tar
+*.tar.gz
+*.tgz
+_bundle/
+_bundle2/
+_bundle3/
+_wheels_rknn/
+rknn_work/
+
+# ---------- 临时打包 / 调试图（散落根目录）----------
+模型训练.zip
+*.bak
+*.bak_*
+*.tmp
+*.orig
+_bundle.tar
+_*.txt
+_*.log
+_*.png
+!docs/**/*.png
+!论文初稿/fig*.png
+
+# ---------- 数据库与运行时数据 ----------
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/records.db
+data/repro_test.db
+
+# 上位机运行时配置（含本机地址/路径；模板见 config.example.json）
+config.json
+
+# ---------- 上位机运行产物 ----------
+logs/
+output/dagm_monitor/
+output/docx-*/
+_shots/
+_verify_imgs/
+_hardpool/2026-*/*.jpg
+_hardpool/2026-*/*.png
+
+# ---------- 本地 IDE / 编辑器 ----------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ---------- 内部工作记忆（含真实 IP / 凭据 / 调试过程，不公开）----------
+.workbuddy/
+!docs/项目纪要.md
+
+# ---------- 工具链内部产物 ----------
+output/*/.slidep/
+*.mxtsessions
+MobaXterm_RK3588.mxtsessions
+
+# ---------- 板端交叉编译用的共享库（二进制，可重新获取）----------
+_libs_out/
+_stub/
+
+# ---------- 二进制 / 界面截图（保留说明性图片）----------
+_win_shot.png
+_win_final.png
+_win_step.png
+_win_fix.png
+ui_after.png
+ui_before.png
+settings_page.png
+comm_page.png
+*.csv
+_ip_check.csv
+
+# ---------- 敏感信息（本地保留，不上传）----------
+# 板端真实凭据写在 board_env.local.py（模板见 board_env.example.py）
+board_env.local.py
+*.local.py
+*.pem
+*.key
+id_rsa
+id_ed25519
+_cacert.pem
+serial_rx.log

@@ -1,0 +1,147 @@
+<Slide
+    style={{
+        width: '1280px',
+        height: '720px',
+        background: '#FFFFFF',
+        fontFamily: '微软雅黑',
+        paddingLeft: 53,
+        paddingRight: 53,
+        paddingTop: 38,
+        paddingBottom: 26,
+    }}
+>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <Box style={{ width: 6, height: 30, background: '#2E6F8E' }} />
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#22303E' }}>六类识别准确度：Recall 与 Precision 双看</Text>
+    </Box>
+
+    <Text style={{ fontSize: 16, color: '#5F7080', marginTop: 10, marginLeft: 18 }}>
+        holdout 182 张、统一阈值 0.20 —— 整体 mAP50 0.7393 / mAP50-95 0.4087 / P 0.6619 / R 0.7757
+    </Text>
+
+    <Box style={{ flexDirection: 'row', gap: 20, marginTop: 16 }}>
+        <Box style={{ flex: 1 }}>
+            <Box style={{ flexDirection: 'row', gap: 16, marginBottom: 12 }}>
+                <Box style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                    <Box style={{ width: 14, height: 14, background: '#2E6F8E' }} />
+                    <Text style={{ fontSize: 13, color: '#5F7080' }}>Recall（查全）</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                    <Box style={{ width: 14, height: 14, background: '#E8A23B' }} />
+                    <Text style={{ fontSize: 13, color: '#5F7080' }}>Precision（查准）</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>patches</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 466, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.922</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 437, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.866</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>pitted_surface</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 415, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.822</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 346, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.685</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>scratches</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 409, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.810</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 363, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.718</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>inclusion</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 392, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.776</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 337, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.667</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>rolled-in_scale</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 371, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.734</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 293, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.580</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#22303E', width: 140 }}>crazing</Text>
+                <Box style={{ width: 480 }}>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3 }}>
+                        <Box style={{ width: 302, height: 14, background: '#2E6F8E' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#2E6F8E', marginLeft: 10 }}>0.597</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Box style={{ width: 244, height: 14, background: '#E8A23B' }} />
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#E8A23B', marginLeft: 10 }}>0.483</Text>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ width: 330 }}>
+            <Box style={{ background: '#F2F5F7', borderTop: '4px solid #2E6F8E', padding: 12, marginBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#2E6F8E', marginBottom: 6 }}>最强：patches</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>R 0.922 / P 0.866，双指标都是全类第一。斑块状缺陷轮廓闭合、与背景对比强，是本任务里最容易学的形态。</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderTop: '4px solid #E8A23B', padding: 12, marginBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#E8A23B', marginBottom: 6 }}>最弱：crazing</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>R 0.597 / P 0.483。龟裂纹路细密且与背景纹理连续，模型特征区分度不足；阈值与微调两条路都已证无效，判定为数据上限问题。</Text>
+            </Box>
+
+            <Box style={{ background: '#F2F5F7', borderTop: '4px solid #93A5B3', padding: 12, marginBottom: 10 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#5F7080', marginBottom: 6 }}>交叉混淆：scratches ↔ inclusion</Text>
+                <Text style={{ fontSize: 12, color: '#5F7080', lineHeight: 1.5 }}>180 张真实图 top-1 实测 97.8%，误差全部落在这两类之间；数据集 9.1% 跨类标注也集中于此。</Text>
+            </Box>
+
+            <Box style={{ background: '#22303E', padding: 12 }}>
+                <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 6 }}>阈值结论</Text>
+                <Text style={{ fontSize: 12, color: '#D6E0E9', lineHeight: 1.5 }}>per-class 阈值（0.16 / 0.30）在 cal 上几乎与统一 0.20 等价，scratches 召回反而 −4pt —— 已验证可统一回 0.20，简化板端代码。</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #D6E0E9', paddingTop: 10, marginTop: 12 }}>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>基于 RK3588 的轻量化工业缺陷检测系统 · 模型训练与边缘部署分析</Text>
+        <Text style={{ fontSize: 13, color: '#93A5B3' }}>第 6 页 · 共 10 页</Text>
+    </Box>
+</Slide>

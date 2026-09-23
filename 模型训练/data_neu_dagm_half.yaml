@@ -1,0 +1,8 @@
+# NEU 缺陷 + DAGM 无缺陷 混合训练集（方案A：负样本 1:2 轻量回炉）
+# 正样本：原生 NEU 1440 缺陷图；负样本：DAGM 720 无缺陷图（空标签）
+# 验证集：纯 NEU 360 张（口径不变，与基线 _640 可比）
+path: D:\workbuddy\缺陷检测项目\模型训练\datasets\neu_det_dagm_half
+train: images/train
+val: images/val
+nc: 6
+names: ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']

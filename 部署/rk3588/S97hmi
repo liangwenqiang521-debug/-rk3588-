@@ -1,0 +1,37 @@
+#!/bin/sh
+# /etc/init.d/S97hmi —— RK3588 开机自动启动上位机（可选，默认不启用）
+#
+# 安装：
+#   cp S97hmi /etc/init.d/ && chmod +x /etc/init.d/S97hmi
+#   如需开机自启，确保 start_hmi.sh 已就绪且 HDMI/显示可用；
+#   若仅在排障阶段，请勿启用，以免开机卡在 GUI。
+#
+# 注意：依赖 board_server（S99board）先起，这里延后等待 9000 端口。
+case "$1" in
+  start)
+    # 等 board_server 起来（最多 15s）
+    for i in $(seq 1 15); do
+      if (echo > /dev/tcp/127.0.0.1/9000) >/dev/null 2>&1; then
+        break
+      fi
+      sleep 1
+    done
+    # 后台启动 HMI（eglfs 走 HDMI）
+    QT_QPA_PLATFORM=eglfs nohup /opt/hmi/start_hmi.sh > /var/log/hmi.log 2>&1 &
+    echo "hmi started"
+    ;;
+  stop)
+    pkill -f "/opt/hmi/main.py" || true
+    echo "hmi stopped"
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+exit 0

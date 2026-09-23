@@ -1,0 +1,52 @@
+{
+  "conf": 0.2,
+  "model": "best_neu6.rknn",
+  "total": 180,
+  "hit": 180,
+  "rate": 100.0,
+  "elapsed_s": 16.15,
+  "per_class": {
+    "crazing": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.52,
+      "miss": []
+    },
+    "inclusion": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.819,
+      "miss": []
+    },
+    "patches": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.88,
+      "miss": []
+    },
+    "pitted_surface": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.817,
+      "miss": []
+    },
+    "rolled-in_scale": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.738,
+      "miss": []
+    },
+    "scratches": {
+      "total": 30,
+      "hit": 30,
+      "rate": 100.0,
+      "avg_conf": 0.809,
+      "miss": []
+    }
+  }
+}
