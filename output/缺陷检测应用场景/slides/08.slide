@@ -1,0 +1,96 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 标题块 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 38, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#0B3D91' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>四根支柱撑起可落地的底座</Text>
+        <Text style={{ fontSize: 16, color: '#8B9AAB', marginLeft: 12, marginTop: 8 }}>能力 · 算力 · 韧性 · 闭环</Text>
+    </Box>
+
+    {/* B 区：四柱卡 */}
+    <Box style={{ position: 'absolute', top: 132, left: 84, width: 1112, height: 508, flexDirection: 'row', gap: 18 }}>
+
+        {/* 柱 1 */}
+        <Box style={{ flex: 1, height: 508, background: '#F4F7FB', borderRadius: 12, border: '1px solid #E1E9F2', flexDirection: 'column', overflow: 'hidden' }}>
+            <Box style={{ height: 8, background: 'linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)' }} />
+            <Box style={{ padding: 22, flex: 1, flexDirection: 'column' }}>
+                <Box style={{ width: 52, height: 52, borderRadius: 14, background: '#DDE9F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='layer-group' style={{ fill: '#0B3D91', width: 28, height: 28 }} />
+                </Box>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2, marginTop: 20 }}>MODEL</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#0B1C33', marginTop: 6 }}>模型能力</Text>
+                <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 14 }}>
+                    39 类钢材表面缺陷一网打尽 —— 划痕、夹杂、氧化皮、龟裂、折痕、锈斑等主流形态全覆盖，mAP50 达 0.724。单一模型端到端判定，无需多级拼接。
+                </Text>
+                <Box style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid #E1E9F2', flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: '#0B3D91', lineHeight: 0.9 }}>39</Text>
+                    <Text style={{ fontSize: 15, color: '#6B7A8D', paddingBottom: 3 }}>类缺陷类别</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        {/* 柱 2 */}
+        <Box style={{ flex: 1, height: 508, background: '#F4F7FB', borderRadius: 12, border: '1px solid #E1E9F2', flexDirection: 'column', overflow: 'hidden' }}>
+            <Box style={{ height: 8, background: 'linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)' }} />
+            <Box style={{ padding: 22, flex: 1, flexDirection: 'column' }}>
+                <Box style={{ width: 52, height: 52, borderRadius: 14, background: '#DDE9F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='microchip' style={{ fill: '#0B3D91', width: 28, height: 28 }} />
+                </Box>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2, marginTop: 20 }}>COMPUTE</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#0B1C33', marginTop: 6 }}>边缘算力</Text>
+                <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 14 }}>
+                    RK3588 板载 NPU 6 TOPS 提供本地推理算力，单帧仅需 128–157ms，整机 5 FPS 以上，满足高速产线节拍，数据不出厂、无需上云。
+                </Text>
+                <Box style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid #E1E9F2', flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: '#0B3D91', lineHeight: 0.9 }}>128</Text>
+                    <Text style={{ fontSize: 15, color: '#6B7A8D', paddingBottom: 3 }}>ms 单帧推理</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        {/* 柱 3 */}
+        <Box style={{ flex: 1, height: 508, background: '#F4F7FB', borderRadius: 12, border: '1px solid #E1E9F2', flexDirection: 'column', overflow: 'hidden' }}>
+            <Box style={{ height: 8, background: 'linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)' }} />
+            <Box style={{ padding: 22, flex: 1, flexDirection: 'column' }}>
+                <Box style={{ width: 52, height: 52, borderRadius: 14, background: '#DDE9F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='shield' style={{ fill: '#0B3D91', width: 28, height: 28 }} />
+                </Box>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2, marginTop: 20 }}>RESILIENCE</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#0B1C33', marginTop: 6 }}>工程韧性</Text>
+                <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 14 }}>
+                    内置断流看门狗：6s 无帧自动软踢重发，20s 未恢复则硬重连，配合 3/6/12/24/30s 指数退避。实测掐断网线后 3.0s 自动重连、续跑不中断。
+                </Text>
+                <Box style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid #E1E9F2', flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: '#FF7A18', lineHeight: 0.9 }}>3.0</Text>
+                    <Text style={{ fontSize: 15, color: '#6B7A8D', paddingBottom: 3 }}>s 断线自愈</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        {/* 柱 4 */}
+        <Box style={{ flex: 1, height: 508, background: '#F4F7FB', borderRadius: 12, border: '1px solid #E1E9F2', flexDirection: 'column', overflow: 'hidden' }}>
+            <Box style={{ height: 8, background: 'linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)' }} />
+            <Box style={{ padding: 22, flex: 1, flexDirection: 'column' }}>
+                <Box style={{ width: 52, height: 52, borderRadius: 14, background: '#FCE6D2', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='desktop' style={{ fill: '#FF7A18', width: 28, height: 28 }} />
+                </Box>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FF7A18', letterSpacing: 2, marginTop: 20 }}>CLOSED LOOP</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#0B1C33', marginTop: 6 }}>上位机闭环</Text>
+                <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 14 }}>
+                    PyQt5 六页终端开箱即用：实时可视化、NG 声光报警、SQLite 全量追溯、良率趋势统计、参数一键配置，检测结果与历史记录自动归档。
+                </Text>
+                <Box style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid #E1E9F2', flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: '#FF7A18', lineHeight: 0.9 }}>6</Text>
+                    <Text style={{ fontSize: 15, color: '#6B7A8D', paddingBottom: 3 }}>页功能终端</Text>
+                </Box>
+            </Box>
+        </Box>
+    </Box>
+
+    {/* C 区 页脚 */}
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>08 / 12</Text>
+    </Box>
+
+</Slide>

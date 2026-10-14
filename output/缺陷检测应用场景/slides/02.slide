@@ -1,0 +1,80 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* 主容器：左右分栏 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左侧标题栏 */}
+        <Box style={{ width: 380, height: 720, background: 'linear-gradient(160deg, #0B3D91 0%, #0A3070 100%)', position: 'relative' }}>
+            <Box style={{ position: 'absolute', top: 118, left: 60, width: 52, height: 5, background: '#FF7A18' }} />
+            <Text style={{ position: 'absolute', top: 150, left: 60, fontSize: 62, fontWeight: 'bold', color: '#FFFFFF', letterSpacing: 2 }}>目录</Text>
+            <Text style={{ position: 'absolute', top: 246, left: 60, fontSize: 20, color: '#9DBBEA', letterSpacing: 6 }}>CONTENTS</Text>
+            <Text style={{ position: 'absolute', top: 300, left: 60, width: 260, fontSize: 17, lineHeight: 1.9, color: '#B9CDEC' }}>
+                四个问题，讲清这套系统
+                <br />
+                能解决什么、凭什么能落地。
+            </Text>
+            <Box style={{ position: 'absolute', bottom: 70, left: 60, flexDirection: 'row', gap: 8 }}>
+                <Box style={{ width: 40, height: 3, background: '#00B4D8' }} />
+                <Box style={{ width: 40, height: 3, background: 'rgba(255,255,255,0.35)' }} />
+                <Box style={{ width: 40, height: 3, background: 'rgba(255,255,255,0.2)' }} />
+            </Box>
+        </Box>
+
+        {/* 右侧四章条目 */}
+        <Box style={{ width: 900, height: 720, paddingLeft: 72, paddingRight: 84, paddingTop: 96, paddingBottom: 64, flexDirection: 'column', justifyContent: 'space-between', position: 'relative' }}>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 84 }}>01</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 4 }}>
+                    <Text style={{ fontSize: 27, fontWeight: 'bold', color: '#0B1C33' }}>行业痛点：质检为什么难</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 9 }}>
+                        人眼抽检撞上漏检率、产线节拍、人力成本三堵墙 —— 痛点不是"检得准不准"，而是"根本检不过来"。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2', marginLeft: 112 }} />
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 84 }}>02</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 4 }}>
+                    <Text style={{ fontSize: 27, fontWeight: 'bold', color: '#0B1C33' }}>场景地图：六大应用领域</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 9 }}>
+                        钢铁、3C、纺织、新能源、食品、玻璃 —— 同一个视觉内核，换一套数据就是一条新产线。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2', marginLeft: 112 }} />
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 84 }}>03</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 4 }}>
+                    <Text style={{ fontSize: 27, fontWeight: 'bold', color: '#0B1C33' }}>技术底座：为什么是这套方案</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 9 }}>
+                        不是又一个算法 demo —— 39 类模型 + RK3588 边缘算力 + 工程韧性 + 上位机闭环，四根支柱。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2', marginLeft: 112 }} />
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 84 }}>04</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 4 }}>
+                    <Text style={{ fontSize: 27, fontWeight: 'bold', color: '#0B1C33' }}>落地路径与扩展边界</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.65, marginTop: 9 }}>
+                        从一条线试跑到一个行业复制 —— 迁移成本主要是数据标注，不是重新研发。
+                    </Text>
+                </Box>
+            </Box>
+
+            {/* 页脚 */}
+            <Box style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
+                <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+                <Text style={{ fontSize: 14, color: '#9AA9B8' }}>02 / 12</Text>
+            </Box>
+        </Box>
+    </Box>
+
+</Slide>

@@ -1,0 +1,95 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 40, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#0B3D91' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>换一个行业，要动的只有三样</Text>
+    </Box>
+
+    {/* B 区 左 58% / 右 42% */}
+    <Box style={{ position: 'absolute', top: 132, left: 84, width: 1112, height: 506, flexDirection: 'row', gap: 30 }}>
+
+        {/* 左 58%：迁移矩阵 SVG */}
+        <Box style={{ width: 645, height: 506, background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 14, padding: 26, flexDirection: 'column' }}>
+            <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2 }}>迁移改造矩阵</Text>
+            <svg width={593} height={420} viewBox='0 0 593 420' style={{ marginTop: 12 }}>
+                {/* 表头 */}
+                <rect x='0' y='0' width='200' height='44' rx='8' fill='#0B3D91' />
+                <text x='100' y='28' fontSize='15' fontWeight='bold' fill='#FFFFFF' textAnchor='middle' fontFamily='Inter, sans-serif'>改造项</text>
+                <rect x='210' y='0' width='168' height='44' rx='8' fill='#0A52A8' />
+                <text x='294' y='28' fontSize='14' fontWeight='bold' fill='#FFFFFF' textAnchor='middle'>钢铁（已做）</text>
+                <rect x='388' y='0' width='205' height='44' rx='8' fill='#FF7A18' />
+                <text x='490' y='28' fontSize='14' fontWeight='bold' fill='#FFFFFF' textAnchor='middle'>新行业（迁移）</text>
+
+                {/* 行 1：数据集 */}
+                <rect x='0' y='56' width='200' height='104' rx='8' fill='#FFFFFF' stroke='#E1E9F2' />
+                <text x='100' y='92' fontSize='15' fontWeight='bold' fill='#0B1C33' textAnchor='middle'>① 换数据集</text>
+                <text x='100' y='118' fontSize='12.5' fill='#7A8899' textAnchor='middle'>标注新品类图片</text>
+                <text x='100' y='138' fontSize='12.5' fill='#7A8899' textAnchor='middle'>YOLO 格式</text>
+                <rect x='210' y='56' width='168' height='104' rx='8' fill='#EAF1FA' stroke='#CFE0F2' />
+                <text x='294' y='102' fontSize='14' fill='#0B3D91' textAnchor='middle' fontWeight='bold'>25689 图就绪</text>
+                <text x='294' y='128' fontSize='12.5' fill='#5C6E82' textAnchor='middle'>已验证可用</text>
+                <rect x='388' y='56' width='205' height='104' rx='8' fill='#FFF3E9' stroke='#FBD9BC' />
+                <text x='490' y='102' fontSize='14' fill='#C46A1E' textAnchor='middle' fontWeight='bold'>采集 + 标注</text>
+                <text x='490' y='128' fontSize='12.5' fill='#8A6A50' textAnchor='middle'>主要工作量所在</text>
+
+                {/* 行 2：阈值 */}
+                <rect x='0' y='172' width='200' height='104' rx='8' fill='#FFFFFF' stroke='#E1E9F2' />
+                <text x='100' y='208' fontSize='15' fontWeight='bold' fill='#0B1C33' textAnchor='middle'>② 调阈值</text>
+                <text x='100' y='234' fontSize='12.5' fill='#7A8899' textAnchor='middle'>cal 集扫置信度</text>
+                <text x='100' y='254' fontSize='12.5' fill='#7A8899' textAnchor='middle'>per-class 标定</text>
+                <rect x='210' y='172' width='168' height='104' rx='8' fill='#EAF1FA' stroke='#CFE0F2' />
+                <text x='294' y='218' fontSize='14' fill='#0B3D91' textAnchor='middle' fontWeight='bold'>流水线已支持</text>
+                <text x='294' y='244' fontSize='12.5' fill='#5C6E82' textAnchor='middle'>脚本可复用</text>
+                <rect x='388' y='172' width='205' height='104' rx='8' fill='#FFF3E9' stroke='#FBD9BC' />
+                <text x='490' y='218' fontSize='14' fill='#C46A1E' textAnchor='middle' fontWeight='bold'>重扫一轮</text>
+                <text x='490' y='244' fontSize='12.5' fill='#8A6A50' textAnchor='middle'>约 1 天</text>
+
+                {/* 行 3：现场 */}
+                <rect x='0' y='288' width='200' height='104' rx='8' fill='#FFFFFF' stroke='#E1E9F2' />
+                <text x='100' y='324' fontSize='15' fontWeight='bold' fill='#0B1C33' textAnchor='middle'>③ 接现场</text>
+                <text x='100' y='350' fontSize='12.5' fill='#7A8899' textAnchor='middle'>相机取流 / 触发</text>
+                <text x='100' y='370' fontSize='12.5' fill='#7A8899' textAnchor='middle'>PLC / IO 信号</text>
+                <rect x='210' y='288' width='168' height='104' rx='8' fill='#EAF1FA' stroke='#CFE0F2' />
+                <text x='294' y='334' fontSize='14' fill='#0B3D91' textAnchor='middle' fontWeight='bold'>硬件已就绪</text>
+                <text x='294' y='360' fontSize='12.5' fill='#5C6E82' textAnchor='middle'>接口可复用</text>
+                <rect x='388' y='288' width='205' height='104' rx='8' fill='#FFF3E9' stroke='#FBD9BC' />
+                <text x='490' y='334' fontSize='14' fill='#C46A1E' textAnchor='middle' fontWeight='bold'>一次适配</text>
+                <text x='490' y='360' fontSize='12.5' fill='#8A6A50' textAnchor='middle'>硬件侧改动</text>
+            </svg>
+        </Box>
+
+        {/* 右 42% */}
+        <Box style={{ width: 437, height: 506, flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Box style={{ background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 12, padding: 22, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 1 }}>要动的三样</Text>
+                <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.7, marginTop: 10 }}>
+                    ① 换数据集：采新品类图 + 标注，走既有训练/导出/转 RKNN 流水线。<br />
+                    ② 调阈值：在 cal 集上扫 per-class 置信度。<br />
+                    ③ 接现场：相机取流 + 触发方式 + PLC/IO 信号。
+                </Text>
+            </Box>
+
+            <Box style={{ background: 'linear-gradient(120deg, #0B3D91 0%, #0A5BB5 100%)', borderRadius: 12, padding: 22, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#7FD4E8', letterSpacing: 1 }}>不动的（平台化红利）</Text>
+                <Text style={{ fontSize: 16, color: '#E4EDF8', lineHeight: 1.7, marginTop: 10 }}>
+                    模型结构、边缘推理服务、PyQt5 上位机 —— <span style={{ color: '#FFFFFF', fontWeight: 'bold' }}>全部复用，零改动</span>。
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 18 }}>
+                <Text style={{ fontSize: 58, fontWeight: 'bold', color: '#FF7A18', lineHeight: 0.9 }}>1</Text>
+                <Box style={{ flexDirection: 'column', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B1C33' }}>个新增行业的主要成本</Text>
+                    <Text style={{ fontSize: 14.5, color: '#5C6E82', marginTop: 3 }}>= 数据采集与标注，而非重新研发</Text>
+                </Box>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>12 / 14</Text>
+    </Box>
+
+</Slide>

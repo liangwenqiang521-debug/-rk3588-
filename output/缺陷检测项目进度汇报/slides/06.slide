@@ -1,0 +1,84 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左：巨型数字区（深色块） */}
+        <Box style={{ width: 420, height: 720, background: 'linear-gradient(150deg, #0B3D91 0%, #06224E 100%)', position: 'relative', flexDirection: 'column', paddingLeft: 84, paddingTop: 190 }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#7FD4E8', letterSpacing: 3 }}>当前状态</Text>
+            <Text style={{ fontSize: 150, lineHeight: 0.85, fontWeight: 'bold', color: '#FF7A18', marginTop: 22 }}>39</Text>
+            <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#FFFFFF', marginTop: 10 }}>类缺陷 · 单模型</Text>
+            <Text style={{ fontSize: 17, color: '#A9C2E0', marginTop: 12, lineHeight: 1.6, width: 240 }}>
+                板端服务已切换 39 类单模型，step 按需推帧。
+            </Text>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 28 }}>
+                <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#3BE08E' }} />
+                <Text style={{ fontSize: 16, color: '#CFE2F5' }}>板端在线运行中</Text>
+            </Box>
+        </Box>
+
+        {/* 右：四条状态 */}
+        <Box style={{ width: 860, height: 720, paddingLeft: 56, paddingRight: 84, paddingTop: 130, paddingBottom: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Box style={{ width: 44, height: 44, borderRadius: 12, background: '#DDE9F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='check-circle' style={{ fill: '#0B3D91', width: 24, height: 24 }} />
+                </Box>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>双路检测均支持 39 类</Text>
+                    <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        上位机本地 CPU 推理与 RK3588 边缘推理均已切换到 39 类权重，类别名与配色全量对齐。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Box style={{ width: 44, height: 44, borderRadius: 12, background: '#DCF3F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='bolt' style={{ fill: '#00A0C4', width: 24, height: 24 }} />
+                </Box>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>断流自愈实测 3.0s 自动重连</Text>
+                    <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        掐断网线后 3.0 秒自动重连并续跑计数；配套 6s 软踢 / 20s 硬恢复 / 指数退避三级防护。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Box style={{ width: 44, height: 44, borderRadius: 12, background: '#FCE6D2', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='tachometer-alt' style={{ fill: '#FF7A18', width: 24, height: 24 }} />
+                </Box>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>重 IO 后台化：主线程 0.373s → 0.009s</Text>
+                    <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        存图与入库移入线程池，界面不再因大图写盘卡顿，实测主线程耗时降至约 1/40。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Box style={{ width: 44, height: 44, borderRadius: 12, background: '#DDE9F9', justifyContent: 'center', alignItems: 'center' }}>
+                    <FAIcon name='box-open' style={{ fill: '#0B3D91', width: 24, height: 24 }} />
+                </Box>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>板端样本库已换 39 类</Text>
+                    <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        样本目录由 NEU 6 类 24 张换为 39 类 42 张，连板轮播可覆盖全部类别。
+                    </Text>
+                </Box>
+            </Box>
+
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>06 / 14</Text>
+    </Box>
+
+</Slide>

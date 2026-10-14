@@ -1,0 +1,61 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#071A36', overflow: 'hidden' }}>
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左侧 60% 视觉块（SVG 抽象钢卷/辊道） */}
+        <Box style={{ width: 720, height: 720, position: 'relative', background: '#061428' }}>
+            <svg width={720} height={720} viewBox='0 0 720 720' style={{ position: 'absolute', top: 0, left: 0 }}>
+                <defs>
+                    <linearGradient id='p6a' x1='0' y1='0' x2='1' y2='1'>
+                        <stop offset='0%' stopColor='#0B3D91' />
+                        <stop offset='100%' stopColor='#061428' />
+                    </linearGradient>
+                    <radialGradient id='p6g' cx='0.35' cy='0.42' r='0.6'>
+                        <stop offset='0%' stopColor='#00B4D8' stopOpacity='0.35' />
+                        <stop offset='100%' stopColor='#00B4D8' stopOpacity='0' />
+                    </radialGradient>
+                </defs>
+                <rect x='0' y='0' width='720' height='720' fill='url(#p6a)' />
+                <rect x='0' y='0' width='720' height='720' fill='url(#p6g)' />
+                {/* 同心圆（钢卷抽象） */}
+                <g fill='none' stroke='#4E8BD6' strokeOpacity='0.30'>
+                    <circle cx='300' cy='330' r='210' strokeWidth='10' />
+                    <circle cx='300' cy='330' r='164' strokeWidth='7' />
+                    <circle cx='300' cy='330' r='120' strokeWidth='5' />
+                    <circle cx='300' cy='330' r='78' strokeWidth='4' />
+                </g>
+                <circle cx='300' cy='330' r='34' fill='#00B4D8' fillOpacity='0.9' />
+                {/* 辊道横线 */}
+                <g stroke='#7FB2E8' strokeOpacity='0.16' strokeWidth='2'>
+                    <line x1='0' y1='140' x2='720' y2='140' />
+                    <line x1='0' y1='520' x2='720' y2='520' />
+                    <line x1='0' y1='600' x2='720' y2='600' />
+                    <line x1='0' y1='660' x2='720' y2='660' />
+                </g>
+                <rect x='0' y='712' width='720' height='8' fill='#00B4D8' />
+            </svg>
+        </Box>
+
+        {/* 右侧 40% 文字 */}
+        <Box style={{ width: 560, height: 720, paddingLeft: 64, paddingRight: 84, paddingTop: 236, flexDirection: 'column' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#00B4D8', letterSpacing: 3 }}>CHAPTER 02</Text>
+                <Box style={{ width: 70, height: 2, background: 'rgba(255,255,255,0.25)' }} />
+            </Box>
+            <Text style={{ marginTop: 26, fontSize: 62, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 1.15, letterSpacing: 2 }}>
+                场景地图：六大应用领域
+            </Text>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 34 }}>
+                <Box style={{ width: 6, height: 34, background: '#FF7A18' }} />
+                <Text style={{ fontSize: 24, color: '#BFD6EC' }}>
+                    同一个视觉内核，换一套数据就是一条新产线。
+                </Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 96, bottom: 30, width: 1088, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>06 / 12</Text>
+    </Box>
+
+</Slide>

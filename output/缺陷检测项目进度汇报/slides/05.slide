@@ -1,0 +1,77 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左：标题栏 */}
+        <Box style={{ width: 360, height: 720, background: '#F4F7FB', position: 'relative', paddingLeft: 84, paddingTop: 236, flexDirection: 'column' }}>
+            <Box style={{ width: 5, height: 36, background: '#0B3D91', marginBottom: 20 }} />
+            <Text style={{ fontSize: 38, fontWeight: 'bold', color: '#0B1C33', lineHeight: 1.25 }}>
+                关键里程碑<br />时间线
+            </Text>
+            <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.7, marginTop: 22, width: 200 }}>
+                从路线图锁定到 39 类单模型上板，八个关键节点。
+            </Text>
+            <Box style={{ marginTop: 30, width: 210, height: 3, background: 'linear-gradient(90deg,#0B3D91,#00B4D8)' }} />
+        </Box>
+
+        {/* 右：时间轴 */}
+        <Box style={{ width: 920, height: 720, position: 'relative', paddingLeft: 56, paddingRight: 84, paddingTop: 96, paddingBottom: 60, flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 14, height: 14, borderRadius: 7, background: '#00B4D8', border: '3px solid #B3E4F2' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B3D91', width: 128 }}>08-21</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1 }}>
+                    路线图锁定 <span style={{ fontWeight: 'bold' }}>RK3588</span> —— 边缘平台与六阶段计划确定
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 14, height: 14, borderRadius: 7, background: '#00B4D8', border: '3px solid #B3E4F2' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B3D91', width: 128 }}>09-14 ~ 09-17</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1 }}>
+                    数据与基线：NEU-DET + 增强集，_640 基线全 val mAP50 <span style={{ fontWeight: 'bold' }}>0.783</span>
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 14, height: 14, borderRadius: 7, background: '#00B4D8', border: '3px solid #B3E4F2' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B3D91', width: 128 }}>09-18</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1 }}>
+                    负样本闭环：DAGM 无缺陷入训，域外误检 <span style={{ fontWeight: 'bold', color: '#0B3D91' }}>64.4% → 0%</span>
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 14, height: 14, borderRadius: 7, background: '#00B4D8', border: '3px solid #B3E4F2' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B3D91', width: 128 }}>09-19</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1 }}>
+                    双模型级联上板：误检 0% 与 top1 97.8% 兼得
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 14, height: 14, borderRadius: 7, background: '#00B4D8', border: '3px solid #B3E4F2' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B3D91', width: 128 }}>09-20</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1 }}>
+                    评估口径冻结：val 切 <span style={{ fontWeight: 'bold' }}>cal 178 / holdout 182</span>，结论只在隔离集汇报
+                </Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                <Box style={{ width: 18, height: 18, borderRadius: 9, background: '#FF7A18', border: '3px solid #FFD3B0' }} />
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#FF7A18', width: 128 }}>10-08 ~ 10-09</Text>
+                <Text style={{ fontSize: 18, color: '#0B1C33', flex: 1, fontWeight: 'bold' }}>
+                    扩展 39 类单模型 + 断流自愈 + 重 IO 后台化 —— 当前状态
+                </Text>
+            </Box>
+
+        </Box>
+    </Box>
+
+    {/* 页脚 */}
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>05 / 14</Text>
+    </Box>
+
+</Slide>

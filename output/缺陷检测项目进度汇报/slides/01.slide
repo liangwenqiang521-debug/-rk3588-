@@ -1,0 +1,54 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#061428', overflow: 'hidden' }}>
+
+    {/* 全幅底图 */}
+    <Image src="assets/hero_factory_line.png" style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, objectFit: 'cover' }} />
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(100deg, rgba(4,14,32,0.95) 0%, rgba(4,14,32,0.84) 44%, rgba(4,14,32,0.32) 78%, rgba(4,14,32,0.10) 100%)' }} />
+    <Box style={{ position: 'absolute', bottom: 0, left: 0, width: 1280, height: 8, background: 'linear-gradient(90deg, #FF7A18 0%, #00B4D8 45%, rgba(0,180,216,0) 100%)' }} />
+
+    {/* 骑线文字块 */}
+    <Box style={{ position: 'relative', zIndex: 2, width: 790, height: 720, paddingTop: 92, paddingLeft: 84, flexDirection: 'column' }}>
+
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+            <Box style={{ width: 34, height: 4, background: '#FF7A18' }} />
+            <Text style={{ fontSize: 18, color: '#7FD4E8', letterSpacing: 4, fontWeight: 600 }}>项目进度汇报 · 2026 年 10 月</Text>
+        </Box>
+
+        <Text style={{ marginTop: 28, fontSize: 70, lineHeight: 1.12, fontWeight: 'bold', color: '#FFFFFF', letterSpacing: 1 }}>
+            工业表面缺陷检测系统
+        </Text>
+
+        <Text style={{ marginTop: 20, fontSize: 27, lineHeight: 1.5, color: '#C7D6E6' }}>
+            开发进度与应用场景汇报
+        </Text>
+
+        <Text style={{ marginTop: 30, fontSize: 19, color: '#8FA6BC', letterSpacing: 0.5 }}>
+            数据构建 · 模型训练 · <span style={{ color: '#00B4D8', fontWeight: 'bold' }}>RK3588 边缘部署</span> · 上位机闭环 · 论文撰写
+        </Text>
+
+        {/* 三指标 */}
+        <Box style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 40, marginTop: 54 }}>
+            <Box style={{ flexDirection: 'column' }}>
+                <Text style={{ fontSize: 62, lineHeight: 0.95, fontWeight: 'bold', color: '#FF7A18' }}>39</Text>
+                <Text style={{ fontSize: 17, color: '#BDD0E2', marginTop: 6 }}>类缺陷已建模</Text>
+            </Box>
+            <Box style={{ width: 1, height: 58, background: 'rgba(255,255,255,0.22)' }} />
+            <Box style={{ flexDirection: 'column' }}>
+                <Text style={{ fontSize: 62, lineHeight: 0.95, fontWeight: 'bold', color: '#00B4D8' }}>0.724</Text>
+                <Text style={{ fontSize: 17, color: '#BDD0E2', marginTop: 6 }}>mAP50（实测）</Text>
+            </Box>
+            <Box style={{ width: 1, height: 58, background: 'rgba(255,255,255,0.22)' }} />
+            <Box style={{ flexDirection: 'column' }}>
+                <Text style={{ fontSize: 62, lineHeight: 0.95, fontWeight: 'bold', color: '#FFFFFF' }}>128</Text>
+                <Text style={{ fontSize: 17, color: '#BDD0E2', marginTop: 6 }}>ms 单帧推理</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    {/* 落款 */}
+    <Box style={{ position: 'absolute', right: 84, bottom: 46, zIndex: 2, flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Box style={{ width: 56, height: 3, background: '#00B4D8', marginBottom: 12 }} />
+        <Text style={{ fontSize: 17, color: '#B9C9DA', letterSpacing: 1 }}>缺陷检测项目组</Text>
+        <Text style={{ fontSize: 15, color: '#6E8299', marginTop: 6, letterSpacing: 1 }}>2026-10-09</Text>
+    </Box>
+
+</Slide>

@@ -1,0 +1,67 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左侧标题栏 */}
+        <Box style={{ width: 380, height: 720, background: 'linear-gradient(160deg, #0B3D91 0%, #0A3070 100%)', position: 'relative' }}>
+            <Box style={{ position: 'absolute', top: 118, left: 60, width: 52, height: 5, background: '#FF7A18' }} />
+            <Text style={{ position: 'absolute', top: 150, left: 60, fontSize: 62, fontWeight: 'bold', color: '#FFFFFF', letterSpacing: 2 }}>目录</Text>
+            <Text style={{ position: 'absolute', top: 246, left: 60, fontSize: 20, color: '#9DBBEA', letterSpacing: 6 }}>CONTENTS</Text>
+            <Text style={{ position: 'absolute', top: 302, left: 60, width: 264, fontSize: 17, lineHeight: 1.9, color: '#B9CDEC' }}>
+                三章讲清这个项目：
+                <br />
+                做到哪、拿到什么、能用在哪。
+            </Text>
+            <Box style={{ position: 'absolute', bottom: 70, left: 60, flexDirection: 'row', gap: 8 }}>
+                <Box style={{ width: 40, height: 3, background: '#00B4D8' }} />
+                <Box style={{ width: 40, height: 3, background: 'rgba(255,255,255,0.35)' }} />
+                <Box style={{ width: 40, height: 3, background: 'rgba(255,255,255,0.2)' }} />
+            </Box>
+        </Box>
+
+        {/* 右侧三章条目 */}
+        <Box style={{ width: 900, height: 720, paddingLeft: 72, paddingRight: 84, paddingTop: 110, paddingBottom: 96, flexDirection: 'column', justifyContent: 'space-between', position: 'relative' }}>
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 96 }}>01</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 6 }}>
+                    <Text style={{ fontSize: 29, fontWeight: 'bold', color: '#0B1C33' }}>开发进度：五个阶段</Text>
+                    <Text style={{ fontSize: 17, color: '#5C6E82', lineHeight: 1.65, marginTop: 11 }}>
+                        数据 → 模型 → 边缘部署 → 上位机 → 论文，逐阶段交代完成度、关键里程碑与今天的真实状态。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2', marginLeft: 124 }} />
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 96 }}>02</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 6 }}>
+                    <Text style={{ fontSize: 29, fontWeight: 'bold', color: '#0B1C33' }}>成果指标：实测数据</Text>
+                    <Text style={{ fontSize: 17, color: '#5C6E82', lineHeight: 1.65, marginTop: 11 }}>
+                        四项硬指标（mAP50 / 推理时延 / 断流自愈 / 上位机闭环），全部来自实测记录，可追溯。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2', marginLeft: 124 }} />
+
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 28 }}>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#DCE8F7', lineHeight: 1, width: 96 }}>03</Text>
+                <Box style={{ flexDirection: 'column', flex: 1, paddingTop: 6 }}>
+                    <Text style={{ fontSize: 29, fontWeight: 'bold', color: '#0B1C33' }}>应用场景：六大领域</Text>
+                    <Text style={{ fontSize: 17, color: '#5C6E82', lineHeight: 1.65, marginTop: 11 }}>
+                        从钢铁到 3C、纺织、新能源、食品、玻璃 —— 场景地图、落地路径与迁移成本。
+                    </Text>
+                </Box>
+            </Box>
+
+            {/* 页脚 */}
+            <Box style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
+                <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+                <Text style={{ fontSize: 14, color: '#9AA9B8' }}>02 / 14</Text>
+            </Box>
+        </Box>
+    </Box>
+
+</Slide>

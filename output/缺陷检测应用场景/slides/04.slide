@@ -1,0 +1,87 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 标题块 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 40, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#0B3D91' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>人眼抽检撞上的三堵墙</Text>
+        <Text style={{ fontSize: 16, color: '#8B9AAB', marginLeft: 12, marginTop: 8 }}>行业普遍区间 · 非单厂实测</Text>
+    </Box>
+
+    {/* B 区：左图右洞察 */}
+    <Box style={{ position: 'absolute', top: 130, left: 84, width: 1112, height: 510, flexDirection: 'row', gap: 36 }}>
+
+        {/* 左：图表 */}
+        <Box style={{ width: 620, height: 510, flexDirection: 'column' }}>
+            <Box style={{ width: '100%', height: 400 }}>
+                <Chart
+                    style={{ width: '100%', height: 400 }}
+                    chartType='barChart'
+                    barDirection='bar'
+                    grouping='clustered'
+                    showLegend={true}
+                    showDataLabels={true}
+                    legendColor='#6B7A8D'
+                    axisColor='#9AA9B8'
+                    dataLabelColor='#0B1C33'
+                    colors={['#0B3D91', '#00B4D8']}
+                    background='#FFFFFF'
+                    data={[
+                        ['硬约束', '人眼抽检', '智能质检'],
+                        ['漏检率 %', 25, 2],
+                        ['可承受节拍 pcs/s', 1, 5],
+                        ['质检人力占比 %', 12, 3],
+                    ]}
+                />
+            </Box>
+            <Text style={{ fontSize: 15, color: '#9AA9B8', marginTop: 10 }}>
+                数据来源：表面质检行业公开调研区间（示意对比，非本项目实测）
+            </Text>
+        </Box>
+
+        {/* 右：三条洞察 */}
+        <Box style={{ width: 456, height: 510, flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 44, fontWeight: 'bold', color: '#0B3D91', lineHeight: 1, width: 78 }}>01</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>漏检率 20–30%</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 7 }}>
+                        人工抽检不只是"慢"，而是 NG 件按比例流入下游，返工与客诉成本远高于检测本身。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 44, fontWeight: 'bold', color: '#0B3D91', lineHeight: 1, width: 78 }}>02</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>节拍 ≥ 5 pcs/s</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 7 }}>
+                        高速产线一秒过 5 件以上，人眼物理上跟不上 —— 只能抽检，必须机器全检才能不漏。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 44, fontWeight: 'bold', color: '#0B3D91', lineHeight: 1, width: 78 }}>03</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>质检人力占 10–15%</Text>
+                    <Text style={{ fontSize: 16.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 7 }}>
+                        招工难 + 经验依赖，判断标准随人波动 —— 标准化必须交给系统，而不是老师傅的肉眼。
+                    </Text>
+                </Box>
+            </Box>
+
+        </Box>
+    </Box>
+
+    {/* C 区 页脚 */}
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>04 / 12</Text>
+    </Box>
+
+</Slide>

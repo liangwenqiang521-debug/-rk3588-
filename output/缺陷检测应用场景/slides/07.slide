@@ -1,0 +1,81 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#061428', overflow: 'hidden' }}>
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'row' }}>
+
+        {/* 左侧 42% 文字（镜像构图，与 P6 区分） */}
+        <Box style={{ width: 520, height: 720, paddingLeft: 96, paddingRight: 40, paddingTop: 236, flexDirection: 'column' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#00B4D8', letterSpacing: 3 }}>CHAPTER 03</Text>
+                <Box style={{ width: 70, height: 2, background: 'rgba(255,255,255,0.25)' }} />
+            </Box>
+            <Text style={{ marginTop: 26, fontSize: 58, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 1.15, letterSpacing: 2 }}>
+                技术底座：<br />为什么是这套方案
+            </Text>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 34 }}>
+                <Box style={{ width: 6, height: 34, background: '#FF7A18' }} />
+                <Text style={{ fontSize: 23, color: '#BFD6EC' }}>
+                    不是又一个算法 demo，<br />而是一台能上产线的机器。
+                </Text>
+            </Box>
+        </Box>
+
+        {/* 右侧 58% 边缘盒子抽象 SVG */}
+        <Box style={{ width: 760, height: 720, position: 'relative', background: '#0A2C68' }}>
+            <svg width={760} height={720} viewBox='0 0 760 720' style={{ position: 'absolute', top: 0, left: 0 }}>
+                <defs>
+                    <linearGradient id='p7a' x1='0' y1='0' x2='1' y2='1'>
+                        <stop offset='0%' stopColor='#0E4C9E' />
+                        <stop offset='100%' stopColor='#061428' />
+                    </linearGradient>
+                    <linearGradient id='p7box' x1='0' y1='0' x2='0' y2='1'>
+                        <stop offset='0%' stopColor='#123B77' />
+                        <stop offset='100%' stopColor='#0A2450' />
+                    </linearGradient>
+                    <radialGradient id='p7g' cx='0.5' cy='0.5' r='0.6'>
+                        <stop offset='0%' stopColor='#00B4D8' stopOpacity='0.30' />
+                        <stop offset='100%' stopColor='#00B4D8' stopOpacity='0' />
+                    </radialGradient>
+                </defs>
+                <rect x='0' y='0' width='760' height='720' fill='url(#p7a)' />
+                <rect x='0' y='0' width='760' height='720' fill='url(#p7g)' />
+                {/* 芯片/盒子 */}
+                <rect x='230' y='220' width='300' height='280' rx='18' fill='url(#p7box)' stroke='#3E77C4' strokeWidth='2' />
+                <rect x='268' y='262' width='224' height='120' rx='8' fill='#061428' stroke='#00B4D8' strokeWidth='1.5' />
+                {/* 芯片引脚 */}
+                <g stroke='#4E8BD6' strokeWidth='3' strokeOpacity='0.7'>
+                    <line x1='230' y1='270' x2='196' y2='270' />
+                    <line x1='230' y1='320' x2='196' y2='320' />
+                    <line x1='230' y1='370' x2='196' y2='370' />
+                    <line x1='230' y1='420' x2='196' y2='420' />
+                    <line x1='530' y1='270' x2='564' y2='270' />
+                    <line x1='530' y1='320' x2='564' y2='320' />
+                    <line x1='530' y1='370' x2='564' y2='370' />
+                    <line x1='530' y1='420' x2='564' y2='420' />
+                </g>
+                {/* NPU 文字条 */}
+                <rect x='300' y='292' width='160' height='10' rx='5' fill='#00B4D8' fillOpacity='0.85' />
+                <rect x='300' y='318' width='100' height='8' rx='4' fill='#7FB2E8' fillOpacity='0.5' />
+                <rect x='300' y='340' width='130' height='8' rx='4' fill='#7FB2E8' fillOpacity='0.35' />
+                {/* 底部状态点 */}
+                <g>
+                    <circle cx='288' cy='440' r='7' fill='#FF7A18' />
+                    <circle cx='316' cy='440' r='7' fill='#00B4D8' />
+                    <circle cx='344' cy='440' r='7' fill='#3E77C4' />
+                </g>
+                {/* 输入输出引脚连线（相机→盒子→上位机，抽象） */}
+                <g stroke='#4E8BD6' strokeOpacity='0.55' strokeWidth='2' strokeDasharray='6 6'>
+                    <line x1='40' y1='360' x2='190' y2='360' />
+                    <line x1='570' y1='360' x2='720' y2='360' />
+                </g>
+                <circle cx='40' cy='360' r='9' fill='#00B4D8' fillOpacity='0.8' />
+                <circle cx='720' cy='360' r='9' fill='#FF7A18' fillOpacity='0.85' />
+                <rect x='0' y='712' width='760' height='8' fill='#FF7A18' />
+            </svg>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 96, bottom: 30, width: 1088, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>07 / 12</Text>
+    </Box>
+
+</Slide>

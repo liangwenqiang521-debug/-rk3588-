@@ -1,0 +1,97 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 40, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#0B3D91' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>从试跑到规模化的三步路</Text>
+    </Box>
+
+    {/* B 区 60:40 */}
+    <Box style={{ position: 'absolute', top: 132, left: 84, width: 1112, height: 506, flexDirection: 'row', gap: 28 }}>
+
+        {/* 左 60%：SVG 三步阶梯 */}
+        <Box style={{ width: 646, height: 506, background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 14, padding: 30, flexDirection: 'column' }}>
+            <svg width={586} height={428} viewBox='0 0 586 428'>
+                <defs>
+                    <linearGradient id='q11a' x1='0' y1='0' x2='1' y2='0'>
+                        <stop offset='0%' stopColor='#0B3D91' />
+                        <stop offset='100%' stopColor='#00B4D8' />
+                    </linearGradient>
+                    <linearGradient id='q11b' x1='0' y1='0' x2='1' y2='0'>
+                        <stop offset='0%' stopColor='#0A52A8' />
+                        <stop offset='100%' stopColor='#22C4E0' />
+                    </linearGradient>
+                </defs>
+
+                {/* 阶梯底座 */}
+                <rect x='20' y='300' width='160' height='108' rx='10' fill='#B9CDE6' />
+                <rect x='210' y='220' width='160' height='188' rx='10' fill='#8FB0DA' />
+                <rect x='400' y='130' width='166' height='278' rx='10' fill='url(#q11a)' />
+
+                {/* 台阶数字 */}
+                <text x='100' y='360' fontSize='40' fontWeight='bold' fill='#0B3D91' textAnchor='middle' fontFamily='Inter, sans-serif'>01</text>
+                <text x='290' y='300' fontSize='40' fontWeight='bold' fill='#FFFFFF' textAnchor='middle' fontFamily='Inter, sans-serif' opacity='0.85'>02</text>
+                <text x='483' y='220' fontSize='48' fontWeight='bold' fill='#FFFFFF' textAnchor='middle' fontFamily='Inter, sans-serif'>03</text>
+
+                {/* 上升箭头 */}
+                <path d='M30,270 C180,240 300,150 560,70' fill='none' stroke='#FF7A18' strokeWidth='3' strokeDasharray='8 8' />
+                <polygon points='566,66 548,62 556,80' fill='#FF7A18' />
+
+                {/* 阶段标签 */}
+                <text x='100' y='392' fontSize='15' fill='#0B3D91' textAnchor='middle' fontWeight='bold'>PoC 试跑</text>
+                <text x='290' y='332' fontSize='15' fill='#1B3E6E' textAnchor='middle' fontWeight='bold'>小规模部署</text>
+                <text x='483' y='250' fontSize='15' fill='#FFFFFF' textAnchor='middle' fontWeight='bold'>规模复制</text>
+
+                {/* 成功数 */}
+                <text x='100' y='420' fontSize='13' fill='#5C6E82' textAnchor='middle'>1 条线</text>
+                <text x='290' y='356' fontSize='13' fill='#3D5A82' textAnchor='middle'>1 条线</text>
+                <text x='483' y='276' fontSize='13' fill='#CBE6F2' textAnchor='middle'>N 条线</text>
+            </svg>
+        </Box>
+
+        {/* 右 40%：三步说明 */}
+        <Box style={{ width: 438, height: 506, flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Box style={{ width: 6, height: 60, background: '#0B3D91', borderRadius: 3 }} />
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0B1C33' }}>第一步 · PoC 试跑<Text style={{ fontSize: 15, color: '#9AA9B8', fontWeight: 'normal' }}>（2–4 周）</Text></Text>
+                    <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        接一路相机 + 现有 39 类模型，跑真实产线 8 小时，出检出率/误检率基线 —— 判断"值不值得上"。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Box style={{ width: 6, height: 66, background: '#0A52A8', borderRadius: 3 }} />
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0B1C33' }}>第二步 · 小规模部署<Text style={{ fontSize: 15, color: '#9AA9B8', fontWeight: 'normal' }}>（1 个月）</Text></Text>
+                    <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        按产线标定阈值、接 PLC 与报警、上位机接入 MES，同时采集难例回流训练集。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E6ECF3' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Box style={{ width: 6, height: 66, background: '#FF7A18', borderRadius: 3 }} />
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0B1C33' }}>第三步 · 规模复制</Text>
+                    <Text style={{ fontSize: 15.5, color: '#5C6E82', lineHeight: 1.6, marginTop: 6 }}>
+                        模型可换（换数据重训即迁移），硬件即插即用，上位机复用 —— <span style={{ color: '#FF7A18', fontWeight: 'bold' }}>边际成本主要是数据标注，不是研发</span>。
+                    </Text>
+                </Box>
+            </Box>
+
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>11 / 14</Text>
+    </Box>
+
+</Slide>

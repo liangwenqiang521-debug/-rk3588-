@@ -1,0 +1,114 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 标题块 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 116, paddingLeft: 84, paddingTop: 36, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#FF7A18' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>一张地图看清六个应用领域</Text>
+    </Box>
+
+    {/* B 区：顶部锚点条 + 下方六宫格 */}
+    <Box style={{ position: 'absolute', top: 122, left: 84, width: 1112, height: 518, flexDirection: 'column', gap: 18 }}>
+
+        {/* 锚点条 */}
+        <Box style={{ width: '100%', height: 96, background: 'linear-gradient(100deg, #0B3D91 0%, #0A3070 62%, #0E4C9E 100%)', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingLeft: 34, paddingRight: 34, justifyContent: 'space-between' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 16 }}>
+                <Text style={{ fontSize: 62, fontWeight: 'bold', color: '#FF7A18', lineHeight: 0.9 }}>6</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF', paddingBottom: 6 }}>大应用领域</Text>
+            </Box>
+            <Box style={{ width: 1, height: 52, background: 'rgba(255,255,255,0.25)' }} />
+            <Box style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 16 }}>
+                <Text style={{ fontSize: 62, fontWeight: 'bold', color: '#00B4D8', lineHeight: 0.9 }}>39</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FFFFFF', paddingBottom: 6 }}>类缺陷已建模</Text>
+            </Box>
+            <Box style={{ width: 1, height: 52, background: 'rgba(255,255,255,0.25)' }} />
+            <Box style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+                <Text style={{ fontSize: 18, color: '#BFD6EC', lineHeight: 1.5 }}>共同点：<span style={{ color: '#FFFFFF', fontWeight: 'bold' }}>表面质量决定售价</span></Text>
+                <Text style={{ fontSize: 15, color: '#8FAED0', marginTop: 4 }}>39 类模型为钢铁/金属实测成果，其余领域为迁移目标</Text>
+            </Box>
+        </Box>
+
+        {/* 六宫格 */}
+        <Box style={{ width: '100%', height: 404, flexDirection: 'row', gap: 16 }}>
+
+            {/* 列1 */}
+            <Box style={{ flex: 1, flexDirection: 'column', gap: 16 }}>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='industry' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#0B3D91', fontWeight: 'bold', background: '#DDE9F9', padding: '3px 9px', borderRadius: 10 }}>核心实测</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>钢铁冶金</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>热轧带钢、冷轧板、型材表面 —— 划痕/夹杂/氧化皮/折痕全形态覆盖。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='microchip' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#00A0C4', fontWeight: 'bold', background: '#DCF3F9', padding: '3px 9px', borderRadius: 10 }}>迁移</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>3C 精密</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>手机外壳、PCB 板、连接器 —— 微划痕与异物检测，节拍极高。</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            {/* 列2 */}
+            <Box style={{ flex: 1, flexDirection: 'column', gap: 16 }}>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='scroll' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#00A0C4', fontWeight: 'bold', background: '#DCF3F9', padding: '3px 9px', borderRadius: 10 }}>迁移</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>纺织印染</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>布匹连续卷材上的破洞、断经、色差、油污点，需高速连续检测。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='battery-full' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#00A0C4', fontWeight: 'bold', background: '#DCF3F9', padding: '3px 9px', borderRadius: 10 }}>迁移</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>新能源电池</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>极片涂布划痕、铝壳焊点、隔膜瑕疵 —— 安全等级最高的质检场景。</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            {/* 列3 */}
+            <Box style={{ flex: 1, flexDirection: 'column', gap: 16 }}>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='utensils' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#00A0C4', fontWeight: 'bold', background: '#DCF3F9', padding: '3px 9px', borderRadius: 10 }}>迁移</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>食品包装</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>封口完整性、印刷错漏、异物混入 —— 视觉 + 合规双重要求。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flex: 1, background: '#F4F7FB', borderRadius: 10, border: '1px solid #E1E9F2', padding: 18, flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <FAIcon name='square' style={{ fill: '#0B3D91', width: 34, height: 34 }} />
+                        <Text style={{ fontSize: 13, color: '#00A0C4', fontWeight: 'bold', background: '#DCF3F9', padding: '3px 9px', borderRadius: 10 }}>迁移</Text>
+                    </Box>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>玻璃建材</Text>
+                        <Text style={{ fontSize: 14.5, color: '#5C6E82', lineHeight: 1.5, marginTop: 5 }}>浮法玻璃气泡、结石、划伤，陶瓷砖面裂纹 —— 大面积高反光表面。</Text>
+                    </Box>
+                </Box>
+            </Box>
+
+        </Box>
+    </Box>
+
+    {/* C 区 页脚 */}
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 应用场景与落地地图</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>05 / 12</Text>
+    </Box>
+
+</Slide>

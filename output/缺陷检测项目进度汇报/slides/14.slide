@@ -1,0 +1,50 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#061428', overflow: 'hidden' }}>
+
+    <svg width={1280} height={720} viewBox='0 0 1280 720' style={{ position: 'absolute', top: 0, left: 0 }}>
+        <defs>
+            <linearGradient id='q14bg' x1='0' y1='0' x2='1' y2='1'>
+                <stop offset='0%' stopColor='#0A2C68' />
+                <stop offset='50%' stopColor='#08265A' />
+                <stop offset='100%' stopColor='#061428' />
+            </linearGradient>
+            <radialGradient id='q14g' cx='0.5' cy='0.46' r='0.55'>
+                <stop offset='0%' stopColor='#00B4D8' stopOpacity='0.28' />
+                <stop offset='100%' stopColor='#00B4D8' stopOpacity='0' />
+            </radialGradient>
+            <linearGradient id='q14line' x1='0' y1='0' x2='1' y2='0'>
+                <stop offset='0%' stopColor='#FF7A18' stopOpacity='0' />
+                <stop offset='50%' stopColor='#00B4D8' stopOpacity='0.9' />
+                <stop offset='100%' stopColor='#FF7A18' stopOpacity='0' />
+            </linearGradient>
+        </defs>
+        <rect x='0' y='0' width='1280' height='720' fill='url(#q14bg)' />
+        <rect x='0' y='0' width='1280' height='720' fill='url(#q14g)' />
+        {/* 光带 */}
+        <rect x='0' y='196' width='1280' height='2' fill='url(#q14line)' opacity='0.5' />
+        <rect x='0' y='524' width='1280' height='2' fill='url(#q14line)' opacity='0.5' />
+        {/* 巨型 39 水印 */}
+        <text x='640' y='470' fontSize='460' fontWeight='bold' fill='#FFFFFF' fillOpacity='0.04' textAnchor='middle' fontFamily='Inter, sans-serif'>39</text>
+        <rect x='0' y='712' width='1280' height='8' fill='#FF7A18' />
+        <rect x='440' y='712' width='400' height='8' fill='#00B4D8' />
+    </svg>
+
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingLeft: 120, paddingRight: 120 }}>
+
+        <Text style={{ fontSize: 61, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 1.25, textAlign: 'center', letterSpacing: 2 }}>
+            让每一条产线都看得见缺陷
+        </Text>
+
+        <Box style={{ width: 90, height: 4, background: '#00B4D8', marginTop: 34, marginBottom: 34 }} />
+
+        <Text style={{ fontSize: 21, color: '#A9C2E0', textAlign: 'center', lineHeight: 1.7 }}>
+            39 类缺陷覆盖 · 128ms 单帧推理 · 3.0s 断流自愈
+        </Text>
+
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 40 }}>
+            <Box style={{ width: 40, height: 3, background: '#FF7A18' }} />
+            <Text style={{ fontSize: 17, color: '#8FAED0', letterSpacing: 2 }}>缺陷检测项目组 · 2026-10</Text>
+            <Box style={{ width: 40, height: 3, background: '#FF7A18' }} />
+        </Box>
+    </Box>
+
+</Slide>

@@ -1,0 +1,51 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#071A36', overflow: 'hidden' }}>
+
+    <svg width={1280} height={720} viewBox='0 0 1280 720' style={{ position: 'absolute', top: 0, left: 0 }}>
+        <defs>
+            <linearGradient id='q3bg' x1='0' y1='0' x2='1' y2='1'>
+                <stop offset='0%' stopColor='#0B3D91' />
+                <stop offset='55%' stopColor='#0A2C68' />
+                <stop offset='100%' stopColor='#061428' />
+            </linearGradient>
+            <radialGradient id='q3glow' cx='0.84' cy='0.30' r='0.55'>
+                <stop offset='0%' stopColor='#00B4D8' stopOpacity='0.42' />
+                <stop offset='100%' stopColor='#00B4D8' stopOpacity='0' />
+            </radialGradient>
+        </defs>
+        <rect x='0' y='0' width='1280' height='720' fill='url(#q3bg)' />
+        <rect x='0' y='0' width='1280' height='720' fill='url(#q3glow)' />
+        <g stroke='#4E8BD6' strokeOpacity='0.13' strokeWidth='1'>
+            <line x1='0' y1='180' x2='1280' y2='180' />
+            <line x1='0' y1='360' x2='1280' y2='360' />
+            <line x1='0' y1='540' x2='1280' y2='540' />
+            <line x1='320' y1='0' x2='320' y2='720' />
+            <line x1='640' y1='0' x2='640' y2='720' />
+            <line x1='960' y1='0' x2='960' y2='720' />
+        </g>
+        <text x='1000' y='600' fontSize='520' fontWeight='bold' fill='#FFFFFF' fillOpacity='0.05' textAnchor='middle' fontFamily='Inter, sans-serif'>01</text>
+        <rect x='0' y='712' width='1280' height='8' fill='#FF7A18' />
+        <rect x='0' y='712' width='420' height='8' fill='#00B4D8' />
+    </svg>
+
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, paddingLeft: 96, paddingTop: 236, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 18 }}>
+            <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#00B4D8', letterSpacing: 3 }}>CHAPTER 01</Text>
+            <Box style={{ width: 90, height: 2, background: 'rgba(255,255,255,0.25)' }} />
+        </Box>
+        <Text style={{ marginTop: 26, fontSize: 66, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 1.15, letterSpacing: 2 }}>
+            开发进度：五个阶段
+        </Text>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 34 }}>
+            <Box style={{ width: 6, height: 34, background: '#FF7A18' }} />
+            <Text style={{ fontSize: 25, color: '#BFD6EC', letterSpacing: 1 }}>
+                数据、模型、部署、上位机、论文 —— 一条主线走到底。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 96, bottom: 30, width: 1088, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#6E8BB0' }}>03 / 14</Text>
+    </Box>
+
+</Slide>

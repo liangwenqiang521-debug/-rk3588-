@@ -1,0 +1,72 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 40, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#0B3D91' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>五个阶段，完成度一览</Text>
+        <Text style={{ fontSize: 16, color: '#8B9AAB', marginLeft: 12, marginTop: 8 }}>自评口径 · 截至 2026-10-09</Text>
+    </Box>
+
+    {/* B 区 */}
+    <Box style={{ position: 'absolute', top: 130, left: 84, width: 1112, height: 508, flexDirection: 'row', gap: 36 }}>
+
+        {/* 左：横向条形图 */}
+        <Box style={{ width: 632, height: 508, flexDirection: 'column' }}>
+            <Box style={{ width: '100%', height: 452 }}>
+                <Chart
+                    style={{ width: '100%', height: 452 }}
+                    chartType='barChart'
+                    barDirection='bar'
+                    grouping='clustered'
+                    showLegend={false}
+                    showDataLabels={true}
+                    axisColor='#9AA9B8'
+                    dataLabelColor='#0B1C33'
+                    colors={['linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)']}
+                    background='#FFFFFF'
+                    data={[
+                        ['阶段', '完成度'],
+                        ['数据准备（25689 图）', 100],
+                        ['模型训练（39 类）', 100],
+                        ['边缘部署（RK3588）', 100],
+                        ['上位机集成（6 页）', 100],
+                        ['论文撰写（v2）', 60],
+                    ]}
+                />
+            </Box>
+        </Box>
+
+        {/* 右：洞察 */}
+        <Box style={{ width: 444, height: 508, flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            <Box style={{ background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 12, padding: 22, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2 }}>数据准备 · 100%</Text>
+                <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 10 }}>
+                    钢材表面缺陷数据集 25689 张已完成清洗、标注与三方索引一致性校验，train/val 划分就绪。
+                </Text>
+            </Box>
+
+            <Box style={{ background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 12, padding: 22, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#0B3D91', letterSpacing: 2 }}>模型 / 部署 / 上位机 · 100%</Text>
+                <Text style={{ fontSize: 16, color: '#5C6E82', lineHeight: 1.6, marginTop: 10 }}>
+                    39 类模型已训练并转 RKNN 上板，上位机六页闭环 + 断流自愈全部实测通过 —— 技术主线贯通。
+                </Text>
+            </Box>
+
+            <Box style={{ background: 'linear-gradient(120deg, #0B3D91 0%, #0A5BB5 100%)', borderRadius: 12, padding: 22, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#7FD4E8', letterSpacing: 2 }}>论文撰写 · 60%</Text>
+                <Text style={{ fontSize: 16, color: '#E4EDF8', lineHeight: 1.6, marginTop: 10 }}>
+                    v2 初稿已生成，待补负样本消融实验与本次应用场景章节。→ 剩余工作集中在「论文收口 + 场景验证」。
+                </Text>
+            </Box>
+
+        </Box>
+    </Box>
+
+    {/* C 区 */}
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>04 / 14</Text>
+    </Box>
+
+</Slide>

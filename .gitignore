@@ -146,3 +146,17 @@ id_rsa
 id_ed25519
 _cacert.pem
 serial_rx.log
+
+# ---------- 防止误提交的超大目录与工具缓存 ----------
+# 39 类扩展数据集（~2.1 GB，绝不可入 Git；本机用 data_steel39.yaml 指向它）
+缺陷检测扩展/
+# 推理缓存（可由 tools/ 脚本重建）
+模型训练/_val_preds_conf001.pkl
+*.pkl
+# 讲稿生成工具的工作缓存与素材（成品 .pptx 已提交，素材内嵌其中）
+output/*/.cache/
+output/*/.slidep/
+output/*/assets/
+output/*/_preview/
+# 沙箱/渲染临时目录
+_tmp_render/

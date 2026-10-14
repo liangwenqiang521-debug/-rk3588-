@@ -1,0 +1,104 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+
+    {/* A 区 */}
+    <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 120, paddingLeft: 84, paddingTop: 40, flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 5, height: 36, background: '#FF7A18' }} />
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#0B1C33' }}>还差什么，下一步做什么</Text>
+    </Box>
+
+    {/* B 区 65:35 */}
+    <Box style={{ position: 'absolute', top: 132, left: 84, width: 1112, height: 506, flexDirection: 'row', gap: 26 }}>
+
+        {/* 左 65%：遗留问题 */}
+        <Box style={{ width: 706, height: 506, background: '#F4F7FB', border: '1px solid #E1E9F2', borderRadius: 14, padding: 26, flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                <FAIcon name='exclamation-triangle' style={{ fill: '#FF7A18', width: 26, height: 26 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#0B1C33' }}>遗留问题（如实列出）</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FF7A18', width: 26, paddingTop: 2 }}>①</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B1C33' }}>背景误报未压制</Text>
+                    <Text style={{ fontSize: 15, color: '#5C6E82', lineHeight: 1.55, marginTop: 4 }}>
+                        inclusion / bright_scratch 存在背景误报（FP 623 / 328），39 类 per-class 阈值尚未标定。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FF7A18', width: 26, paddingTop: 2 }}>②</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B1C33' }}>弱类召回偏低</Text>
+                    <Text style={{ fontSize: 15, color: '#5C6E82', lineHeight: 1.55, marginTop: 4 }}>
+                        waist_folding / crease / warp 三类 F1 低于 0.5，属模型特征问题，需换数据源而非调参。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FF7A18', width: 26, paddingTop: 2 }}>③</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B1C33' }}>负样本误检未实测</Text>
+                    <Text style={{ fontSize: 15, color: '#5C6E82', lineHeight: 1.55, marginTop: 4 }}>
+                        39 类模型无负样本级联保护，干净样本上的板端误检率尚未实测（建议补 DAGM 类工况测试）。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ height: 1, background: '#E3EAF2' }} />
+
+            <Box style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#FF7A18', width: 26, paddingTop: 2 }}>④</Text>
+                <Box style={{ flexDirection: 'column', flex: 1 }}>
+                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#0B1C33' }}>文档口径滞后</Text>
+                    <Text style={{ fontSize: 15, color: '#5C6E82', lineHeight: 1.55, marginTop: 4 }}>
+                        板端 README 仍按旧"双模型级联 6 类"描述，需同步为 39 类单模型口径。
+                    </Text>
+                </Box>
+            </Box>
+        </Box>
+
+        {/* 右 35%：下一步 */}
+        <Box style={{ width: 380, height: 506, background: 'linear-gradient(150deg, #0B3D91 0%, #06224E 100%)', borderRadius: 14, padding: 26, flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                <FAIcon name='rocket' style={{ fill: '#00B4D8', width: 26, height: 26 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#FFFFFF' }}>下一步行动</Text>
+            </Box>
+
+            <Box style={{ flexDirection: 'column', gap: 16 }}>
+                <Box style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
+                    <Box style={{ width: 6, height: 6, borderRadius: 3, background: '#00B4D8', marginTop: 8 }} />
+                    <Text style={{ fontSize: 15.5, color: '#DCE8F7', lineHeight: 1.55, flex: 1 }}>39 类 cal 阈值标定，压制背景误报</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
+                    <Box style={{ width: 6, height: 6, borderRadius: 3, background: '#00B4D8', marginTop: 8 }} />
+                    <Text style={{ fontSize: 15.5, color: '#DCE8F7', lineHeight: 1.55, flex: 1 }}>补负样本误检实测，量化域外泛化</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
+                    <Box style={{ width: 6, height: 6, borderRadius: 3, background: '#00B4D8', marginTop: 8 }} />
+                    <Text style={{ fontSize: 15.5, color: '#DCE8F7', lineHeight: 1.55, flex: 1 }}>论文补负样本消融 + 应用场景章节</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
+                    <Box style={{ width: 6, height: 6, borderRadius: 3, background: '#FF7A18', marginTop: 8 }} />
+                    <Text style={{ fontSize: 15.5, color: '#FFFFFF', lineHeight: 1.55, flex: 1, fontWeight: 'bold' }}>真实产线实拍验证（PoC 试跑）</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ borderTop: '1px solid rgba(255,255,255,0.18)', paddingTop: 16, flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+                <Text style={{ fontSize: 42, fontWeight: 'bold', color: '#FF7A18', lineHeight: 0.9 }}>4</Text>
+                <Text style={{ fontSize: 15, color: '#A9C2E0', paddingBottom: 4 }}>项行动已排期</Text>
+            </Box>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', left: 84, bottom: 22, width: 1112, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>工业表面缺陷检测系统 · 开发进度汇报</Text>
+        <Text style={{ fontSize: 14, color: '#9AA9B8' }}>13 / 14</Text>
+    </Box>
+
+</Slide>
