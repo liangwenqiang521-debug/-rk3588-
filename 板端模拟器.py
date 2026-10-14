@@ -64,6 +64,39 @@ CLASSES = [
     "oil_spot",         # 油污
     "water_spot",       # 水渍
     "rust",             # 锈蚀
+    # ---- 09-28 扩展：39 类体系新增类（来源 缺陷检测扩展/data.yaml）----
+    "bright_scratch",           # 亮划痕
+    "crease",                   # 折痕
+    "crescent_gap",             # 月牙缺口
+    "dark_scratches",           # 暗划痕
+    "finishing_roll_printing",  # 精轧辊印
+    "iron_scale_compression",   # 氧化铁皮压入
+    "iron_sheet_ash",           # 铁皮灰
+    "oxide_scale_plate",        # 板系氧化铁皮
+    "oxide_scale_temp",         # 温系氧化铁皮
+    "punching",                 # 冲孔
+    "red_iron_sheet",           # 红斑铁皮
+    "rolled_pit",               # 轧制凹坑
+    "secondary_rust_skin",      # 二次锈皮
+    "silk_spot",                # 丝斑
+    "slag_inclusion",           # 夹渣
+    "waist_folding",            # 腰部折痕
+    "welding_line",             # 焊缝线
+    "white_rust",               # 白锈
+    "cutting_opening",          # 切边开口
+    "water_slag_mark",          # 水渣痕
+    "slag_skin",                # 渣皮
+    "longitudinal_crack",       # 纵向裂纹
+    "warp",                     # 翘曲
+    "external_fold",            # 外折
+    "wrinkle",                  # 褶皱
+    "blocky_scale",             # 块状氧化铁皮
+    "striated_scale",           # 条纹氧化铁皮
+    "foreign_obj",              # 异物
+    "blowhole",                 # 气孔
+    "break",                    # 断裂
+    "fray",                     # 散边毛刺
+    "uneven",                   # 厚薄不均
 ]
 
 IMG_W, IMG_H = 640, 640

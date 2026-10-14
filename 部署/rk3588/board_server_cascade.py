@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-"""RK3588 板端 NPU 推理服务 —— 双模型级联版（TCP 9000）
+"""RK3588 板端 NPU 推理服务（TCP 9000）
 
-级联策略（解决「负样本误检归零 vs 真实缺陷 top1 掉 2.2pt」的 tradeoff）：
+09-10-09 现状：**默认单模型**，主力 = 39 类钢材表面缺陷模型 best_steel39_640.rknn。
+  单模型模式（默认）：只跑主模型，直接输出 39 类缺陷框。
+  ⚠️ 旧的双模型级联（negdagm 过滤器 + 6 类主力）已不用于 39 类，原因：
+     negdagm 过滤器只认 NEU 6 类，做 39 类的「有无缺陷」闸门会漏判其余 33 类。
+  需要回到 NEU 6 类级联时，启动加 `--filter`：
+     python3 board_server_cascade.py 9000 --filter
+     （此时 NAMES/PER_CLASS_THRES 也要一并改回 6 类口径）
+
+级联模式（--filter）原本的策略，供参考：
   - 过滤器模型 = negdagm（负样本重训）：对无缺陷图 0% 误检，但真实缺陷 top1 95.6%
   - 判类主力模型 = _640（基线）：真实缺陷 top1 97.8%，但无缺陷图 64.4% 误检
 
-推理逻辑（每张图）：
-  1. 先跑 negdagm（过滤器）：若无缺陷（0 框）→ 直接返回 ok=True（流水线常态快速通过）
-  2. 若有缺陷 → 再跑 _640（判类主力）→ 返回 _640 的缺陷框（保住 top1 97.8%）
-
-代价：有缺陷图延迟翻倍（~140ms），无缺陷图延迟不变（~70ms）。
-
-启动: python3 /root/rknn/board_server_cascade.py [port]
+启动: python3 /root/rknn/board_server_cascade.py [port] [--filter]
 
 协议（逐行 JSON，UTF-8 + \n，与 board_server.py 完全一致）：
   检测结果: {"frame":12,"ok":false,
@@ -30,43 +32,36 @@ SAMPLES = os.path.join(WORK, 'samples')
 # 09-21 扩展了工业常见类与表面处理类，供「扩类模型」直接复用本服务：
 #   若加载的是扩类 rknn，把 NAMES 整体换成扩类 names（顺序同导出时）即可，
 #   协议与上位机零改动（上位机按索引取中文名，未登记的名字原样显示）。
-NAMES = ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches']
-
-# 扩展类别表（NAMES 的备选集，扩类模型按需取前 N 项；顺序即训练时的 names 顺序）
+# 39 类工业钢材表面缺陷全集，来源 缺陷检测扩展/data.yaml（production v2.1）。
+# 顺序 = data.yaml 的 ids = 模型输出索引，与上位机 infer.CLASSES_39 严格一致，勿改顺序。
 NAMES_EXT = [
-    # 工业常见扩展类
-    'edge_crack', 'scab', 'pitting', 'roll_mark', 'wavy_edge', 'oxide_scale',
-    # 表面处理类
-    'stain', 'oil_spot', 'water_spot', 'rust',
+    'bright_scratch', 'crazing', 'crease', 'crescent_gap', 'dark_scratches',
+    'finishing_roll_printing', 'inclusion', 'iron_scale_compression', 'iron_sheet_ash',
+    'oil_spot', 'oxide_scale_plate', 'oxide_scale_temp', 'patches', 'pitted_surface',
+    'punching', 'red_iron_sheet', 'rolled-in_scale', 'rolled_pit', 'secondary_rust_skin',
+    'silk_spot', 'slag_inclusion', 'waist_folding', 'water_spot', 'welding_line',
+    'white_rust', 'cutting_opening', 'water_slag_mark', 'slag_skin', 'longitudinal_crack',
+    'warp', 'external_fold', 'wrinkle', 'blocky_scale', 'striated_scale', 'foreign_obj',
+    'blowhole', 'break', 'fray', 'uneven',
 ]
 
-# 两个模型文件（都在 /root/rknn/ 下，用绝对路径）
-FILTER_MODEL = '/root/rknn/negdagm_filter.rknn'   # 过滤器：negdagm 权重（无缺陷 0% 误检）
-MAIN_MODEL    = '/root/rknn/best_neu6_640.rknn'   # 判类主力：_640 基线（top1 97.8%）
+# 09-10-09：板端主力已切换为 39 类模型，NAMES 即模型输出索引顺序（勿动）。
+NAMES = list(NAMES_EXT)
 
-PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 9000
+# 模型文件（都在 /root/rknn/ 下，绝对路径）
+# negdagm 过滤器只认 NEU 6 类，拿它给 39 类做「有无缺陷」闸门会漏判其余 33 类，
+# 故 39 类部署默认关闭过滤器（单模型）。需回到 NEU 6 类级联时启动加 --filter。
+FILTER_MODEL = '/root/rknn/negdagm_filter.rknn'
+MAIN_MODEL    = '/root/rknn/best_steel39_640.rknn'
+if '--filter' not in sys.argv:
+    FILTER_MODEL = None
 
-# per-class 阈值表（与 board_server.py 一致，_640 判类用）
-# 未登记的类别自动回落到 CONF_THRES。
-PER_CLASS_THRES = {
-    'crazing': 0.25,            # 09-20 阈值扫描：F1 +0.024（vs 0.20）
-    'inclusion': 0.16,
-    'patches': 0.20,
-    'pitted_surface': 0.20,
-    'rolled-in_scale': 0.20,
-    'scratches': 0.30,
-    # 扩展类暂用统一 0.20（无 cal 数据可扫，先保守取值，扩类训练后再扫）
-    'edge_crack': 0.20,
-    'scab': 0.20,
-    'pitting': 0.20,
-    'roll_mark': 0.20,
-    'wavy_edge': 0.20,
-    'oxide_scale': 0.20,
-    'stain': 0.20,
-    'oil_spot': 0.20,
-    'water_spot': 0.20,
-    'rust': 0.20,
-}
+PORT = next((int(a) for a in sys.argv[1:] if a.isdigit()), 9000)
+
+# per-class 阈值表。空 = 全部回落到 CONF_THRES。
+# 09-10-09：旧值是 NEU 6 类 cal 集扫出来的，对 39 类未标定，故清空；
+# 待 39 类 cal 集标定后再填（键名用 NAMES_EXT 里的 snake_case）。
+PER_CLASS_THRES = {}
 CONF_THRES = 0.20
 IOU_THRES = 0.45
 
@@ -213,13 +208,24 @@ class BoardServerCascade:
         return rk
 
     def init_npu(self):
-        """同时加载两个模型。"""
-        self.rknn_filter = self._init_one(FILTER_MODEL, 'filter/negdagm')
-        self.rknn_main = self._init_one(MAIN_MODEL, 'main/_640')
+        """加载模型。FILTER_MODEL 为 None 时只加载主模型（单模型模式，39 类用）。"""
+        if FILTER_MODEL:
+            self.rknn_filter = self._init_one(FILTER_MODEL, 'filter/negdagm')
+        else:
+            self.rknn_filter = None
+            print('单模型模式：跳过过滤器，只用主模型')
+        self.rknn_main = self._init_one(MAIN_MODEL, 'main/steel39')
 
     def _cascade_infer(self, x):
-        """级联推理：先 negdagm 判有无缺陷，有缺陷再用 _640 精判。
-        返回 (defects, filter_ms, total_ms)。"""
+        """推理入口。返回 (defects, filter_ms, total_ms)。
+        单模型模式（39 类）：直接跑主模型；
+        级联模式（--filter，NEU 6 类）：先 negdagm 判有无缺陷，有缺陷再精判。"""
+        if self.rknn_filter is None:
+            t0 = time.time()
+            y = self.rknn_main.inference(inputs=[x])
+            ms = (time.time() - t0) * 1000
+            self.last_ms = ms
+            return postprocess(y[0]), 0.0, ms
         # 第一步：过滤器（negdagm）判有无缺陷
         t0 = time.time()
         y = self.rknn_filter.inference(inputs=[x])
@@ -350,7 +356,7 @@ class BoardServerCascade:
             'mem_available': mem_avail,
             'fps': round(1000.0 / self.last_ms, 1) if self.last_ms > 0 else 0,
             'infer_ms': round(self.last_ms, 1),
-            'model': 'cascade(negdagm+_640)',
+            'model': 'cascade(negdagm+steel39)' if self.rknn_filter else 'single(steel39)',
         }
 
     def infer_loop(self):
