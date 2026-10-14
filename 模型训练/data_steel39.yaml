@@ -1,0 +1,93 @@
+# 39 类钢板表面缺陷 · 本机训练配置
+# 由 模型训练/_prepare_steel39.py 生成，请勿手改（改请改生成脚本）
+#
+# names 用 snake_case —— 必须与 infer.CLASSES_39 / 板端 NAMES_EXT 逐位一致。
+# 原因：上位机 infer.py 取「模型内嵌类名」去查 NAME_ZH / CLASS_COLORS，
+#       写成 'Bright scratch' 这类显示名会导致中文名与配色查表落空。
+# 标签文件存的是索引，故 names 只影响模型元数据，不影响训练本身。
+#
+#  idx  key                        显示名                          中文
+#    0  bright_scratch             Bright scratch                 亮划痕
+#    1  crazing                    Crazing                        龟裂
+#    2  crease                     Crease                         折痕
+#    3  crescent_gap               Crescent gap                   月牙缺口
+#    4  dark_scratches             Dark scratches                 暗划痕
+#    5  finishing_roll_printing    Finishing roll printing        精轧辊印
+#    6  inclusion                  Inclusion                      夹杂物
+#    7  iron_scale_compression     Iron scale compression         氧化铁皮压入
+#    8  iron_sheet_ash             Iron sheet ash                 铁皮灰
+#    9  oil_spot                   Oil spot                       油污
+#   10  oxide_scale_plate          Oxide scale of plate system    板系氧化铁皮
+#   11  oxide_scale_temp           Oxide scale of temperature system 温系氧化铁皮
+#   12  patches                    Patches                        斑块
+#   13  pitted_surface             Pitted surface                 麻面
+#   14  punching                   Punching                       冲孔
+#   15  red_iron_sheet             Red iron sheet                 红斑铁皮
+#   16  rolled-in_scale            Rolled in scale                轧入氧化皮
+#   17  rolled_pit                 Rolled pit                     轧制凹坑
+#   18  secondary_rust_skin        Secondary rust skin            二次锈皮
+#   19  silk_spot                  Silk spot                      丝斑
+#   20  slag_inclusion             Slag inclusion                 夹渣
+#   21  waist_folding              Waist folding                  腰部折痕
+#   22  water_spot                 Water spot                     水渍
+#   23  welding_line               Welding line                   焊缝线
+#   24  white_rust                 White rust                     白锈
+#   25  cutting_opening            cutting_opening                切边开口
+#   26  water_slag_mark            water_slag_mark                水渣痕
+#   27  slag_skin                  slag_skin                      渣皮
+#   28  longitudinal_crack         longitudinal_crack             纵向裂纹
+#   29  warp                       warp                           翘曲
+#   30  external_fold              external_fold                  外折
+#   31  wrinkle                    wrinkle                        褶皱
+#   32  blocky_scale               blocky_scale                   块状氧化铁皮
+#   33  striated_scale             striated_scale                 条纹氧化铁皮
+#   34  foreign_obj                foreign_obj                    异物
+#   35  blowhole                   blowhole                       气孔
+#   36  break                      break                          断裂
+#   37  fray                       fray                           散边毛刺
+#   38  uneven                     uneven                         厚薄不均
+
+path: D:/workbuddy/缺陷检测项目/缺陷检测扩展
+train: images/train
+val: images/val
+nc: 39
+names:
+  - bright_scratch
+  - crazing
+  - crease
+  - crescent_gap
+  - dark_scratches
+  - finishing_roll_printing
+  - inclusion
+  - iron_scale_compression
+  - iron_sheet_ash
+  - oil_spot
+  - oxide_scale_plate
+  - oxide_scale_temp
+  - patches
+  - pitted_surface
+  - punching
+  - red_iron_sheet
+  - rolled-in_scale
+  - rolled_pit
+  - secondary_rust_skin
+  - silk_spot
+  - slag_inclusion
+  - waist_folding
+  - water_spot
+  - welding_line
+  - white_rust
+  - cutting_opening
+  - water_slag_mark
+  - slag_skin
+  - longitudinal_crack
+  - warp
+  - external_fold
+  - wrinkle
+  - blocky_scale
+  - striated_scale
+  - foreign_obj
+  - blowhole
+  - break
+  - fray
+  - uneven

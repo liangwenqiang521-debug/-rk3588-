@@ -64,7 +64,16 @@ PER_CLASS_MIN = 5            # 每类至少挑几张
 # 若某扩展类在库中无记录，抽样函数会自动跳过（不影响原有 6 类回流）。
 CLASSES = ['crazing', 'inclusion', 'patches', 'pitted_surface', 'rolled-in_scale', 'scratches',
            'edge_crack', 'scab', 'pitting', 'roll_mark', 'wavy_edge', 'oxide_scale',
-           'stain', 'oil_spot', 'water_spot', 'rust']
+           'stain', 'oil_spot', 'water_spot', 'rust',
+           # 09-28 扩展：39 类体系新增类（来源 缺陷检测扩展/data.yaml）
+           'bright_scratch', 'crease', 'crescent_gap', 'dark_scratches',
+           'finishing_roll_printing', 'iron_scale_compression', 'iron_sheet_ash',
+           'oxide_scale_plate', 'oxide_scale_temp', 'punching', 'red_iron_sheet',
+           'rolled_pit', 'secondary_rust_skin', 'silk_spot', 'slag_inclusion',
+           'waist_folding', 'welding_line', 'white_rust', 'cutting_opening',
+           'water_slag_mark', 'slag_skin', 'longitudinal_crack', 'warp',
+           'external_fold', 'wrinkle', 'blocky_scale', 'striated_scale',
+           'foreign_obj', 'blowhole', 'break', 'fray', 'uneven']
 
 
 def query_low_confidence_records(conn, since_iso, target):

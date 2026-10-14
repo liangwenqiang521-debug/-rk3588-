@@ -1,0 +1,97 @@
+# 39 类钢板表面缺陷 · cal/holdout 评测配置
+# 由 模型训练/_make_split.py --mode calholdout 生成，请勿手改
+# seed=20261012   生成日期：2026-10-12
+#
+# 用途：per-class 阈值标定（**只用于评测，不要拿去训练**）
+#   val  = cal      → 在它上面扫阈值、挑阈值
+#   test = holdout  → 只用来报最终数字（一旦用它调过参就不再是 holdout）
+#
+# 注意：cal/holdout 各只有原 val 的一半，所以逐类框数少的类仍不可标定。
+#
+#  idx  key                        框数(G1)  框数(G2)   G1占比
+#    0  bright_scratch                  539       471    53.4%
+#    1  crazing                         267       262    50.5%
+#    2  crease                           30        35    46.2%
+#    3  crescent_gap                     54        52    50.9%
+#    4  dark_scratches                  156       108    59.1%
+#    5  finishing_roll_printing          63        55    53.4%
+#    6  inclusion                       883       841    51.2%
+#    7  iron_scale_compression           27        27    50.0%
+#    8  iron_sheet_ash                   85        54    61.2%
+#    9  oil_spot                        285       305    48.3%
+#   10  oxide_scale_plate                 9         9    50.0%
+#   11  oxide_scale_temp                 30        30    50.0%
+#   12  patches                         432       429    50.2%
+#   13  pitted_surface                  343       404    45.9%
+#   14  punching                         83        82    50.3%
+#   15  red_iron_sheet                   60        59    50.4%
+#   16  rolled-in_scale                 280       274    50.5%
+#   17  rolled_pit                       27        25    51.9%
+#   18  secondary_rust_skin              85        68    55.6%
+#   19  silk_spot                       153       151    50.3%
+#   20  slag_inclusion                  140       167    45.6%
+#   21  waist_folding                    90       107    45.7%
+#   22  water_spot                      224       215    51.0%
+#   23  welding_line                    110       109    50.2%
+#   24  white_rust                      113       119    48.7%
+#   25  cutting_opening                  12        11    52.2%
+#   26  water_slag_mark                  15        14    51.7%
+#   27  slag_skin                        22        19    53.7%
+#   28  longitudinal_crack               15        13    53.6%
+#   29  warp                             12        12    50.0%
+#   30  external_fold                    13        12    52.0%
+#   31  wrinkle                          28        18    60.9%
+#   32  blocky_scale                     13        12    52.0%
+#   33  striated_scale                   11        11    50.0%
+#   34  foreign_obj                      16        17    48.5%
+#   35  blowhole                        113       112    50.2%
+#   36  break                           163       180    47.5%
+#   37  fray                            124       122    50.4%
+#   38  uneven                           45        45    50.0%
+#  ---  合计                            5170      5056    50.6%
+
+path: D:/workbuddy/缺陷检测项目/缺陷检测扩展
+train: D:/workbuddy/缺陷检测项目/缺陷检测扩展/images/train
+val: D:/workbuddy/缺陷检测项目/模型训练/splits/val_cal.txt
+test: D:/workbuddy/缺陷检测项目/模型训练/splits/val_holdout.txt
+nc: 39
+names:
+  - bright_scratch
+  - crazing
+  - crease
+  - crescent_gap
+  - dark_scratches
+  - finishing_roll_printing
+  - inclusion
+  - iron_scale_compression
+  - iron_sheet_ash
+  - oil_spot
+  - oxide_scale_plate
+  - oxide_scale_temp
+  - patches
+  - pitted_surface
+  - punching
+  - red_iron_sheet
+  - rolled-in_scale
+  - rolled_pit
+  - secondary_rust_skin
+  - silk_spot
+  - slag_inclusion
+  - waist_folding
+  - water_spot
+  - welding_line
+  - white_rust
+  - cutting_opening
+  - water_slag_mark
+  - slag_skin
+  - longitudinal_crack
+  - warp
+  - external_fold
+  - wrinkle
+  - blocky_scale
+  - striated_scale
+  - foreign_obj
+  - blowhole
+  - break
+  - fray
+  - uneven
