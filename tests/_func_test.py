@@ -314,16 +314,11 @@ try:
 except Exception as e:
     report("T14 NG日志降级+去重", False, traceback.format_exc()[-200:])
 
-# ---------- T15 A1/A2/A3 参数贯通 + 过滤逻辑 ----------
+# ---------- T15 A1/A2 参数贯通 + 过滤逻辑 ----------
 try:
     # A1: UI 控件存在且磁盘默认配置 iou=0.35（新建 Config 读磁盘，避开 dp.cfg 内存态污染）
     cfg_iou_disk = type(dp.cfg)().get("model", "iou")
     ok_a1 = hasattr(dp, "ed_iou") and cfg_iou_disk == "0.35"
-    # A3: ROI 几何过滤（中心在 ROI 内保留，外丢弃）
-    d_in = {"xyxy": [0.40, 0.45, 0.50, 0.55]}   # 中心(0.45,0.50) 在 ROI1 内
-    d_out = {"xyxy": [0.02, 0.02, 0.08, 0.08]}  # 中心(0.05,0.05) 在 ROI 外
-    roi_ok = (dp._defect_in_roi(d_in, [(0.18, 0.10, 0.64, 0.80)])
-              and not dp._defect_in_roi(d_out, [(0.18, 0.10, 0.64, 0.80)]))
     # A2: min_area 真正过滤（mock 推理后端，验证参数已贯通到 predict_cv2）
     import numpy as np
     class _B:
@@ -343,11 +338,11 @@ try:
     n0 = len(det.predict_cv2(fake_img, conf=0.25, iou=0.45, min_area=0))
     n1 = len(det.predict_cv2(fake_img, conf=0.25, iou=0.45, min_area=200))
     area_ok = (n0 == 2 and n1 == 1)
-    ok = bool(ok_a1 and roi_ok and area_ok)
+    ok = bool(ok_a1 and area_ok)
     has_ed = hasattr(dp, "ed_iou")
-    report("T15 A1/A2/A3", ok, "ed_iou=%s cfg_iou_disk=%r roi=%s minarea=%s" % (has_ed, cfg_iou_disk, roi_ok, area_ok))
+    report("T15 A1/A2", ok, "ed_iou=%s cfg_iou_disk=%r minarea=%s" % (has_ed, cfg_iou_disk, area_ok))
 except Exception as e:
-    report("T15 A1/A2/A3", False, traceback.format_exc()[-200:])
+    report("T15 A1/A2", False, traceback.format_exc()[-200:])
 
 # ---------- T16 边缘模式：板端 JSON -> 画布渲染 ----------
 try:

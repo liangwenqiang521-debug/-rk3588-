@@ -43,6 +43,9 @@ DEFAULTS = {
     "edge": {
         "mode": "serial", "host": "", "port": "9000",
         "auto_connect": True,
+        # 10-09：把存图/入库等重 IO 丢到后台线程池，避免边缘高帧率时主线程被磁盘拖慢。
+        # 需回退到"主线程同步落盘"时改 False。
+        "async_io": True,
     },
     "trigger": {
         "mode": "PLC 触发", "delay": "0", "ng_output": True,

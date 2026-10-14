@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """实时检测页：检测结果写入数据库 + 日志 + 状态栏联动"""
 import os
+import threading
 import time
 from pathlib import Path
-from PyQt5.QtCore import Qt, QTimer, QDateTime, QThread, pyqtSignal
+from PyQt5.QtCore import (Qt, QTimer, QDateTime, QThread, pyqtSignal,
+                          QThreadPool, QRunnable, QObject)
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel, QPushButton,
@@ -73,6 +75,63 @@ try:
 except Exception:
     _HAS_CV2 = False
     cv2 = None
+
+
+class _IoSignals(QObject):
+    # 后台重 IO 完成后回主线程的信号：(时间戳, 记录是否已入库)
+    done = pyqtSignal(str, bool)
+
+
+class _IoTask(QRunnable):
+    """后台重 IO：把 NG 帧写盘 + 检测记录入库，搬离 GUI 主线程。
+
+    背景（10-09）：边缘 10fps 时，`_on_edge_result` → `_apply_real_result` 在**主线程**
+    做 `cv2.imwrite` + SQLite insert；磁盘或 DB 一慢就拖住渲染，表现为"画面发涩/卡顿"。
+    现在起，写盘与入库丢给 QThreadPool，主线程只负责画布与统计。
+
+    说明：
+    - SQLite 连接在 `db.RecordDB.__init__` 里已用 `check_same_thread=False`，
+      且下方 `_db_lock` 串行化写入，跨线程安全。
+    - 磁盘清理（disk_guard）仍在主线程执行（内部有 60s 节流、代价低），
+      避免在子线程里和写盘竞态。
+    """
+
+    def __init__(self, db, db_lock, save_dir, path, blob, product, result,
+                 defect_type, area, confidence, disk_thr=10.0):
+        super().__init__()
+        self.signals = _IoSignals()
+        self.db = db
+        self.db_lock = db_lock
+        self.save_dir = save_dir
+        self.path = path
+        self.blob = blob
+        self.product = product
+        self.result = result
+        self.defect_type = defect_type
+        self.area = area
+        self.confidence = confidence
+        self.disk_thr = disk_thr
+
+    def run(self):
+        write_ok = True
+        if self.blob and self.path:
+            try:
+                os.makedirs(self.save_dir, exist_ok=True)
+                with open(self.path, "wb") as fh:
+                    fh.write(self.blob)
+            except Exception:
+                write_ok = False
+        inserted = False
+        stored = self.path if write_ok else ""
+        if self.db is not None:
+            try:
+                with self.db_lock:
+                    self.db.insert(self.product, self.result, self.defect_type,
+                                   self.area, self.confidence, stored)
+                inserted = True
+            except Exception:
+                inserted = False
+        self.signals.done.emit(stored, inserted)
 
 
 class CameraWorker(QThread):
@@ -154,6 +213,12 @@ class DetectPage(QWidget):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self._fake_frame)
 
+        # 断流看门狗：检测中若久久收不到板端结果帧，自动软踢 / 硬重连
+        # （10-09 加：治"检测中断后卡住、然后停止检测"）
+        self._watchdog = QTimer(self)
+        self._watchdog.timeout.connect(self._edge_watchdog)
+        self._watchdog.start(1000)
+
         # 自动连接剩余重试次数（开机自动连接 RK3588 用）
         self._auto_left = 0
 
@@ -197,6 +262,14 @@ class DetectPage(QWidget):
         # 连板后是否自动执行检测（默认否）：保持连接仅预览，手动开启后再统计/入库
         self._edge_detect_enabled = False
 
+        # ---- 断流自愈状态（10-09 加）----
+        self._edge_was_connected = False   # 曾成功连上 → 之后 ok=False 即为"运行中掉线"
+        self._reconnect_left = 0           # 运行期自动重连剩余次数
+        self._reconnect_step = 0           # 退避步数（3/6/12/24 秒，上限 30）
+        self._last_frame_ts = 0.0          # 最近一次收到板端结果帧的时间戳
+        self._awaiting_frame = False       # 已发请求、等待回帧（自适应节拍用）
+        self._awaiting_since = 0.0
+
         # NG 声音报警（开关已从前端表单移除，默认开启；如需关闭改此初值）
         self._alarm_enabled = True
 
@@ -205,6 +278,14 @@ class DetectPage(QWidget):
 
         # 落盘文件名自增序号（配合时间戳保证唯一，见 _uniq_path）
         self._save_seq = 0
+
+        # ---- 重 IO 后台化（10-09 加）----
+        # 存图 + 入库丢到线程池，主线程只做渲染/统计；DB 写入用锁串行化
+        # （RecordDB 连接已 check_same_thread=False）。可用 edge.async_io=False 回退。
+        self._io_pool = QThreadPool()
+        self._io_pool.setMaxThreadCount(2)
+        self._db_lock = threading.Lock()
+        self._io_warned = False        # 后台写盘失败只提示一次，避免刷日志
 
     # ---------------- 左侧 ----------------
     def _build_left(self):
@@ -332,29 +413,6 @@ class DetectPage(QWidget):
         self.cb_speed = speed
         g2.body().addWidget(FormRow("检测间隔", speed))
         lay.addWidget(g2)
-
-        # ============ ③ ROI 设置 ============
-        g3 = GroupPanel("ROI 设置")
-        roi_row = QHBoxLayout()
-        roi_row.setSpacing(10)
-        for name in ("ROI 1", "ROI 2"):
-            holder = QWidget()
-            hl = QHBoxLayout(holder)
-            hl.setContentsMargins(0, 0, 0, 0)
-            hl.setSpacing(6)
-            lab = QLabel(name)
-            lab.setStyleSheet("color:%s; font-size:12px;" % C_TEXT)
-            hl.addWidget(lab)
-            hl.addWidget(ToggleSwitch(True))
-            roi_row.addWidget(holder)
-        roi_row.addStretch(1)
-        roi_holder = QWidget(); roi_holder.setLayout(roi_row)
-        g3.body().addWidget(roi_holder)
-        add = QPushButton("+ 添加 ROI")
-        add.setObjectName("ghostBtn")
-        add.clicked.connect(lambda: self._log("信息", "检测", "添加 ROI（示例操作）"))
-        g3.body().addWidget(add)
-        lay.addWidget(g3)
 
         lay.addStretch(1)
 
@@ -778,6 +836,9 @@ class DetectPage(QWidget):
             # 09-21 修：step 模式下必须在这里显式启动心跳定时器，
             # 否则板端等 cmd=next 等到天荒地老，统计恒为 0。
             self._ensure_step_timer(True)
+            # 10-09：开始检测即补满重连配额，运行中掉线可自愈
+            self._reconnect_left = max(getattr(self, "_reconnect_left", 0), 6)
+            self._reconnect_step = 0
             self.btn_start.setEnabled(False)
             self.btn_stop.setEnabled(True)
             if hasattr(self, "tb_play"):
@@ -1475,6 +1536,11 @@ class DetectPage(QWidget):
                 return
             self.bridge = BoardSerialBridge(addr, port)
 
+        # 新一轮连接的断流状态复位（未连上之前不算"曾连上"）
+        self._awaiting_frame = False
+        self._last_frame_ts = 0.0
+        self._edge_was_connected = False
+
         self.bridge.connected.connect(self._on_edge_connected)
         self.bridge.result_received.connect(self._on_edge_result)
         self.bridge.error.connect(lambda m: self._log("错误", "边缘", m))
@@ -1497,6 +1563,9 @@ class DetectPage(QWidget):
         state = "运行" if on else "暂停"
         self._log("信息", "边缘", "连板自动检测已%s（当前状态：%s）" % ("开启" if on else "关闭", state))
         self._ensure_step_timer(bool(on))
+        if on:   # 10-09：开检测即补满重连配额，运行中掉线可自愈
+            self._reconnect_left = max(getattr(self, "_reconnect_left", 0), 6)
+            self._reconnect_step = 0
 
     def _ensure_step_timer(self, on):
         """step 模式下板端不主动推帧，靠上位机按节拍发 cmd=next 驱动。
@@ -1518,6 +1587,8 @@ class DetectPage(QWidget):
             t.setInterval(interval)
             t.timeout.connect(self._edge_step_tick)
             self._edge_step_timer = t
+            self._awaiting_frame = False       # 新一轮节拍：先清"等待回帧"标志
+            self._last_frame_ts = time.time()  # 断流计时基准
             t.start()
         else:
             t = getattr(self, "_edge_step_timer", None)
@@ -1526,14 +1597,20 @@ class DetectPage(QWidget):
                 self._edge_step_timer = None
 
     def _edge_step_tick(self):
-        """定时器心跳：边缘模式 + step 模式 + auto_detect 开 → 自动发 cmd=next
-        收到一帧结果后会通过 _on_edge_result 入库；空回（无图时）不影响。
+        """定时器心跳：边缘模式 + step 模式 + 检测开 → 按节拍发 cmd=next。
+
+        10-09 改自适应流控：只在「上一帧已回来」时才发下一个请求。
+        原先盲发会在板端偶发变慢时静默丢帧/堆积请求；现在节拍自动跟随板端速度降速，
+        板端久久不回则由 _edge_watchdog 软踢（重发 next）/ 硬恢复（重连）。
         """
         br = getattr(self, "bridge", None)
         if br is None or not getattr(br, "isRunning", lambda: False)():
             return
         # 仅当已经 "开始检测"（_edge_detect_enabled）时推帧
         if not getattr(self, "_edge_detect_enabled", False):
+            return
+        # 自适应：上一帧还没回来就不再发（避免请求堆积 / 静默丢帧）
+        if getattr(self, "_awaiting_frame", False):
             return
         # 已打开的照片只需送检一次（不抢占 cmd=next 节拍）；
         # 送过之后把节拍让给样本序列。09-21 修：原先每 tick 都重发同一张照片，
@@ -1545,8 +1622,24 @@ class DetectPage(QWidget):
             except Exception:
                 pass
         # 否则请求板端 sample 下一张
-        if hasattr(br, "send_cmd"):
-            br.send_cmd("next")
+        self._send_next()
+
+    def _send_next(self):
+        """请求板端检测下一张（cmd=next），并标记"等待回帧"。返回是否已入队。
+
+        10-09 加：把"发 next"统一收敛到这里，保证 _awaiting_frame 一定被置位，
+        自适应节拍与看门狗都以它为唯一口径。
+        """
+        br = getattr(self, "bridge", None)
+        if br is None or not getattr(br, "isRunning", lambda: False)():
+            return False
+        if not hasattr(br, "send_cmd"):
+            return False
+        ok = bool(br.send_cmd("next"))
+        if ok:
+            self._awaiting_frame = True
+            self._awaiting_since = time.time()
+        return ok
 
     # ---------------- 一张一张检测（step 模式） ----------------
     def _send_photo_for_detect(self, reason=""):
@@ -1572,6 +1665,8 @@ class DetectPage(QWidget):
         ok = br.send_detect_image(data, os.path.basename(p))
         if ok:
             self._photo_sent = True   # 送检成功标记，避免自动节拍无限重发同一张
+            self._awaiting_frame = True      # 等这张照片的回帧（自适应节拍 + 看门狗）
+            self._awaiting_since = time.time()
             self._log("信息", "边缘", "已送检照片: %s %s" % (os.path.basename(p), reason))
         else:
             self._log("错误", "边缘", "照片送检失败（发送异常）")
@@ -1589,8 +1684,7 @@ class DetectPage(QWidget):
         if not hasattr(br, "send_cmd"):
             self._log("警告", "边缘", "当前桥接不支持逐张指令（需 TCP 模式）。")
             return
-        ok = br.send_cmd("next")
-        if ok:
+        if self._send_next():
             self._log("信息", "边缘", "已请求检测下一张")
         else:
             self._log("错误", "边缘", "发送下一张指令失败")
@@ -1625,9 +1719,18 @@ class DetectPage(QWidget):
         self._log("信息", "边缘", "自动连接重试（剩余 %d 次）..." % self._auto_left)
         self._connect_edge(silent=True)
 
-    def _stop_edge(self):
+    def _stop_edge(self, intentional=True):
+        """断开板端连接。
+
+        intentional=True（用户主动断开 / 停止检测）：取消一切自动重连意图。
+        intentional=False（断流硬恢复内部调用）：保留重连配额，断开后由调用方立即重连。
+        """
+        if intentional:
+            self._reconnect_left = 0        # 主动断开 → 不再自动重连
+            self._auto_left = 0
         # 09-21 修：断开前先停心跳，避免定时器在 bridge=None 后还在 tick
         self._ensure_step_timer(False)
+        self._awaiting_frame = False
         if self.bridge:
             try:
                 self.bridge.stop()
@@ -1652,18 +1755,26 @@ class DetectPage(QWidget):
                 if hasattr(self, "btn_next"):
                     self.btn_next.setEnabled(True)
             else:
-                self.dot_edge.set_text("连接失败")
+                # 曾连上过 → 是"运行中掉线"，措辞与首次连接失败区分开
+                self.dot_edge.set_text("连接已断开" if self._edge_was_connected else "连接失败")
                 self.dot_edge.set_color(C_RED)
                 self.btn_edge.setText("连接 RK3588")
+                if hasattr(self, "btn_next"):
+                    self.btn_next.setEnabled(False)
         self._update_cam_ind()   # C：边缘连接影响相机状态灯
         if self.log:
             self.log.info("边缘", msg)
         else:
             self._log("信息", "边缘", msg)
 
-        # 开机自动连接：成功即停止重试；失败则退避重试（6s × 最多3次）
         if ok:
+            # 连板成功：清重试计数，并预置重连配额（运行中掉线可自愈）
             self._auto_left = 0
+            self._reconnect_left = 6
+            self._reconnect_step = 0
+            self._edge_was_connected = True
+            self._awaiting_frame = False
+            self._last_frame_ts = time.time()   # 断流计时基准（此后靠结果帧刷新）
             # 连板成功后根据“自动检测”开关决定是否开始检测，默认只预览
             if hasattr(self, "sw_auto_edge_detect"):
                 self._edge_detect_enabled = bool(self.sw_auto_edge_detect.on)
@@ -1674,12 +1785,102 @@ class DetectPage(QWidget):
             # 09-21 修：连板后若自动检测开着（上次退出前存的配置），
             # 要立刻起心跳，否则 step 模式下画面停在补推的那一帧。
             self._ensure_step_timer(bool(self._edge_detect_enabled))
+            return
+
+        # ---------------- 连接失败 / 运行中掉线 ----------------
+        # 桥接线程已退出：必须置空引用，否则 _edge_running() 假阳性、且无法重连
+        br = getattr(self, "bridge", None)
+        if br is not None and not (hasattr(br, "isRunning") and br.isRunning()):
+            self.bridge = None
+        self._edge_was_connected = False
+        self._awaiting_frame = False
+        self._ensure_step_timer(False)   # 掉线即停心跳，避免空转
+
+        # 还"想"保持链路（正在检测 或 开着开机自动连接）→ 退避重连
+        want_link = bool(self._edge_detect_enabled) or bool(
+            self.cfg and self.cfg.get("edge", "auto_connect", False))
+        if self._reconnect_left > 0 and want_link:
+            self._schedule_reconnect(msg)
         elif getattr(self, "_auto_left", 0) > 0:
+            # 开机自动连接的首次连接失败路径（沿用原有 6s 重试）
             QTimer.singleShot(6000, self._auto_retry)
+        elif want_link:
+            self._log("警告", "边缘",
+                      "自动重连次数已用尽，请检查板端后手动点「连接 RK3588」")
+
+    # ---------------- 断流自愈：看门狗 + 退避重连（10-09 加） ----------------
+    def _edge_watchdog(self):
+        """检测中断自愈，1s 心跳调用一次：
+
+        - 连续 6s 收不到结果帧且请求未回 → 软踢（重发 cmd=next）
+        - 连续 20s 收不到结果帧            → 硬恢复（断开重连）
+
+        仅在「边缘已连接 + 正在检测」时生效；空闲/仅预览态不干预。
+        这是"卡住 → 停止检测"的兜底：板端偶发卡死或链路静默中断时自动拉回。
+        """
+        try:
+            if not self._edge_detect_enabled or not self._edge_running():
+                return
+            if self._last_frame_ts <= 0:
+                return
+            now = time.time()
+            gap = now - self._last_frame_ts
+            if gap >= 20.0:
+                self._log("警告", "边缘", "检测中断 %.0fs，自动重连板端..." % gap)
+                self._hard_reconnect("断流 %.0fs" % gap)
+            elif gap >= 6.0 and self._awaiting_frame and (now - self._awaiting_since) >= 6.0:
+                br = getattr(self, "bridge", None)
+                dropped = getattr(br, "_dropped", 0) if br else 0
+                self._log("警告", "边缘",
+                          "%.0fs 未收到结果帧（丢帧累计 %d），重发 cmd=next..." % (gap, dropped))
+                self._awaiting_frame = False   # 清标志后再发，允许本题重试
+                self._send_next()
+        except Exception as e:
+            self._log("错误", "边缘", "断流看门狗异常: %s" % e)
+
+    def _hard_reconnect(self, reason=""):
+        """运行期断流硬恢复：断开 → 立即重连（保留检测开启，连上后自动续跑）。"""
+        self._reconnect_left = max(getattr(self, "_reconnect_left", 0), 3)
+        self._reconnect_step = 0
+        self._stop_edge(intentional=False)   # 保留重连配额
+        self._awaiting_frame = False
+        self._log("信息", "边缘", "正在重连板端... %s" % reason)
+        self._connect_edge(silent=True)
+
+    def _schedule_reconnect(self, reason=""):
+        """按指数退避安排下一次重连（3/6/12/24…秒，上限 30s）。"""
+        if getattr(self, "_reconnect_left", 0) <= 0:
+            return
+        self._reconnect_left -= 1
+        delay = min(3 * (2 ** getattr(self, "_reconnect_step", 0)), 30)
+        self._reconnect_step = getattr(self, "_reconnect_step", 0) + 1
+        self._log("警告", "边缘", "%ds 后自动重连（剩余 %d 次）：%s"
+                  % (int(delay), self._reconnect_left, reason))
+        QTimer.singleShot(int(delay * 1000), self._reconnect_tick)
+
+    def _reconnect_tick(self):
+        """退避重连触发点：仅在仍"想"保持链路且未连上时才真连。"""
+        try:
+            if self.bridge is not None and self.bridge.isRunning():
+                return
+            if getattr(self, "_reconnect_left", 0) <= 0:
+                return
+            want_link = bool(self._edge_detect_enabled) or bool(
+                self.cfg and self.cfg.get("edge", "auto_connect", False))
+            if not want_link:
+                return   # 期间用户已停止检测 → 不再打扰
+            self._log("信息", "边缘", "自动重连中...")
+            self._connect_edge(silent=True)
+        except Exception as e:
+            self._log("错误", "边缘", "自动重连异常: %s" % e)
 
     def _on_edge_result(self, obj):
         """解析板端 JSON 检测结果，转换为画布格式并复用真实结果渲染流程。"""
         try:
+            # 断流自愈：刷新"最近收到结果帧"时间戳，并清掉"等待回帧"标志
+            # （无论是否开启统计都刷新——预览态的帧同样说明链路是活的）
+            self._last_frame_ts = time.time()
+            self._awaiting_frame = False
             # 板端随结果下发 base64 JPEG 帧（增强版 board_server），先渲染图像
             img_b64 = obj.get("img_b64")
             if img_b64:
@@ -1746,7 +1947,7 @@ class DetectPage(QWidget):
                 self._last_db_ts = now
             else:
                 self._persist_gate = False
-            # 复用真实结果渲染（含 ROI 过滤、统计、数据库、NG 闪烁）
+            # 复用真实结果渲染（含统计、数据库、NG 闪烁）
             self._apply_real_result(defects, is_ng, top_conf, infer_ms / 1000.0, False)
         except Exception as e:
             self._log("错误", "边缘", "结果解析失败: %s | %s" % (e, obj))
@@ -1759,24 +1960,8 @@ class DetectPage(QWidget):
             except Exception:
                 pass
 
-    @staticmethod
-    def _defect_in_roi(d, rois):
-        """框中心是否落在任一 ROI 内（rois: 归一化 (x,y,w,h) 列表）。"""
-        if not rois:
-            return True
-        x1, y1, x2, y2 = d["xyxy"]
-        cx, cy = (x1 + x2) / 2.0, (y1 + y2) / 2.0
-        for (rx, ry, rw, rh) in rois:
-            if rx <= cx <= rx + rw and ry <= cy <= ry + rh:
-                return True
-        return False
-
     def _apply_real_result(self, defects, is_ng, top_conf, elapsed, stream):
-        # A3: ROI 边界过滤（框中心不在任一 ROI 内则丢弃）
-        rois = getattr(self.canvas, "rois", []) or []
-        if rois:
-            defects = [d for d in defects if self._defect_in_roi(d, rois)]
-        # 过滤后重算 NG 判定与最高置信度
+        # 重算 NG 判定与最高置信度
         is_ng = len(defects) > 0
         top_conf = max((d["conf"] for d in defects), default=0.0)
         # 画真实框（多类别颜色 + 标签）
@@ -1818,47 +2003,72 @@ class DetectPage(QWidget):
         gate = True
         if self.bridge and self.bridge.isRunning():
             gate = self._persist_gate
+
+        # ---- 组装"要写什么"（纯内存操作，主线程很快）----
+        blob = b""
         if cam_bytes:
+            # 相机帧：仅 NG 落盘
+            path = self._uniq_path(save_dir, "cam", "jpg") if is_ng else ""
             if is_ng:
-                import os as _os
-                path = self._uniq_path(save_dir, "cam", "jpg")
-                try:
-                    _os.makedirs(save_dir, exist_ok=True)
-                    with open(path, "wb") as fh:
-                        fh.write(cam_bytes)
-                except Exception as e:
-                    self._log("警告", "存储", "相机图像落盘失败: %s" % e)
-                    path = ""
-            else:
-                path = ""
+                blob = cam_bytes
             self._cur_frame_bytes = None
         elif edge_bytes:
             # 边缘帧：仅 NG 存图，且受 2s 节流门控（持续 NG 不会每帧刷盘）
+            path = self._uniq_path(save_dir, "sample", "jpg") if self._save_img_gate else ""
             if self._save_img_gate:
-                import os as _os
-                path = self._uniq_path(save_dir, "sample", "jpg")
-                try:
-                    _os.makedirs(save_dir, exist_ok=True)
-                    with open(path, "wb") as fh:
-                        fh.write(edge_bytes)
-                except Exception as e:
-                    self._log("警告", "存储", "图像落盘失败: %s" % e)
-                    path = ""
-            else:
-                path = ""
+                blob = edge_bytes
         else:
+            # 普通照片检测：只记占位路径，不写文件
             path = self._uniq_path(save_dir, "sample", "png")
 
-        # 磁盘守护：剩余空间低于 storage.disk_warn(%) 时自动清理最老的连拍帧
-        # （内部 60s 节流；人工存证/录制文件受保护，不会被删）
-        if path:
-            try:
-                thr = 10.0
-                if self.cfg:
-                    thr = float(self.cfg.get("storage", "disk_warn", 10) or 10)
-                disk_guard(save_dir, min_free_pct=thr, log=self.log)
-            except Exception:
-                pass
+        db_result = "NG" if is_ng else "OK"
+        do_insert = bool(self.db and gate and (not self._camera_live or is_ng))
+        disk_thr = 10.0
+        try:
+            if self.cfg:
+                disk_thr = float(self.cfg.get("storage", "disk_warn", 10) or 10)
+        except Exception:
+            disk_thr = 10.0
+        use_async = True
+        try:
+            if self.cfg:
+                use_async = bool(self.cfg.get("edge", "async_io", True))
+        except Exception:
+            use_async = True
+
+        # 预估时间戳（与同步路径语义一致：插入时刻即当前时刻）
+        t = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
+
+        # ---- 重 IO 提交：后台线程池 或 主线程同步 ----
+        if use_async:
+            task = _IoTask(self.db if do_insert else None, self._db_lock,
+                           save_dir, path, blob, product, db_result,
+                           main_type, main_area, round(top_conf, 2), disk_thr)
+            task.signals.done.connect(self._on_io_done)
+            self._io_pool.start(task)
+        else:
+            stored = path
+            if blob and path:
+                try:
+                    os.makedirs(save_dir, exist_ok=True)
+                    with open(path, "wb") as fh:
+                        fh.write(blob)
+                except Exception as e:
+                    self._log("警告", "存储", "图像落盘失败: %s" % e)
+                    stored = ""
+            if do_insert:
+                try:
+                    with self._db_lock:
+                        self.db.insert(product, db_result, main_type,
+                                       main_area, round(top_conf, 2), stored)
+                except Exception:
+                    pass
+            if stored:
+                try:
+                    disk_guard(save_dir, min_free_pct=disk_thr, log=self.log)
+                except Exception:
+                    pass
+            path = stored
 
         if is_ng:
             self.canvas.trigger_flash()
@@ -1887,14 +2097,8 @@ class DetectPage(QWidget):
         self.st_rate.value.setText("%.1f%%" % rate)
         self.yield_chart.push(rate)
 
-        # 写数据库（实时相机模式下仅记录 NG；边缘模式下 OK 记录受节流门控）
-        t = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
-        if self.db and gate and (not self._camera_live or is_ng):
-            try:
-                t = self.db.insert(product, "NG" if is_ng else "OK", main_type,
-                                   main_area, round(top_conf, 2), path)
-            except Exception:
-                pass
+        # 写数据库已在上方随重 IO 一起提交（后台线程池 / 同步兜底）；
+        # 这里只做界面展示，使用预估时间戳 t（与入库时刻一致到秒）。
 
         # 详情面板（缺陷类型显示中文；入库仍用英文 main_type）
         vals = [product, "NG" if is_ng else "OK", main_type_zh,
@@ -1910,3 +2114,30 @@ class DetectPage(QWidget):
         self._fill_row(0, "NG" if is_ng else "OK", main_type_zh, path, t)
         if self.table.rowCount() > self.MAX_TABLE_ROWS:
             self.table.removeRow(self.table.rowCount() - 1)
+
+    def _on_io_done(self, stored_path, inserted):
+        """后台重 IO 完成回调（Qt 队伍投递 → 仍在主线程执行，可安全碰界面）。
+
+        - 写盘成功则按存储目录做一次磁盘守护（节流在 disk_guard 内部）。
+        - 写盘失败只在首次提示，避免磁盘满时每帧刷日志。
+        - 入库成功但路径修正过（实际落盘/stored 变化）时不动界面，
+          界面展示的时间戳/路径以提交时刻为准，语义与同步版一致。
+        """
+        try:
+            if stored_path:
+                save_dir = os.path.dirname(stored_path)
+                thr = 10.0
+                try:
+                    if self.cfg:
+                        thr = float(self.cfg.get("storage", "disk_warn", 10) or 10)
+                except Exception:
+                    thr = 10.0
+                try:
+                    disk_guard(save_dir, min_free_pct=thr, log=self.log)
+                except Exception:
+                    pass
+            elif not inserted and not self._io_warned:
+                self._io_warned = True
+                self._log("警告", "存储", "后台存图失败（磁盘空间或权限？），后续不再重复提示")
+        except Exception:
+            pass

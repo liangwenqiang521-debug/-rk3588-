@@ -364,7 +364,7 @@ class DefectDistChart(QWidget):
 
 
 class ToggleSwitch(QWidget):
-    """简单 ON/OFF 开关（ROI 启用）"""
+    """简单 ON/OFF 开关"""
     toggled = pyqtSignal(bool)
 
     def __init__(self, on=True, parent=None):
@@ -393,19 +393,19 @@ class ToggleSwitch(QWidget):
 
 
 class PreviewCanvas(QWidget):
-    """实时预览画布：绘制占位工件图 + ROI 绿框 + 缺陷红框 + 角标结果
+    """实时预览画布：绘制占位工件图 + 缺陷红框 + 角标结果
 
     支持加载真实图片：set_image(path) 后画布显示实际图片而非模拟工件图。
     支持缩放：set_zoom()/zoom_in()/zoom_out()/滚轮；zoom_changed 信号可同步外部控件。
     """
     zoom_changed = pyqtSignal(float)
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setMinimumSize(420, 300)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.result = "NG"          # NG / OK
         self.confidence = 99
-        self.rois = [(0.18, 0.10, 0.64, 0.80), (0.30, 0.28, 0.40, 0.44)]
         self.defects = [(0.62, 0.52, 0.09, 0.16), (0.78, 0.62, 0.10, 0.14)]
         self._flash = False
         self._flash_timer = QTimer(self)
@@ -447,6 +447,22 @@ class PreviewCanvas(QWidget):
             self.zoom_in()
         elif d < 0:
             self.zoom_out()
+
+    # ---------------- 坐标换算（内容坐标系）----------------
+    def _content_box(self):
+        """返回内容坐标系（未缩放）：(x, y, w, h)。
+
+        图片模式 = 等比缩放后的居中显示框；模拟模式 = 整个画布。
+        与 paintEvent 中检测框的基准同源。
+        """
+        w, h = self.width(), self.height()
+        if self._image is not None:
+            pw, ph = self._image.width(), self._image.height()
+            if pw > 0 and ph > 0:
+                scale = min(w / pw, h / ph)
+                dw, dh = int(pw * scale), int(ph * scale)
+                return (w - dw) // 2, (h - dh) // 2, dw, dh
+        return 0, 0, w, h
 
     def set_result(self, result, conf):
         self.result = result
@@ -560,7 +576,7 @@ class PreviewCanvas(QWidget):
         p.fillRect(self.rect(), QColor("#101318"))
 
         p.save()
-        # 统一缩放：以画布为中心对**全部内容**（图片/模拟工件/ROI/检测框）缩放。
+        # 统一缩放：以画布为中心对**全部内容**（图片/模拟工件/检测框）缩放。
         # 修复：此前缩放只改 _zoom 且仅在加载图片时生效，模拟画面下
         # 「放大/缩小/比例下拉/滚轮」全部无响应。
         if abs(self._zoom - 1.0) > 1e-6:
@@ -576,9 +592,6 @@ class PreviewCanvas(QWidget):
             dw, dh = int(pw * scale), int(ph * scale)
             dx, dy = (w - dw) // 2, (h - dh) // 2
             p.drawPixmap(dx, dy, dw, dh, pix)
-            # 用图片区域作为坐标系参考
-            canvas_w, canvas_h = dw, dh
-            canvas_x, canvas_y = dx, dy
         else:
             # --- 模拟工件（轴承端面）---
             cx, cy = w * 0.5, h * 0.52
@@ -604,18 +617,8 @@ class PreviewCanvas(QWidget):
                 p.drawEllipse(QPoint(int(cx), int(cy)), int(R * ratio), int(R * ratio))
             p.setBrush(QBrush(QColor("#2a2e33")))
             p.drawEllipse(QPoint(int(cx), int(cy)), int(R * 0.16), int(R * 0.16))
-            # 模拟模式用整个画布坐标
-            canvas_w, canvas_h = w, h
-            canvas_x, canvas_y = 0, 0
-
-        # --- ROI 绿框 ---
-        pen = QPen(QColor(C_GREEN))
-        pen.setWidth(2)
-        p.setPen(pen)
-        p.setBrush(Qt.NoBrush)
-        for (rx, ry, rw, rh) in self.rois:
-            p.drawRect(QRectF(canvas_x + rx * canvas_w, canvas_y + ry * canvas_h,
-                              rw * canvas_w, rh * canvas_h))
+        # 内容坐标框：检测框以此为归一化基准（与 _content_box 同源）
+        canvas_x, canvas_y, canvas_w, canvas_h = self._content_box()
 
         # --- 真实检测框（多类别颜色 + 标签）---
         if self._real_defects:
@@ -654,6 +657,7 @@ class PreviewCanvas(QWidget):
             pen = QPen(QColor(C_RED))
             pen.setWidth(2)
             p.setPen(pen)
+            p.setBrush(Qt.NoBrush)   # 避免继承模拟工件绘制的渐变填充
             for (rx, ry, rw, rh) in self.defects:
                 p.drawRect(QRectF(canvas_x + rx * canvas_w, canvas_y + ry * canvas_h,
                                   rw * canvas_w, rh * canvas_h))

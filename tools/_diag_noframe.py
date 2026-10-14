@@ -53,8 +53,6 @@ def main():
     canvas = page.canvas
 
     print("=" * 60)
-    print("画布 ROI 默认值:", canvas.rois)
-    print("=" * 60)
 
     # 打开自动检测（否则 _on_edge_result 会在 _edge_detect_enabled 处直接 return）
     page._edge_detect_enabled = True
@@ -88,16 +86,6 @@ def main():
     print("canvas.confidence:", getattr(canvas, "confidence", None))
     print("右侧 big_result:", page.big_result.text())
     print("统计: total=%s ok=%s ng=%s" % (page.total, page.ok, page.ng))
-
-    # 逐帧验证 ROI 过滤到底吃了多少
-    print("\n--- ROI 过滤逐框判定 ---")
-    for d in page._dframe_to_defects(obj) if hasattr(page, "_dframe_to_defects") else []:
-        pass
-    for d in defects:
-        x1, y1, x2, y2 = d["x1"] / 640.0, d["y1"] / 640.0, d["x2"] / 640.0, d["y2"] / 640.0
-        cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
-        inside = page._defect_in_roi({"xyxy": [x1, y1, x2, y2]}, canvas.rois)
-        print("  %-14s 中心(%.2f, %.2f) → ROI内=%s" % (d["cls"], cx, cy, inside))
 
     print("=" * 60)
 

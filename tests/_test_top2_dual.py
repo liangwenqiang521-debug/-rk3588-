@@ -50,9 +50,6 @@ def get_main_type():
     return dp.detail.item(2, 1).text() if dp.detail.item(2, 1) else ""
 
 
-# 清空默认 ROI，避免框中心被过滤干扰本测试（本测试只验双候选逻辑，不验 ROI）
-dp.canvas.rois = []
-
 # 1) 易混对：scratches 0.86 / inclusion 0.82（分差 0.04）→ 双候选
 dp._apply_real_result([mk("scratches", 0.86), mk("inclusion", 0.82)], True, 0.86, 0.01, False)
 app.processEvents()
