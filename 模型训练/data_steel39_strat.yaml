@@ -1,0 +1,99 @@
+# 39 类钢板表面缺陷 · 全池分层重划分（stratified）
+# 由 模型训练/_make_split.py --mode stratified 生成，请勿手改
+# seed=20261012   生成日期：2026-10-12
+#
+# 与 data_steel39.yaml 的区别：train/val 不再用目录，而是用清单文件；
+#   划分按类分层、比例统一（小类 50% / 中类 35% / 大类 20%）。
+#
+# ★ 本划分**必须重训**才有效：新 val 含旧 train 的图，
+#   当前已训模型在上面是「见过」的，不能用它评当前模型。
+#
+# 阈值标定仍走 cal/holdout：val=val_strat_cal.txt / test=val_strat_holdout.txt
+#
+#  idx  key                        框数(G1)  框数(G2)   G1占比
+#    0  bright_scratch                 1002      3951    20.2%
+#    1  crazing                         553      2190    20.2%
+#    2  crease                          222       365    37.8%
+#    3  crescent_gap                    103       415    19.9%
+#    4  dark_scratches                  257       939    21.5%
+#    5  finishing_roll_printing         156       253    38.1%
+#    6  inclusion                      1529      6301    19.5%
+#    7  iron_scale_compression           65       121    34.9%
+#    8  iron_sheet_ash                  204       212    49.0%
+#    9  oil_spot                        422      1861    18.5%
+#   10  oxide_scale_plate                32        31    50.8%
+#   11  oxide_scale_temp                 71       132    35.0%
+#   12  patches                         818      3394    19.4%
+#   13  pitted_surface                  701      3062    18.6%
+#   14  punching                        150       598    20.1%
+#   15  red_iron_sheet                  139       258    35.0%
+#   16  rolled-in_scale                 579      2348    19.8%
+#   17  rolled_pit                      190       354    34.9%
+#   18  secondary_rust_skin             158       328    32.5%
+#   19  silk_spot                       287      1175    19.6%
+#   20  slag_inclusion                  465       735    38.8%
+#   21  waist_folding                   280       508    35.5%
+#   22  water_spot                      355      1402    20.2%
+#   23  welding_line                    207       835    19.9%
+#   24  white_rust                      356       626    36.3%
+#   25  cutting_opening                  66        66    50.0%
+#   26  water_slag_mark                  67        64    51.1%
+#   27  slag_skin                        94        84    52.8%
+#   28  longitudinal_crack               66        66    50.0%
+#   29  warp                            136       260    34.3%
+#   30  external_fold                    64        63    50.4%
+#   31  wrinkle                         116       115    50.2%
+#   32  blocky_scale                     62        67    48.1%
+#   33  striated_scale                   60        60    50.0%
+#   34  foreign_obj                      80        87    47.9%
+#   35  blowhole                        259      1027    20.1%
+#   36  break                           557      2404    18.8%
+#   37  fray                            350      1405    19.9%
+#   38  uneven                          127       509    20.0%
+#  ---  合计                           11405     38671    22.8%
+
+path: D:/workbuddy/缺陷检测项目/缺陷检测扩展
+train: D:/workbuddy/缺陷检测项目/模型训练/splits/train_strat.txt
+val: D:/workbuddy/缺陷检测项目/模型训练/splits/val_strat.txt
+test: D:/workbuddy/缺陷检测项目/模型训练/splits/val_strat_holdout.txt
+nc: 39
+names:
+  - bright_scratch
+  - crazing
+  - crease
+  - crescent_gap
+  - dark_scratches
+  - finishing_roll_printing
+  - inclusion
+  - iron_scale_compression
+  - iron_sheet_ash
+  - oil_spot
+  - oxide_scale_plate
+  - oxide_scale_temp
+  - patches
+  - pitted_surface
+  - punching
+  - red_iron_sheet
+  - rolled-in_scale
+  - rolled_pit
+  - secondary_rust_skin
+  - silk_spot
+  - slag_inclusion
+  - waist_folding
+  - water_spot
+  - welding_line
+  - white_rust
+  - cutting_opening
+  - water_slag_mark
+  - slag_skin
+  - longitudinal_crack
+  - warp
+  - external_fold
+  - wrinkle
+  - blocky_scale
+  - striated_scale
+  - foreign_obj
+  - blowhole
+  - break
+  - fray
+  - uneven
