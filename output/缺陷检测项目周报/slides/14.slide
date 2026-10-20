@@ -1,0 +1,14 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, position: "relative", background: "#061428", overflow: "hidden", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ position: "absolute", top: 0, left: 0, width: 1280, height: 720, background: "linear-gradient(135deg, #061428 0%, #0B3D91 70%, #0B3D91 100%)" }} />
+    <Box style={{ position: "absolute", top: -180, left: 300, width: 680, height: 680, borderRadius: 340, background: "radial-gradient(circle, rgba(0,180,216,0.30) 0%, rgba(6,20,40,0) 70%)" }} />
+    <Box style={{ position: "relative", zIndex: 2, width: 1280, height: 720, paddingLeft: 120, paddingRight: 120, flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 14 }}>
+        <Text style={{ fontSize: 120, fontWeight: "bold", color: "#FF7A18", lineHeight: 1.02 }}>81.7%</Text>
+        <Text style={{ fontSize: 15, color: "#00B4D8", letterSpacing: 2, fontWeight: "bold" }}>高置信未匹配框的同类率</Text>
+        <Text style={{ fontSize: 44, fontWeight: "bold", color: "#FFFFFF", lineHeight: 1.3, marginTop: 30 }}>尺子准了，数字才算数</Text>
+        <Box style={{ width: 96, height: 4, background: "linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)", marginTop: 12 }} />
+        <Text style={{ fontSize: 16, color: "#C7D6E8", marginTop: 14 }}>2×2 板端实测　·　81.7% 漏标率　·　100 轮分层重训</Text>
+    </Box>
+    <Box style={{ position: "absolute", left: 0, bottom: 0, width: 1280, height: 60, alignItems: "center", justifyContent: "center", zIndex: 3 }}>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>项目组 · 2026-10-15</Text>
+    </Box>
+</Slide>

@@ -1,0 +1,58 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, flexDirection: "column", background: "#FFFFFF", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ height: 120, paddingLeft: 84, paddingRight: 84, flexDirection: "row", alignItems: "center", gap: 18 }}>
+        <Box style={{ width: 5, height: 36, background: "#0B3D91" }} />
+        <Box style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 36, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.3 }}>先排除：不是背景误报，也不是 NMS 太松</Text>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", marginTop: 4 }}>三个候选解释，逐个用实测数据检验</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 540, paddingLeft: 84, paddingRight: 84, paddingTop: 16, paddingBottom: 24, flexDirection: "column", gap: 20 }}>
+        <Box style={{ flexDirection: "row", gap: 24, height: 348 }}>
+            <Box style={{ flex: 1, background: "#F4F7FB", borderRadius: 12, padding: 22, flexDirection: "column", gap: 12 }}>
+                <Box style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Text style={{ fontSize: 13, color: "#9AA9B8", fontWeight: "bold", letterSpacing: 1 }}>假设 01</Text>
+                    <Box style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 3, paddingBottom: 3, background: "#E1E9F2", borderRadius: 4 }}>
+                        <Text style={{ fontSize: 12, color: "#5C6E82", fontWeight: "bold" }}>已排除</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 21, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.4 }}>瓶颈是背景误报？</Text>
+                <Box style={{ width: 36, height: 4, background: "#FF7A18", borderRadius: 2 }} />
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.75, marginTop: 4 }}>在 200 张纯背景图上，模型产出 <span style={{ color: "#0B3D91", fontWeight: "bold" }}>0 个误检框</span>（仅 1 张出现 1 个 conf=0.011 的极弱框）。背景零误报 → 负样本过采样、背景难例挖掘都没有收益空间。</Text>
+            </Box>
+            <Box style={{ flex: 1, background: "#F4F7FB", borderRadius: 12, padding: 22, flexDirection: "column", gap: 12 }}>
+                <Box style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Text style={{ fontSize: 13, color: "#9AA9B8", fontWeight: "bold", letterSpacing: 1 }}>假设 02</Text>
+                    <Box style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 3, paddingBottom: 3, background: "#E1E9F2", borderRadius: 4 }}>
+                        <Text style={{ fontSize: 12, color: "#5C6E82", fontWeight: "bold" }}>已排除</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 21, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.4 }}>是 NMS 卡得太松？</Text>
+                <Box style={{ width: 36, height: 4, background: "#FF7A18", borderRadius: 2 }} />
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.75, marginTop: 4 }}>与其它预测框 IoU ≥ 0.30 的 FP 只占 20.1%。把 NMS 从 0.45 收紧到 0.25 模拟一遍：FP 减 302，但 FN 增 109，<span style={{ color: "#0B3D91", fontWeight: "bold" }}>F1 只涨 0.0039</span> → 不是解药。</Text>
+            </Box>
+            <Box style={{ flex: 1, background: "#F4F7FB", borderRadius: 12, padding: 22, flexDirection: "column", gap: 12 }}>
+                <Box style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <Text style={{ fontSize: 13, color: "#9AA9B8", fontWeight: "bold", letterSpacing: 1 }}>假设 03</Text>
+                    <Box style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 3, paddingBottom: 3, background: "#E1E9F2", borderRadius: 4 }}>
+                        <Text style={{ fontSize: 12, color: "#5C6E82", fontWeight: "bold" }}>已排除</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 21, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.4 }}>是阈值放得太低？</Text>
+                <Box style={{ width: 36, height: 4, background: "#FF7A18", borderRadius: 2 }} />
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.75, marginTop: 4 }}>per-class 阈值只能压住 conf 低于 0.33 的那一半低置信 FP，代价是召回同步下降——实测 <span style={{ color: "#0B3D91", fontWeight: "bold" }}>F1 −0.008 ~ −0.010</span>。它只是取舍旋钮，不是精度杠杆。</Text>
+            </Box>
+        </Box>
+        <Box style={{ padding: 18, background: "#0B3D91", borderRadius: 10, alignItems: "center" }}>
+            <Text style={{ fontSize: 17, color: "#FFFFFF", fontWeight: "bold" }}>三个方向全部排除 → 问题既不在模型能力，也不在后处理参数。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 84, paddingRight: 84, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #E1E9F2" }}>
+        <Box style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Box style={{ width: 24, height: 24, background: "#0B3D91", borderRadius: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 12, color: "#FFFFFF", fontWeight: "bold" }}>DD</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8" }}>工业表面缺陷检测系统 · 周报</Text>
+        </Box>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>08 / 14</Text>
+    </Box>
+</Slide>

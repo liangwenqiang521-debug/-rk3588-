@@ -1,0 +1,32 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, flexDirection: "column", background: "#FFFFFF", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ height: 120, paddingLeft: 84, paddingRight: 84, flexDirection: "row", alignItems: "center", gap: 18 }}>
+        <Box style={{ width: 5, height: 36, background: "#0B3D91" }} />
+        <Box style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 36, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.3 }}>46 页核对表，逐张看过了</Text>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", marginTop: 4 }}>红框 = 模型预测　·　绿框 = 已有标注</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 540, paddingLeft: 84, paddingRight: 84, paddingTop: 14, paddingBottom: 20, flexDirection: "row", gap: 40 }}>
+        <Box style={{ width: 620, height: 462, borderRadius: 10, overflow: "hidden", border: "1px solid #E1E9F2", background: "#061428" }}>
+            <Image src="assets/review_sheet.png" style={{ width: 620, height: 462, objectFit: "cover" }} />
+        </Box>
+        <Box style={{ width: 452, flexDirection: "column", gap: 16, paddingTop: 4 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0B1C33" }}>怎么核的</Text>
+            <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.75 }}>把 695 个漏标候选按置信度分三档，裁图拼成 46 页核对表；逐张比对模型预测与已有标注，判断是「模型出错」还是「标注缺失」。</Text>
+            <Box style={{ padding: 18, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #FF7A18" }}>
+                <Text style={{ fontSize: 30, fontWeight: "bold", color: "#FF7A18", lineHeight: 1.1 }}>≈ 85%</Text>
+                <Text style={{ fontSize: 14, color: "#5C6E82", marginTop: 8, lineHeight: 1.65 }}>已目检 high-conf 8 页共 143 个候选，其中约 85% 判为真漏标——红框圈住 patches 暗斑、inclusion 细长夹杂、横向压入氧化皮纹理，附近确实没有绿框。</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", lineHeight: 1.7 }}>存疑集中在 water_spot / oil_spot 等亮面区域，可能与反光混淆，需结合原图与产线光照再判。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 84, paddingRight: 84, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #E1E9F2" }}>
+        <Box style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Box style={{ width: 24, height: 24, background: "#0B3D91", borderRadius: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 12, color: "#FFFFFF", fontWeight: "bold" }}>DD</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8" }}>工业表面缺陷检测系统 · 周报</Text>
+        </Box>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>10 / 14</Text>
+    </Box>
+</Slide>

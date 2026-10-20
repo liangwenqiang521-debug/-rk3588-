@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="docx-page-size" content="A4">
+  <title>缺陷检测项目周报演讲稿</title>
+  <style>
+  /* 页面规则：正文页脚居中页码，封面无页码 */
+  @page { @bottom-center { content: counter(page); } }
+  @page cover { @bottom-center { content: none; } }
+  section[role="cover"] { page: cover; }
+
+  :root {
+    /* ---- 字体令牌 ---- */
+    --ff-heading: var(--typography-fontFamily-heading, "黑体", SimHei, "Microsoft YaHei", sans-serif);
+    --ff-body: var(--typography-fontFamily-body, "宋体", SimSun, "Microsoft YaHei", serif);
+    --font-heading: var(--ff-heading);
+    --font-body: var(--ff-body);
+
+    /* ---- 字号令牌 ---- */
+    --fs-cover-title: var(--typography-fontSize-coverTitle, 26pt);
+    --fs-cover-sub: var(--typography-fontSize-coverSubtitle, 14pt);
+    --fs-h1: var(--typography-fontSize-h1, 20pt);
+    --fs-h2: var(--typography-fontSize-h2, 16pt);
+    --fs-h3: var(--typography-fontSize-h3, 13pt);
+    --fs-body: var(--typography-fontSize-body, 12pt);
+    --fs-small: var(--typography-fontSize-small, 9pt);
+    --fs-table: var(--typography-fontSize-table, 11pt);
+
+    /* ---- 行高与字重 ---- */
+    --lh-body: var(--typography-lineHeight-body, 1.75);
+    --lh-heading: var(--typography-lineHeight-heading, 1.35);
+    --lh-tight: var(--typography-lineHeight-tight, 1.2);
+    --fw-bold: var(--typography-fontWeight-bold, 700);
+    --fw-normal: var(--typography-fontWeight-normal, 400);
+
+    /* ---- 颜色令牌 ---- */
+    --color-primary: var(--color-primary, #1565C0);
+    --color-text: var(--color-text, #1A1A1A);
+    --color-muted: var(--color-muted, #5C6E82);
+    --color-border: var(--color-border, #D8E0EA);
+    --color-bg: var(--color-bg, #FFFFFF);
+    --color-highlight: var(--color-highlight, #F4F7FB);
+    --color-emphasis: var(--color-danger, #C62828);
+
+    /* ---- 间距令牌 ---- */
+    --spacing-none: 0;
+    --spacing-xxs: 0.25em;
+    --spacing-xs: 0.4em;
+    --spacing-sm: 0.6em;
+    --spacing-md: 0.85em;
+    --spacing-lg: 1.2em;
+    --spacing-xl: 1.7em;
+    --spacing-xxl: 2.2em;
+    --spacing-block: 1em;
+
+    /* ---- 版面令牌 ---- */
+    --border-thick: 4px;
+    --border-thin: 1px;
+    --border-rule: 2px;
+    --radius-card: 6px;
+    --indent-body: 2em;
+    --margin-page: 2.4cm;
+    --page-content-width: 15.6cm;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: var(--spacing-none);
+    padding: var(--spacing-none);
+  }
+
+  html, body {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+  body {
+    max-width: var(--page-content-width);
+    margin: var(--spacing-none) auto;
+    padding: var(--margin-page);
+  }
+
+  /* ===== 封面 ===== */
+  .report-cover {
+    min-height: 21cm;
+    padding: var(--spacing-xxl) var(--spacing-none) var(--spacing-none) var(--spacing-none);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cover-rule {
+    width: var(--page-content-width);
+    height: var(--border-thick);
+    background: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+  }
+  .cover-category {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    letter-spacing: var(--spacing-xxs);
+    margin-bottom: var(--spacing-xs);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .cover-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-cover-title);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    line-height: var(--lh-tight);
+    margin-bottom: var(--spacing-sm);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .cover-subtitle {
+    font-size: var(--fs-cover-sub);
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-xxl);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .cover-meta {
+    font-size: var(--fs-small);
+    color: var(--color-muted);
+    text-align: left;
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+    border-top: var(--border-thin) solid var(--color-border);
+    width: var(--page-content-width);
+  }
+  .cover-meta p {
+    margin-bottom: var(--spacing-xxs);
+    text-indent: var(--spacing-none);
+  }
+
+  /* ===== 目录 ===== */
+  .doc-toc {
+    padding: var(--spacing-block) var(--spacing-none);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: var(--border-thin) solid var(--color-border);
+  }
+  .toc-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-indent: var(--spacing-none);
+  }
+  .doc-toc ol, .doc-toc ul {
+    list-style: none;
+    padding-left: var(--spacing-none);
+  }
+  .doc-toc li {
+    margin-bottom: var(--spacing-xxs);
+    text-indent: var(--spacing-none);
+    font-size: var(--fs-table);
+  }
+
+  /* ===== 执行摘要 ===== */
+  .executive-summary {
+    margin: var(--spacing-lg) var(--spacing-none);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-left: var(--border-thick) solid var(--color-primary);
+    background: var(--color-highlight);
+  }
+  .executive-summary h2 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .executive-summary p {
+    text-indent: var(--indent-body);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* ===== 正文 ===== */
+  .report-body h1 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    line-height: var(--lh-heading);
+    margin-top: var(--spacing-xxl);
+    margin-bottom: var(--spacing-block);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: var(--border-rule) solid var(--color-primary);
+    text-align: center;
+    text-indent: var(--spacing-none);
+  }
+  .report-body h2 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    line-height: var(--lh-heading);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-xxs);
+    border-bottom: var(--border-thin) solid var(--color-border);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .report-body h3 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    color: var(--color-text);
+    line-height: var(--lh-heading);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-xs);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  .report-body p {
+    margin-bottom: var(--spacing-md);
+    text-align: justify;
+    text-justify: inter-ideograph;
+    text-indent: var(--indent-body);
+  }
+  .report-body strong {
+    font-weight: var(--fw-bold);
+  }
+
+  /* ===== 数据表 ===== */
+  table.data-card {
+    width: var(--page-content-width);
+    border-collapse: collapse;
+    margin: var(--spacing-lg) var(--spacing-none);
+    font-size: var(--fs-table);
+    font-family: var(--font-body);
+  }
+  table.data-card caption {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+    text-align: left;
+    padding-bottom: var(--spacing-xs);
+  }
+  table.data-card th {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-weight: var(--fw-bold);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-thin) solid var(--color-primary);
+    text-align: left;
+    text-indent: var(--spacing-none);
+  }
+  table.data-card td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-thin) solid var(--color-border);
+    text-align: left;
+    text-indent: var(--spacing-none);
+    vertical-align: top;
+  }
+  table.data-card tbody tr:nth-child(even) td {
+    background: var(--color-highlight);
+  }
+  table.data-card td.num {
+    font-family: var(--font-heading);
+    font-weight: var(--fw-bold);
+    color: var(--color-primary);
+  }
+
+  /* ===== 演讲动作提示 ===== */
+  .stage-note {
+    background: var(--color-highlight);
+    border-left: var(--border-thick) solid var(--color-border);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: var(--spacing-sm) var(--spacing-none);
+    font-size: var(--fs-small);
+    color: var(--color-muted);
+    text-indent: var(--spacing-none);
+  }
+
+  /* ===== 强调 ===== */
+  .data-emphasis {
+    color: var(--color-emphasis);
+    font-weight: var(--fw-bold);
+  }
+  .quiet {
+    color: var(--color-muted);
+    font-size: var(--fs-small);
+  }
+
+  /* ===== 附录 ===== */
+  .appendix {
+    margin-top: var(--spacing-xxl);
+    padding-top: var(--spacing-lg);
+    border-top: var(--border-thin) solid var(--color-border);
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 封面 ===== -->
+  <section role="cover" class="report-cover">
+    <div class="cover-rule"></div>
+    <p class="cover-category">项目周报 · Work Report</p>
+    <p class="cover-title">《缺陷检测项目周报》演讲稿</p>
+    <p class="cover-subtitle">对应汇报 PPT v3 · 14 页 · 总时长约 10-12 分钟</p>
+    <div class="cover-meta">
+      <p>汇报人：项目组</p>
+      <p>汇报日期：2026-10-15</p>
+      <p>文档版本：讲稿 v3（同步 PPT v3）</p>
+      <p>适用场合：项目组周会 · 中期检查 · 论文答辩预讲</p>
+    </div>
+  </section>
+
+  <!-- ===== 目录（独占一节） ===== -->
+  <section role="body" class="report-toc-section">
+    <nav class="doc-toc">
+      <p class="toc-title">目录</p>
+      <ol>
+        <li><a href="#sec-summary">核心数字一览</a></li>
+        <li><a href="#sec-ch1">第一章　板端落地与选型验证</a></li>
+        <li><a href="#sec-ch2">第二章　质量瓶颈归因</a></li>
+        <li><a href="#sec-ch3">第三章　评估集重建与重训</a></li>
+        <li><a href="#sec-end">结束页</a></li>
+        <li><a href="#sec-appendix">附录　预计问答</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ===== 正文（独占一节） ===== -->
+  <section role="body" class="report-body" data-page-restart="1">
+
+    <h1 id="doc-title">缺陷检测项目周报演讲稿</h1>
+
+    <div class="executive-summary">
+      <h2>执行摘要</h2>
+      <p>本周三条主线：<strong>① 板端落地与选型验证</strong>——2×2 实测，旧 50 轮模型配统一阈值 0.20 最优，F1 = 0.7376；<strong>② 质量瓶颈归因</strong>——三个假设全部排除，评估集漏标是系统性瓶颈，高置信未匹配框的同类率 81.7%，随机基线仅 7.2%；<strong>③ 评估集重建与 100 轮重训</strong>——全池分层重划分后重训完成，新基线 holdout F1 = 0.7159。</p>
+      <p>核心结论：<span class="data-emphasis">尺子准了，数字才算数</span>。当前不盲切配置 A，下一步必须上板同集对比才能决定是否替换。</p>
+    </div>
+
+    <h2 id="sec-summary">核心数字一览</h2>
+    <p>下表是全篇要念到的关键数字，先建立整体印象，后续章节逐个展开。</p>
+    <table class="data-card">
+      <caption>表 1　本周关键指标汇总</caption>
+      <thead>
+        <tr>
+          <th>指标</th>
+          <th>数值</th>
+          <th>口径说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>板端 F1（配置 A）</td>
+          <td class="num">0.7376</td>
+          <td>旧 50 轮 + 统一阈值 0.20，300 张旧 holdout，真实板端 socket</td>
+        </tr>
+        <tr>
+          <td>新基线 holdout F1</td>
+          <td class="num">0.7159</td>
+          <td>100 轮重训 + 统一阈值 0.20，新 3020 张 holdout，项目统一口径</td>
+        </tr>
+        <tr>
+          <td>100 轮 mAP50</td>
+          <td class="num">0.7808</td>
+          <td>ultralytics 同步 val 口径，全程峰值 0.78217（第 96 轮）</td>
+        </tr>
+        <tr>
+          <td>per-class 标定 F1</td>
+          <td class="num">0.7135</td>
+          <td>较 uniform 0.20 下降 0.0024，无收益</td>
+        </tr>
+        <tr>
+          <td>高置信未匹配框同类率</td>
+          <td class="num">81.7%</td>
+          <td>对照随机基线 7.2%，证明漏标是系统性瓶颈</td>
+        </tr>
+        <tr>
+          <td>oracle 回收上界</td>
+          <td class="num">+4.0pp</td>
+          <td>假设漏标注全部补齐后的 F1 提升上限</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="sec-ch1">第一章　板端落地与选型验证</h2>
+    <p>本章回答一个问题：新模型和新阈值到底该不该上线？答案来自一次四格对照实测，而不是主观判断。全章四页，从实验设计讲到结论动作。</p>
+
+    <h3>P1 · 封面（0:00-0:20）</h3>
+    <div class="stage-note">[翻页] 开篇翻到封面，停顿 0.5 秒，开始念稿。</div>
+    <p>大家好，今天汇报本周项目进展，主题是 <span class="data-emphasis">缺陷检测项目周报</span>——10 月 12 日到 15 日。本周三条主线：<strong>板端落地与选型验证、质量瓶颈归因、评估集重建与重训</strong>。下面按章节展开。</p>
+
+    <h3>P2 · 目录（0:20-0:40）</h3>
+    <div class="stage-note">[翻页] 视线扫过目录三章，让听众建立预期。</div>
+    <p>三个章节依次讲：<strong>第一章</strong>，板端落地与选型验证——2×2 实测对比，告诉大家最优配置是哪个。<strong>第二章</strong>，质量瓶颈归因——我们这一周最关键的认知转变：<span class="data-emphasis">模型没问题，是评估集漏标</span>。<strong>第三章</strong>，评估集重建与重训——修标、重训、真实口径评估全部做完。</p>
+
+    <h3>P3 · 第一章扉页（0:40-0:50）</h3>
+    <div class="stage-note">[翻页] 简短过渡，3-5 秒即可。</div>
+    <p>先看第一章：<span class="data-emphasis">板端落地与选型验证</span>。</p>
+
+    <h3>P4 · 2×2 实验设计（0:50-1:30）</h3>
+    <div class="stage-note">[翻页] 重点讲清「两轴四格」——这一页节奏 40 秒。</div>
+    <p>上线前我们做了一次四格对照实验。横轴两档：<strong>用旧 50 轮模型对新 e100 模型</strong>；纵轴两档：<strong>统一阈值 0.20 对 per-class 标定阈值</strong>。四组在<strong>同一批 300 张 holdout</strong> 上、用<strong>真实板端 socket</strong> 跑端到端推理。同 val、同口径、同链路，只换两个变量。目的只有一个——<span class="data-emphasis">在投入生产前，把「换模型」和「换阈值」这两个改动的影响隔离开来</span>。</p>
+
+    <h3>P5 · 2×2 实测结果（1:30-2:20）</h3>
+    <div class="stage-note">[翻页] 念到这里稍作停顿 0.5 秒，把数字讲清。</div>
+    <p>结果一句话：<strong>A 旧 50 轮加统一 0.20 最优，F1 = 0.7376</strong>。换模型（B、C 档）直接掉 0.021；换阈值（D 档）也掉 0.010——<span class="data-emphasis">两个改动都是负收益</span>。<strong>[停顿]</strong> 一开始我不信这个结果，反复跑了两遍。结论不变——板端 postprocess 忠实，离线跟板端同条件 0.7064 对 0.7062，误差 0.5%，<strong>链路没有问题，配置 A 就是当前最优点</strong>。</p>
+
+    <h3>P6 · 第一章结论与已采取动作（2:20-2:50）</h3>
+    <div class="stage-note">[翻页] 重点是「换模型负收益」是引子，引出第二章。</div>
+    <p>所以这一周动作很明确——<span class="data-emphasis">不换模型、不换阈值</span>，板端维持配置 A。<strong>[停顿]</strong> 但更重要的是：换模型的负收益不是终点，它引出了下一个问题——<strong>既然新模型没超过旧模型，那旧模型的精度是不是被什么东西系统性低估了</strong>？这就是第二章。</p>
+
+    <h2 id="sec-ch2">第二章　质量瓶颈归因</h2>
+    <p>本章是本周认知上最重要的一章：把「模型不行」这个直觉，替换成「尺子不准」这个可验证的结论。全章四页，先排除三个假设，再用数字定位真因，最后用人工目检佐证。</p>
+
+    <h3>P7 · 第二章扉页（2:50-3:00）</h3>
+    <div class="stage-note">[翻页] 短停顿 5-8 秒，听众进入新章节。</div>
+    <p>第二章，<span class="data-emphasis">质量瓶颈归因</span>——这是本周认知上最重要的一章。</p>
+
+    <h3>P8 · 三假设排除（3:00-3:50）</h3>
+    <div class="stage-note">[翻页] 三假设逐条讲清；节奏 50 秒。</div>
+    <p>我们一开始有三个假设。假设一：<strong>负样本误报</strong>——把 200 张纯背景图送进去推理，结果 <span class="data-emphasis">FP = 0</span>。假设二：<strong>NMS 太松</strong>——把 IoU 阈值从 0.45 压到 0.30，F1 只涨了 <span class="data-emphasis">+0.0039</span>。假设三：<strong>per-class 阈值没标定</strong>——已经在标定，反而 F1 还 <span class="data-emphasis">-0.008</span>。<strong>[停顿]</strong> <span class="data-emphasis">三个假设都被排除</span>。这告诉我们——FP 不是来自背景，不是来自冗余框，不是来自阈值——那它来自哪里？</p>
+
+    <h3>P9 · 真因定位（3:50-4:40）</h3>
+    <div class="stage-note">[翻页] 这一页最重要，节奏 50 秒；数字要念清。</div>
+    <p>真因就在这一页：<span class="data-emphasis">评估集漏标</span>。我们拿 240 个「高置信、但找不到对应 GT 框」的预测出来，把它的预测类别跟<strong>同一张图里已经被人工标过的其他框的类别</strong>做匹配——<span class="data-emphasis">81.7% 是同一类</span>。作为对照，从所有类别里随机抽样做同类率是 7.2%。<strong>[停顿]</strong> 81.7% 远高于 7.2%，这不是随机——<span class="data-emphasis">这些「无解释」的框，绝大多数是同一张图里已经被标出来的同类缺陷，模型又检出了一遍</span>。也就是说：<span class="data-emphasis">漏标率才是真瓶颈</span>。oracle 回收上限告诉我们，如果把漏标注全补齐，F1 可以再涨 <span class="data-emphasis">+4.0 个百分点</span>。</p>
+
+    <h3>P10 · 人工核查佐证（4:40-5:20）</h3>
+    <div class="stage-note">[翻页] 引导听众看拼图细节 30-40 秒。</div>
+    <p>这是目检拼图，红框是模型预测、绿框是原始 GT。可以看到——<strong>[停顿]</strong> <span class="data-emphasis">红框圈出的 patches 暗斑、inclusion 细长夹杂、rolled-in_scale 横向纹理</span>，附近<strong>没有绿框</strong>——但视觉上就是有缺陷。这就是<strong>典型的漏标</strong>。我们 8 页目检了 143 个高置信候选，<span class="data-emphasis">约 85% 是真漏标</span>。这一页是判断从「模型归因」切到「标注归因」的硬基础。</p>
+
+    <h2 id="sec-ch3">第三章　评估集重建与重训</h2>
+    <p>既然真因是漏标，这一章就是动手修：先把评估集重划干净，再按新口径重训 100 轮，最后给出可引用的新基线。全章三页。</p>
+
+    <h3>P11 · 第三章扉页（5:20-5:30）</h3>
+    <div class="stage-note">[翻页] 短停顿 5-8 秒。</div>
+    <p>既然真因是漏标，那第三章做的就是：<span class="data-emphasis">评估集重建加重训</span>。</p>
+
+    <h3>P12 · 评估集重建（5:30-6:20）</h3>
+    <div class="stage-note">[翻页] 讲清「分层」与「切分」两个动作；节奏 50 秒。</div>
+    <p>不能只补 train 不补 val——<strong>val 必须保持独立</strong>才有 holdout 价值。办法是<span class="data-emphasis">全池分层重划分</span>：原来的 train 加 val 全部打散，按类别框数做分层抽样，重新切成 <strong>新 train 20329 张加新 val 5911 张</strong>。<strong>[停顿]</strong> 分层不是平均——小类全保、中类降采样、大类按比例；<span class="data-emphasis">39 个类在新 val 里框数全部不少于 30</span>，最小类 oxide_scale_plate 也有 16 比 16 张。val 内部又切成 cal 2891 加 holdout 3020——cal 标定阈值，holdout 报最终数。<span class="data-emphasis">评估口径从此干净了</span>。</p>
+
+    <h3>P13 · 重训完成与新基线（6:20-7:30）</h3>
+    <div class="stage-note">[翻页] 重头戏，节奏 70 秒，三个数字必须念清。</div>
+    <p>重头戏是这一页。<span class="data-emphasis">100 轮新基线已锁定</span>。<strong>[停顿]</strong> 三个数字：</p>
+    <p><span class="quiet">第一，</span><span class="data-emphasis">Holdout F1 = 0.7159</span>——这是项目统一口径的真实能力。</p>
+    <p><span class="quiet">第二，</span>100 轮 mAP50 = <span class="data-emphasis">0.7808</span>，全程最高 <span class="data-emphasis">0.78217</span>（96 轮）。</p>
+    <p><span class="quiet">第三，</span>per-class 标定后 F1 = <span class="data-emphasis">0.7135</span>，<span class="data-emphasis">较 uniform 下降 0.0024，无收益</span>——再次确认第二章的结论。</p>
+    <p><strong>[停顿]</strong> 注意：与板端配置 A（旧 50 轮加 uniform 0.20，板端 F1 0.7376）<span class="data-emphasis">不可直接比</span>——旧模型跑的是<span class="data-emphasis">旧</span> 300 张 holdout，新模型跑的是<span class="data-emphasis">新</span> 3020 张，val 集不同、大小差 10 倍。所以<span class="data-emphasis">当前不盲切</span>——下一步必须上板做同集对比。<strong>[停顿]</strong> 顺便说一下重训本身的小插曲：100 轮实际跑到 96 轮时后台任务被 IDE 清掉过一次，我续训最后 4 轮才补完——这个过程也记进了工程日志。</p>
+
+    <h2 id="sec-end">结束页</h2>
+    <p>收尾只用一句话钉住全篇的核心判断，然后留出问答时间。</p>
+
+    <h3>P14 · 收尾（7:30-8:00）</h3>
+    <div class="stage-note">[翻页] 收尾，节奏 30 秒，念完停 1-2 秒再开始问答。</div>
+    <p>最后这一页：<span class="data-emphasis">81.7%</span>，高置信未匹配框的同类率。<strong>[停顿]</strong> 这一周的核心就一句话：<span class="data-emphasis">尺子准了，数字才算数</span>——评估集漏标系统性低估了精度，但既然我们现在把尺子修准了，0.7159 就是我们往后写所有文档的可靠基线。<strong>[停顿]</strong> 汇报到此。谢谢大家，欢迎提问。</p>
+
+    <div class="appendix">
+      <h2 id="sec-appendix">附录　预计问答</h2>
+      <p>以下四问是汇报现场最可能被追问的方向，答案已按当前数据校准，可直接照答。</p>
+
+      <h3>Q1：为什么新模型 mAP50 高了，但 F1 没显著涨？</h3>
+      <p><strong>答</strong>：mAP50 是 PR 曲线下面积，对单点阈值不敏感；F1 是单点综合指标。两者都涨了，但 F1 涨得慢，是因为新 train 引入了原来没充分训练的样本分布，小类涨得少、大类涨得多，<strong>整体 P 与 R 的平衡被重新洗了一遍</strong>。这是分层重划的副作用，不是模型变差。</p>
+
+      <h3>Q2：要不要上板替换配置 A？</h3>
+      <p><strong>答</strong>：<span class="data-emphasis">现在不定</span>。下一步要做的是把 100 轮新模型加 uniform 0.20 上板，在同 300 张旧 holdout 上做对比。如果新模型在那 300 张上 F1 也达到 0.7376 以上，就切；否则维持配置 A。<span class="data-emphasis">同集对比是关键，不在 3020 张新 val 上盲切</span>。</p>
+
+      <h3>Q3：漏标清单会用吗？</h3>
+      <p><strong>答</strong>：<span class="data-emphasis">候选</span>清单已备好（train 侧 499 个候选、461 张图，目检约 85% 真漏标），但<strong>val 侧禁止补框</strong>以保持独立性。train 侧的补框是另一量级投入，<span class="data-emphasis">需要人工确认加标注工具</span>，本周不启动，留作后续可选动作。</p>
+
+      <h3>Q4：还有哪些遗留事项？</h3>
+      <p><strong>答</strong>：三件——① 上板同集对比，要做才能定是否切配置 A；② 标注修复是另一量级投入，本周不启动；③ git 收口，PPT v3、训练产物、评估 JSON 一起提交。可以下周再开。</p>
+
+      <h3>附：演讲节奏备注</h3>
+      <p>本稿总时长 10 到 12 分钟（按每页 45 到 60 秒乘以 14 页）。如需压缩到 5 分钟版，去掉 P4 与 P10 的详细描述即可；如需扩展到 15 分钟版，在 P5、P9、P13 后加问答缓冲段。</p>
+    </div>
+
+  </section>
+</body>
+</html>

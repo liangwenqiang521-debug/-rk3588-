@@ -1,0 +1,42 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, flexDirection: "column", background: "#FFFFFF", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ height: 120, paddingLeft: 84, paddingRight: 84, flexDirection: "row", alignItems: "center", gap: 18 }}>
+        <Box style={{ width: 5, height: 36, background: "#0B3D91" }} />
+        <Box style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 36, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.3 }}>真正的瓶颈：评估集自己漏标了</Text>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", marginTop: 4 }}>2647 个 FP，100% 出自有缺陷的图</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 540, paddingLeft: 84, paddingRight: 84, paddingTop: 8, paddingBottom: 20, flexDirection: "column", gap: 26 }}>
+        <Box style={{ flexDirection: "row", gap: 56, alignItems: "flex-end", height: 232 }}>
+            <Box style={{ flexDirection: "column", height: 232, justifyContent: "flex-end" }}>
+                <Text style={{ fontSize: 14, color: "#5C6E82", fontWeight: "bold" }}>高置信未匹配检测中，「预测类别 == 图内已有类别」占比</Text>
+                <Text style={{ fontSize: 110, fontWeight: "bold", color: "#FF7A18", lineHeight: 1.02, marginTop: 6 }}>81.7%</Text>
+                <Text style={{ fontSize: 15, color: "#5C6E82", marginTop: 8 }}>196 / 240，取自 conf≥0.45 且 IoU 低于 0.20 的框</Text>
+            </Box>
+            <Box style={{ flexDirection: "column", height: 232, justifyContent: "flex-end" }}>
+                <Text style={{ fontSize: 14, color: "#5C6E82", fontWeight: "bold" }}>随机情况下的同类率基线</Text>
+                <Text style={{ fontSize: 56, fontWeight: "bold", color: "#9AA9B8", lineHeight: 1.05, marginTop: 6 }}>7.2%</Text>
+                <Text style={{ fontSize: 15, color: "#9AA9B8", marginTop: 8 }}>若模型是在「臆造」，同类率应接近这个数</Text>
+            </Box>
+        </Box>
+        <Box style={{ flexDirection: "row", gap: 24, flex: 1 }}>
+            <Box style={{ flex: 1, padding: 20, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #00B4D8", flexDirection: "column", gap: 8 }}>
+                <Text style={{ fontSize: 17, fontWeight: "bold", color: "#0B1C33" }}>模型是在找缺陷，不是画框</Text>
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.7 }}>同类率约为随机基线的 11 倍，且框偏移组（IoU 0.25~0.50）同类率高达 97.4%。这说明模型识别出的是图内真实存在、但没被标注的同类缺陷实例。</Text>
+            </Box>
+            <Box style={{ flex: 1, padding: 20, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #FF7A18", flexDirection: "column", gap: 8 }}>
+                <Text style={{ fontSize: 17, fontWeight: "bold", color: "#0B1C33" }}>修正标注后的指标上界</Text>
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.7 }}>若把「同类 + 高置信」的未匹配检测都视为漏标回收：F1 由 0.7108 升至 <span style={{ color: "#0B3D91", fontWeight: "bold" }}>0.7507（+4.0pp）</span>；按 60~80% 的人工确认率折算，实际预期 +2.5 ~ 3.5pp。</Text>
+            </Box>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 84, paddingRight: 84, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #E1E9F2" }}>
+        <Box style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Box style={{ width: 24, height: 24, background: "#0B3D91", borderRadius: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 12, color: "#FFFFFF", fontWeight: "bold" }}>DD</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8" }}>工业表面缺陷检测系统 · 周报</Text>
+        </Box>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>09 / 14</Text>
+    </Box>
+</Slide>

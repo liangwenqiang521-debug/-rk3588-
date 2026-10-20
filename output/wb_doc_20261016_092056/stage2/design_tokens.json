@@ -1,0 +1,314 @@
+{
+  "genre": "business-report",
+  "theme_name": "business-modern",
+  "theme_file": "tokens/themes/business-modern.json",
+  "tokens": {
+    "$name": "business-modern",
+    "$description": "现代商务报告主题。专业配色，清晰层级，数据可视化友好色系，适合 PPT 文档和商业分析报告。",
+    "typography": {
+      "fontFamily": {
+        "heading": {
+          "$type": "fontFamily",
+          "$value": "微软雅黑, Microsoft YaHei, PingFang SC"
+        },
+        "body": {
+          "$type": "fontFamily",
+          "$value": "微软雅黑, Microsoft YaHei, PingFang SC"
+        },
+        "bodyLatin": {
+          "$type": "fontFamily",
+          "$value": "Calibri, Helvetica Neue, sans-serif"
+        },
+        "data": {
+          "$type": "fontFamily",
+          "$value": "DIN Next, Arial, sans-serif",
+          "$description": "数据展示字体"
+        },
+        "code": {
+          "$type": "fontFamily",
+          "$value": "Consolas, Source Code Pro, monospace"
+        }
+      },
+      "fontSize": {
+        "title": {
+          "$type": "dimension",
+          "$value": "28pt",
+          "$description": "报告主标题"
+        },
+        "subtitle": {
+          "$type": "dimension",
+          "$value": "18pt"
+        },
+        "h1": {
+          "$type": "dimension",
+          "$value": "20pt"
+        },
+        "coverTitle": {
+          "$type": "dimension",
+          "$value": "22pt",
+          "$description": "封面主标题（新增）"
+        },
+        "coverCategory": {
+          "$type": "dimension",
+          "$value": "14pt",
+          "$description": "封面分类（新增）"
+        },
+        "sectionHeader": {
+          "$type": "dimension",
+          "$value": "13pt",
+          "$description": "章节标题 深底白字（新增）"
+        },
+        "h2": {
+          "$type": "dimension",
+          "$value": "11pt",
+          "$description": "小节（原 16pt）"
+        },
+        "h3": {
+          "$type": "dimension",
+          "$value": "10pt",
+          "$description": "子小节（原 14pt）"
+        },
+        "body": {
+          "$type": "dimension",
+          "$value": "9pt",
+          "$description": "正文（原 11pt）"
+        },
+        "small": {
+          "$type": "dimension",
+          "$value": "8pt",
+          "$description": "小字 表格/注（新增）"
+        },
+        "tiny": {
+          "$type": "dimension",
+          "$value": "7pt",
+          "$description": "注释（新增）"
+        },
+        "caption": {
+          "$type": "dimension",
+          "$value": "9pt"
+        },
+        "dataLabel": {
+          "$type": "dimension",
+          "$value": "10pt"
+        }
+      },
+      "lineHeight": {
+        "title": {
+          "$type": "number",
+          "$value": 1.3
+        },
+        "body": {
+          "$type": "number",
+          "$value": 1.6
+        },
+        "compact": {
+          "$type": "number",
+          "$value": 1.2
+        }
+      },
+      "fontWeight": {
+        "heading": {
+          "$type": "fontWeight",
+          "$value": "600"
+        },
+        "body": {
+          "$type": "fontWeight",
+          "$value": "400"
+        },
+        "emphasis": {
+          "$type": "fontWeight",
+          "$value": "500"
+        }
+      }
+    },
+    "color": {
+      "primary": {
+        "$type": "color",
+        "$value": "#1565C0",
+        "$description": "主品牌蓝"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#0288D1",
+        "$description": "辅助蓝"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#00897B",
+        "$description": "强调色（品牌绿）"
+      },
+      "text": {
+        "$type": "color",
+        "$value": "#212121"
+      },
+      "textSecondary": {
+        "$type": "color",
+        "$value": "#616161"
+      },
+      "heading": {
+        "$type": "color",
+        "$value": "#1A237E"
+      },
+      "divider": {
+        "$type": "color",
+        "$value": "#E0E0E0"
+      },
+      "background": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "#F5F7FA",
+        "$description": "卡片/侧边栏背景"
+      },
+      "dataViz": {
+        "series1": {
+          "$type": "color",
+          "$value": "#1565C0"
+        },
+        "series2": {
+          "$type": "color",
+          "$value": "#00897B"
+        },
+        "series3": {
+          "$type": "color",
+          "$value": "#F9A825"
+        },
+        "series4": {
+          "$type": "color",
+          "$value": "#E53935"
+        },
+        "series5": {
+          "$type": "color",
+          "$value": "#7B1FA2"
+        },
+        "series6": {
+          "$type": "color",
+          "$value": "#0288D1"
+        }
+      }
+    },
+    "spacing": {
+      "paragraph": {
+        "$type": "dimension",
+        "$value": "0.75em"
+      },
+      "paragraphAfter": {
+        "$type": "dimension",
+        "$value": "0.75em"
+      },
+      "indent": {
+        "$type": "dimension",
+        "$value": "0em",
+        "$description": "商务文档不首行缩进"
+      },
+      "sectionGap": {
+        "$type": "dimension",
+        "$value": "2.5em"
+      },
+      "cardPadding": {
+        "$type": "dimension",
+        "$value": "1.5em"
+      }
+    },
+    "layout": {
+      "marginTop": {
+        "$type": "dimension",
+        "$value": "2.5cm"
+      },
+      "marginBottom": {
+        "$type": "dimension",
+        "$value": "2.0cm"
+      },
+      "marginLeft": {
+        "$type": "dimension",
+        "$value": "2.5cm"
+      },
+      "marginRight": {
+        "$type": "dimension",
+        "$value": "2.5cm"
+      },
+      "pageSize": {
+        "$type": "string",
+        "$value": "A4"
+      },
+      "maxContentWidth": {
+        "$type": "dimension",
+        "$value": "160mm"
+      }
+    },
+    "decoration": {
+      "headingBorderLeft": {
+        "$type": "boolean",
+        "$value": true,
+        "$description": "标题左侧彩色边框"
+      },
+      "headingBorderWidth": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "cardShadow": {
+        "$type": "string",
+        "$value": "0 2px 8px rgba(0,0,0,0.08)"
+      },
+      "dividerStyle": {
+        "$type": "string",
+        "$value": "solid"
+      }
+    }
+  },
+  "typography_rules": null,
+  "css_variables": {
+    "--typography-fontFamily-heading": "微软雅黑, Microsoft YaHei, PingFang SC",
+    "--typography-fontFamily-body": "微软雅黑, Microsoft YaHei, PingFang SC",
+    "--typography-fontFamily-bodyLatin": "Calibri, Helvetica Neue, sans-serif",
+    "--typography-fontFamily-data": "DIN Next, Arial, sans-serif",
+    "--typography-fontFamily-code": "Consolas, Source Code Pro, monospace",
+    "--typography-fontSize-title": "28pt",
+    "--typography-fontSize-subtitle": "18pt",
+    "--typography-fontSize-h1": "20pt",
+    "--typography-fontSize-coverTitle": "22pt",
+    "--typography-fontSize-coverCategory": "14pt",
+    "--typography-fontSize-sectionHeader": "13pt",
+    "--typography-fontSize-h2": "11pt",
+    "--typography-fontSize-h3": "10pt",
+    "--typography-fontSize-body": "9pt",
+    "--typography-fontSize-small": "8pt",
+    "--typography-fontSize-tiny": "7pt",
+    "--typography-fontSize-caption": "9pt",
+    "--typography-fontSize-dataLabel": "10pt",
+    "--typography-lineHeight-title": "1.3",
+    "--typography-lineHeight-body": "1.6",
+    "--typography-lineHeight-compact": "1.2",
+    "--typography-fontWeight-heading": "600",
+    "--typography-fontWeight-body": "400",
+    "--typography-fontWeight-emphasis": "500",
+    "--color-primary": "#1565C0",
+    "--color-secondary": "#0288D1",
+    "--color-accent": "#00897B",
+    "--color-text": "#212121",
+    "--color-textSecondary": "#616161",
+    "--color-heading": "#1A237E",
+    "--color-divider": "#E0E0E0",
+    "--color-background": "#FFFFFF",
+    "--color-surface": "#F5F7FA",
+    "--color-dataViz-series1": "#1565C0",
+    "--color-dataViz-series2": "#00897B",
+    "--color-dataViz-series3": "#F9A825",
+    "--color-dataViz-series4": "#E53935",
+    "--color-dataViz-series5": "#7B1FA2",
+    "--color-dataViz-series6": "#0288D1",
+    "--spacing-paragraph": "0.75em",
+    "--spacing-paragraphAfter": "0.75em",
+    "--spacing-indent": "0em",
+    "--spacing-sectionGap": "2.5em",
+    "--spacing-cardPadding": "1.5em",
+    "--layout-marginTop": "2.5cm",
+    "--layout-marginBottom": "2.0cm",
+    "--layout-marginLeft": "2.5cm",
+    "--layout-marginRight": "2.5cm",
+    "--layout-pageSize": "A4",
+    "--layout-maxContentWidth": "160mm"
+  }
+}

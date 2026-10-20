@@ -1,0 +1,52 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, flexDirection: "column", background: "#FFFFFF", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ height: 120, paddingLeft: 84, paddingRight: 84, flexDirection: "row", alignItems: "center", gap: 18 }}>
+        <Box style={{ width: 5, height: 36, background: "#0B3D91" }} />
+        <Box style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 36, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.3 }}>四格实测：最优是「旧模型 + 统一阈值」</Text>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", marginTop: 4 }}>300 张 holdout · 板端真实 socket · NMS / 匹配口径统一</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 540, paddingLeft: 84, paddingRight: 84, paddingTop: 10, paddingBottom: 20, flexDirection: "row", gap: 40, alignItems: "center" }}>
+        <Box style={{ width: 648, height: 450 }}>
+            <Chart
+                style={{ width: "100%", height: "100%" }}
+                chartType="barChart"
+                barDirection="bar"
+                grouping="clustered"
+                showLegend={false}
+                showDataLabels={true}
+                dataLabelColor="#0B1C33"
+                axisColor="#9AA9B8"
+                background="#FFFFFF"
+                colors={["linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)"]}
+                data={[
+                    ["配置", "F1"],
+                    ["A　旧 50 轮 + 统一 0.20", 0.7376],
+                    ["D　旧 50 轮 + 13 类标定", 0.7295],
+                    ["B　新 e100 + 统一 0.20", 0.7162],
+                    ["C　新 e100 + 13 类标定", 0.7064]
+                ]}
+            />
+        </Box>
+        <Box style={{ width: 424, flexDirection: "column", gap: 16 }}>
+            <Box style={{ padding: 20, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #FF7A18" }}>
+                <Text style={{ fontSize: 14, color: "#5C6E82" }}>最优配置</Text>
+                <Text style={{ fontSize: 40, fontWeight: "bold", color: "#FF7A18", lineHeight: 1.1, marginTop: 6 }}>A</Text>
+                <Text style={{ fontSize: 15, color: "#0B1C33", marginTop: 8, lineHeight: 1.6 }}>旧 50 轮 + 统一 0.20，F1 达到 0.7376</Text>
+            </Box>
+            <Box style={{ padding: 20, background: "#FFFFFF", borderRadius: 10, border: "1px solid #E1E9F2" }}>
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.6 }}>四格里 A 最高</Text>
+                <Text style={{ fontSize: 15, color: "#5C6E82", lineHeight: 1.75, marginTop: 8 }}>新模型、新阈值单独换上，都没能超过现有配置；两者叠加（C）反而是四格最低。</Text>
+            </Box>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 84, paddingRight: 84, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #E1E9F2" }}>
+        <Box style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Box style={{ width: 24, height: 24, background: "#0B3D91", borderRadius: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 12, color: "#FFFFFF", fontWeight: "bold" }}>DD</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8" }}>工业表面缺陷检测系统 · 周报</Text>
+        </Box>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>05 / 14</Text>
+    </Box>
+</Slide>

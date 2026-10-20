@@ -1,0 +1,30 @@
+<Slide style={{ width: 1280, height: 720, position: "relative", background: "#061428", padding: 0, overflow: "hidden", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Image src="assets/hero_factory_line.png" style={{ position: "absolute", top: 0, left: 0, width: 1280, height: 720, objectFit: "cover" }} />
+    <Box style={{ position: "absolute", top: 0, left: 0, width: 1280, height: 720, background: "linear-gradient(90deg, rgba(6,20,40,0.94) 0%, rgba(6,20,40,0.70) 46%, rgba(6,20,40,0.20) 100%)" }} />
+    <Box style={{ position: "relative", zIndex: 2, width: 1280, height: 720, paddingTop: 148, paddingLeft: 84, paddingRight: 84, paddingBottom: 56, flexDirection: "column", gap: 22 }}>
+        <Text style={{ fontSize: 14, color: "#00B4D8", letterSpacing: 3, fontWeight: "bold" }}>WEEKLY REPORT · 2026-10-15</Text>
+        <Box style={{ flexDirection: "column", gap: 8 }}>
+            <Text style={{ fontSize: 74, fontWeight: "bold", color: "#FFFFFF", lineHeight: 1.2 }}>工业表面缺陷检测系统</Text>
+            <Text style={{ fontSize: 32, fontWeight: "bold", color: "#00B4D8", lineHeight: 1.25 }}>本周进展汇报</Text>
+        </Box>
+        <Box style={{ width: 64, height: 5, background: "linear-gradient(90deg, #0B3D91 0%, #00B4D8 100%)" }} />
+        <Text style={{ fontSize: 16, color: "#C7D6E8", lineHeight: 1.6 }}>板端选型实测　·　质量瓶颈归因　·　评估集重建与重训</Text>
+        <Box style={{ flexDirection: "row", gap: 60, marginTop: 16 }}>
+            <Box style={{ flexDirection: "column" }}>
+                <Text style={{ fontSize: 44, fontWeight: "bold", color: "#FF7A18", lineHeight: 1 }}>2×2</Text>
+                <Text style={{ fontSize: 14, color: "#C7D6E8", marginTop: 10 }}>板端 A/B 实测</Text>
+            </Box>
+            <Box style={{ flexDirection: "column" }}>
+                <Text style={{ fontSize: 44, fontWeight: "bold", color: "#FF7A18", lineHeight: 1 }}>81.7%</Text>
+                <Text style={{ fontSize: 14, color: "#C7D6E8", marginTop: 10 }}>高置信漏标率</Text>
+            </Box>
+            <Box style={{ flexDirection: "column" }}>
+                <Text style={{ fontSize: 44, fontWeight: "bold", color: "#FF7A18", lineHeight: 1 }}>100 轮</Text>
+                <Text style={{ fontSize: 14, color: "#C7D6E8", marginTop: 10 }}>分层重训进行中</Text>
+            </Box>
+        </Box>
+    </Box>
+    <Box style={{ position: "absolute", right: 40, bottom: 22, zIndex: 3 }}>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>项目组 · 2026-10-15</Text>
+    </Box>
+</Slide>

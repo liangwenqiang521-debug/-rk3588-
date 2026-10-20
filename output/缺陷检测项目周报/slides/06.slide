@@ -1,0 +1,58 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, flexDirection: "column", background: "#FFFFFF", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ height: 120, paddingLeft: 84, paddingRight: 84, flexDirection: "row", alignItems: "center", gap: 18 }}>
+        <Box style={{ width: 5, height: 36, background: "#0B3D91" }} />
+        <Box style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 36, fontWeight: "bold", color: "#0B1C33", lineHeight: 1.3 }}>换模型、换阈值，都在伤指标</Text>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", marginTop: 4 }}>两个变量的边际效应，都是负的</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 540, paddingLeft: 84, paddingRight: 84, paddingTop: 16, paddingBottom: 24, flexDirection: "row", gap: 48 }}>
+        <Box style={{ width: 640, flexDirection: "column", gap: 18 }}>
+            <Box style={{ background: "#F4F7FB", borderRadius: 10, padding: 20, flexDirection: "row", alignItems: "center", gap: 18 }}>
+                <Box style={{ width: 6, height: 66, background: "#FF7A18", borderRadius: 3 }} />
+                <Box style={{ flexDirection: "column", gap: 6 }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold", color: "#0B1C33" }}>换模型：旧 50 轮 → 新 e100（同为统一 0.20）</Text>
+                    <Text style={{ fontSize: 15, color: "#5C6E82" }}>F1 0.7376 → 0.7162，召回 0.7026 → 0.6618</Text>
+                </Box>
+                <Box style={{ marginLeft: "auto" }}>
+                    <Text style={{ fontSize: 34, fontWeight: "bold", color: "#FF7A18" }}>−0.0214</Text>
+                </Box>
+            </Box>
+            <Box style={{ background: "#F4F7FB", borderRadius: 10, padding: 20, flexDirection: "row", alignItems: "center", gap: 18 }}>
+                <Box style={{ width: 6, height: 66, background: "#FF7A18", borderRadius: 3 }} />
+                <Box style={{ flexDirection: "column", gap: 6 }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold", color: "#0B1C33" }}>换阈值：统一 0.20 → 13 类标定</Text>
+                    <Text style={{ fontSize: 15, color: "#5C6E82" }}>旧模型 0.7376 → 0.7295；新模型 0.7162 → 0.7064</Text>
+                </Box>
+                <Box style={{ marginLeft: "auto", flexDirection: "column", alignItems: "flex-end" }}>
+                    <Text style={{ fontSize: 34, fontWeight: "bold", color: "#FF7A18" }}>−0.0081</Text>
+                    <Text style={{ fontSize: 13, color: "#9AA9B8", marginTop: 2 }}>旧模型口径</Text>
+                </Box>
+            </Box>
+            <Box style={{ marginTop: 4, padding: 18, background: "#0B3D91", borderRadius: 10 }}>
+                <Text style={{ fontSize: 17, color: "#FFFFFF", fontWeight: "bold", lineHeight: 1.5 }}>两条路都在掉分 —— 维持现有配置，不换。</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8", lineHeight: 1.7 }}>说明：两代模型的 best.pt 都在同一份原始 val 上选轮，holdout 被选择污染，差异约 2σ；方向上可信，铁证仍待下一章的分层重训。</Text>
+        </Box>
+        <Box style={{ width: 424, flexDirection: "column", gap: 16 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0B1C33" }}>据此完成的动作</Text>
+            <Box style={{ padding: 18, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #00B4D8" }}>
+                <Text style={{ fontSize: 15, color: "#0B3D91", fontWeight: "bold" }}>板端回滚到配置 A</Text>
+                <Text style={{ fontSize: 14, color: "#5C6E82", marginTop: 8, lineHeight: 1.65 }}>即 10-09 已验证的生产态；单进程运行，冒烟 6/6 帧正常。</Text>
+            </Box>
+            <Box style={{ padding: 18, background: "#F4F7FB", borderRadius: 10, borderLeft: "4px solid #00B4D8" }}>
+                <Text style={{ fontSize: 15, color: "#0B3D91", fontWeight: "bold" }}>链路忠实性校验</Text>
+                <Text style={{ fontSize: 14, color: "#5C6E82", marginTop: 8, lineHeight: 1.65 }}>同条件板端 F1 0.7064 vs 离线 0.7062，偏差 0.5% —— 板端后处理链路与离线一致。</Text>
+            </Box>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 84, paddingRight: 84, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #E1E9F2" }}>
+        <Box style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Box style={{ width: 24, height: 24, background: "#0B3D91", borderRadius: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 12, color: "#FFFFFF", fontWeight: "bold" }}>DD</Text>
+            </Box>
+            <Text style={{ fontSize: 14, color: "#9AA9B8" }}>工业表面缺陷检测系统 · 周报</Text>
+        </Box>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>06 / 14</Text>
+    </Box>
+</Slide>

@@ -1,0 +1,33 @@
+request_id: wb_doc_20261016_092056
+created_at: 2026-10-16T09:21:00
+user_query: "把讲稿_v3.md 转成 word 文档，桌面副本"
+entry_type: full_pipeline
+output_docx_path: C:\Users\21191\Desktop\讲稿_v3.docx
+output_docx_user_specified: true
+current_stage: stage_1
+
+stage_1:
+  executor: doc-writer
+  expert_id: ""
+  route: "external_md_copy"
+  final_draft_path: D:\workbuddy\缺陷检测项目\output\wb_doc_20261016_092056\stage1\final_draft.md
+  status: completed
+  note: "复用已有讲稿_v3.md 作为 S1 最终稿，跳过 LLM 重写"
+
+stage_2:
+  executor: doc-formatter
+  entry_type: stage2_flow
+  final_draft_path: D:\workbuddy\缺陷检测项目\output\wb_doc_20261016_092056\stage1\final_draft.md
+  intermediate_dir: D:\workbuddy\缺陷检测项目\output\wb_doc_20261016_092056\stage2\intermediate
+  formatted_output_path: ""
+  output_format: html
+  status: pending
+
+stage_3:
+  executor: doc-converter
+  html_output_path: ""
+  output_docx_path: C:\Users\21191\Desktop\讲稿_v3.docx
+  status: pending
+  present_files_opened: false
+
+consistency_check: {}

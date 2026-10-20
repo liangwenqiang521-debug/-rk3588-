@@ -1,0 +1,16 @@
+<Slide style={{ width: 1280, height: 720, padding: 0, position: "relative", background: "#061428", overflow: "hidden", fontFamily: 'Inter, "Microsoft YaHei", sans-serif' }}>
+    <Box style={{ position: "absolute", top: 0, left: 0, width: 1280, height: 720, background: "linear-gradient(135deg, #061428 0%, #0B3D91 68%, #0B3D91 100%)" }} />
+    <Box style={{ position: "absolute", right: 24, bottom: 16, zIndex: 1, width: 420, height: 380, alignItems: "flex-end", justifyContent: "flex-end" }}>
+        <Text style={{ fontSize: 280, fontWeight: "bold", color: "#00B4D8", opacity: 0.13, lineHeight: 1 }}>03</Text>
+    </Box>
+    <Box style={{ position: "absolute", left: 0, top: 0, width: 8, height: 720, background: "linear-gradient(180deg, #0B3D91 0%, #00B4D8 100%)" }} />
+    <Box style={{ position: "relative", zIndex: 2, width: 1280, height: 720, paddingLeft: 120, paddingRight: 120, flexDirection: "column", justifyContent: "center", gap: 20 }}>
+        <Text style={{ fontSize: 16, color: "#00B4D8", letterSpacing: 4, fontWeight: "bold" }}>CHAPTER 03</Text>
+        <Text style={{ fontSize: 62, fontWeight: "bold", color: "#FFFFFF", lineHeight: 1.15 }}>评估集重建与重训</Text>
+        <Box style={{ width: 80, height: 4, background: "#00B4D8", marginTop: 6 }} />
+        <Text style={{ fontSize: 19, color: "#C7D6E8", lineHeight: 1.7, marginTop: 10 }}>尺子先校准，再量模型。</Text>
+    </Box>
+    <Box style={{ position: "absolute", right: 60, bottom: 40, zIndex: 3 }}>
+        <Text style={{ fontSize: 14, color: "#9AA9B8" }}>11 / 14</Text>
+    </Box>
+</Slide>
