@@ -122,14 +122,23 @@ def main():
     ap.add_argument("--seed", type=int, default=20261013)
     ap.add_argument("--out", default="board_eval.json")
     ap.add_argument("--timeout", type=float, default=60.0)
+    ap.add_argument("--manifest", default=None,
+                    help="图片清单（默认 splits/val_holdout.txt 旧 300 张；"
+                         "扩样本用 splits/val_strat_holdout.txt 3020 张）")
     args = ap.parse_args()
 
-    paths = [l.strip() for l in Path(MANIFEST).read_text(encoding="utf-8").splitlines() if l.strip()]
+    manifest = args.manifest or MANIFEST
+    if not os.path.isabs(manifest):
+        manifest = os.path.join(_ROOT, manifest)
+    all_paths = [l.strip() for l in Path(manifest).read_text(encoding="utf-8").splitlines() if l.strip()]
+    paths = all_paths
     rng = np.random.RandomState(args.seed)
     if args.limit and args.limit < len(paths):
         sel = rng.choice(len(paths), size=args.limit, replace=False)
         paths = [paths[i] for i in sorted(sel)]
-    print("待测 %d 张（holdout 全量 %d，seed=%d）" % (len(paths), args.limit, args.seed), flush=True)
+    print("清单: %s" % manifest, flush=True)
+    print("待测 %d 张（清单全量 %d，limit=%s，seed=%d）"
+          % (len(paths), len(all_paths), args.limit, args.seed), flush=True)
 
     s = socket.create_connection((args.host, PORT), timeout=10)
     s.settimeout(1.0)
